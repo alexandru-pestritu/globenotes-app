@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:globenotes/presentation/color_manager.dart';
-import 'package:globenotes/presentation/font_manager.dart';
-import 'package:globenotes/presentation/styles_manager.dart';
-import 'package:globenotes/presentation/values_manager.dart';
+import 'package:globenotes/presentation/resources/color_manager.dart';
+import 'package:globenotes/presentation/resources/font_manager.dart';
+import 'package:globenotes/presentation/resources/styles_manager.dart';
+import 'package:globenotes/presentation/resources/values_manager.dart';
 
 ThemeData getApplicationTheme() {
   return ThemeData(
