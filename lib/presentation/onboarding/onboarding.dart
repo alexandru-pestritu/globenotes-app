@@ -166,6 +166,7 @@ class OnBoardingPage extends StatelessWidget {
           Text(
             _sliderObject.subTitle,
             style: Theme.of(context).textTheme.bodyMedium,
+            textAlign: TextAlign.center,
           ),
         ],
       ),
@@ -205,7 +206,6 @@ class NextButtonWithProgress extends StatelessWidget {
             onPressed: onTap,
             backgroundColor: ColorManager.primary,
             shape: const CircleBorder(),
-            elevation: AppSize.s0,
             child: Icon(Icons.arrow_forward_ios, color: ColorManager.white),
           ),
         ),

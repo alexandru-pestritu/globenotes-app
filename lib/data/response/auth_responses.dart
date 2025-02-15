@@ -1,4 +1,4 @@
-import 'package:globenotes/data/responses/base_response.dart';
+import 'package:globenotes/data/response/base_response.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'auth_responses.g.dart';
 

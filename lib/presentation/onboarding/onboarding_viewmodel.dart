@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:globenotes/domain/model.dart';
+import 'package:globenotes/domain/model/model.dart';
 import 'package:globenotes/presentation/base/base_viewmodel.dart';
 import 'package:globenotes/presentation/resources/assets_manager.dart';
 import 'package:globenotes/presentation/resources/strings_manager.dart';

@@ -1,6 +1,6 @@
 import 'package:globenotes/app/extensions.dart';
-import 'package:globenotes/data/responses/auth_responses.dart';
-import 'package:globenotes/domain/authentication.dart';
+import 'package:globenotes/data/response/auth_responses.dart';
+import 'package:globenotes/domain/model/authentication.dart';
 
 extension LoginDataMapper on LoginData? {
   Authentication toDomain() {
