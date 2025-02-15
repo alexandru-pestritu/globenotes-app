@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:globenotes/presentation/forgot_password/forgot_password.dart';
 import 'package:globenotes/presentation/home/home.dart';
 import 'package:globenotes/presentation/login/login.dart';
-import 'package:globenotes/presentation/onboarding/onboarding.dart';
+import 'package:globenotes/presentation/onboarding/onboarding_view.dart';
 import 'package:globenotes/presentation/register/register.dart';
 import 'package:globenotes/presentation/reset_password/reset_password.dart';
 import 'package:globenotes/presentation/resources/strings_manager.dart';
