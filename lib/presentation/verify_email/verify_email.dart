@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class VerifyEmailView extends StatefulWidget {
-  const VerifyEmailView({Key? key}) : super(key: key);
+  const VerifyEmailView({super.key});
 
   @override
-  _VerifyEmailViewState createState() => _VerifyEmailViewState();
+  State<VerifyEmailView> createState() => _VerifyEmailViewState();
 }
 
 class _VerifyEmailViewState extends State<VerifyEmailView> {

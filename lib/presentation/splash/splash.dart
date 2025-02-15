@@ -6,10 +6,10 @@ import 'package:globenotes/presentation/resources/color_manager.dart';
 import 'package:globenotes/presentation/resources/routes_manager.dart';
 
 class SplashView extends StatefulWidget {
-  const SplashView({Key? key}) : super(key: key);
+  const SplashView({super.key});
 
   @override
-  _SplashViewState createState() => _SplashViewState();
+  State<SplashView> createState() => _SplashViewState();
 }
 
 class _SplashViewState extends State<SplashView> {

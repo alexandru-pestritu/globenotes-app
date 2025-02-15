@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:globenotes/presentation/resources/color_manager.dart';
 
 class OnboardingView extends StatefulWidget {
-  const OnboardingView({Key? key}) : super(key: key);
+  const OnboardingView({super.key});
 
   @override
-  _OnboardingViewState createState() => _OnboardingViewState();
+  State<OnboardingView> createState() => _OnboardingViewState();
 }
 
 class _OnboardingViewState extends State<OnboardingView> {
