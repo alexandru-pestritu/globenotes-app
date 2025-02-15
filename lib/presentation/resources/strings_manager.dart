@@ -9,4 +9,5 @@ class AppStrings {
       "Keep a record of your travels with interactive maps and statistics. See all the countries, cities, and wonders you've visited at a glance!";
   static const String onBoardingSubTitle3 =
       "Turn your travel journals into beautifully designed PDFs, ready for printing or sharing. Choose from customizable templates for a unique keepsake!";
+  static const String skip = "Skip";
 }

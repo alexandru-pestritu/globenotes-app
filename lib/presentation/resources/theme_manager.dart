@@ -50,16 +50,17 @@ ThemeData getApplicationTheme() {
     ),
 
     textTheme: TextTheme(
+      headlineLarge: getBoldStyle(color: ColorManager.lightBlack, fontSize: FontSize.s24),
       titleLarge: getSemiBoldStyle(
-        color: ColorManager.darkGrey,
+        color: ColorManager.lightBlack,
         fontSize: FontSize.s16,
       ),
-      titleMedium: getMediumStyle(
-        color: ColorManager.lightGrey,
-        fontSize: FontSize.s14,
+      titleMedium: getSemiBoldStyle(
+        color: ColorManager.lightBlack,
+        fontSize: FontSize.s16,
       ),
-      bodySmall: getRegularStyle(color: ColorManager.grey),
-      bodyMedium: getRegularStyle(color: ColorManager.grey),
+      bodySmall: getRegularStyle(color: ColorManager.darkGrey),
+      bodyMedium: getRegularStyle(color: ColorManager.darkGrey, fontSize: FontSize.s16),
     ),
 
     inputDecorationTheme: InputDecorationTheme(
