@@ -77,6 +77,7 @@ flutter:
   assets:
     - assets/images/splash_logo.png
     - assets/images/logo_horizontal.png
+    - assets/images/logo_horizontal_dark.png
     - assets/images/app_icon.png
     - assets/images/onboarding_illustration_1.svg
     - assets/images/onboarding_illustration_2.svg

@@ -7,7 +7,7 @@ import 'package:globenotes/presentation/resources/strings_manager.dart';
 class OnBoardingViewModel extends BaseViewModel
     with OnBoardingViewModelInputs, OnBoardingViewModelOutputs {
   final StreamController<SliderViewObject> _streamController =
-      StreamController<SliderViewObject>();
+      StreamController<SliderViewObject>.broadcast();
 
   late final List<SliderObject> _list;
   int _currentIndex = 0;

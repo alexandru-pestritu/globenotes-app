@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:globenotes/domain/model/model.dart';
 import 'package:globenotes/presentation/resources/color_manager.dart';
@@ -21,7 +22,9 @@ class _OnboardingViewState extends State<OnboardingView> {
   @override
   void initState() {
     super.initState();
-    _viewModel.start();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _viewModel.start();
+    });
   }
 
   @override
@@ -44,86 +47,92 @@ class _OnboardingViewState extends State<OnboardingView> {
 
         final sliderViewObject = snapshot.data!;
         return Scaffold(
-          backgroundColor: ColorManager.white,
-          body: Stack(
-            children: [
-              PageView.builder(
-                controller: _pageController,
-                itemCount: sliderViewObject.numOfSlides,
-                onPageChanged: (index) {
-                  _viewModel.onPageChanged(index);
-                },
-                itemBuilder: (context, index) {
-                  final item = sliderViewObject.slides[index];
-                  return OnBoardingPage(item);
-                },
-              ),
-
-              Positioned(
-                top: AppSize.s40,
-                right: AppSize.s10,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, Routes.loginRoute);
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          body: AnnotatedRegion<SystemUiOverlayStyle>(
+            value:
+                Theme.of(context).brightness == Brightness.dark
+                    ? SystemUiOverlayStyle.light
+                    : SystemUiOverlayStyle.dark,
+            child: Stack(
+              children: [
+                PageView.builder(
+                  controller: _pageController,
+                  itemCount: sliderViewObject.numOfSlides,
+                  onPageChanged: (index) {
+                    _viewModel.onPageChanged(index);
                   },
-                  child: Text(
-                    AppStrings.skip,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
+                  itemBuilder: (context, index) {
+                    final item = sliderViewObject.slides[index];
+                    return OnBoardingPage(item);
+                  },
                 ),
-              ),
-
-              Positioned(
-                bottom: AppSize.s75,
-                left: AppSize.s20,
-                child: Row(
-                  children: List.generate(
-                    sliderViewObject.numOfSlides,
-                    (index) => AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      margin: EdgeInsets.symmetric(horizontal: AppSize.s5),
-                      width:
-                          sliderViewObject.currentIndex == index
-                              ? AppSize.s20
-                              : AppSize.s8,
-                      height: AppSize.s8,
-                      decoration: BoxDecoration(
-                        color:
-                            sliderViewObject.currentIndex == index
-                                ? ColorManager.primary
-                                : ColorManager.primaryOpacity10,
-                        borderRadius: BorderRadius.circular(AppSize.s4),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-
-              Positioned(
-                bottom: AppSize.s50,
-                right: AppSize.s20,
-                child: NextButtonWithProgress(
-                  progress: sliderViewObject.progress,
-                  onTap: () {
-                    if (sliderViewObject.currentIndex ==
-                        sliderViewObject.numOfSlides - 1) {
+                Positioned(
+                  top: AppSize.s40,
+                  right: AppSize.s10,
+                  child: TextButton(
+                    onPressed: () {
                       Navigator.pushReplacementNamed(
                         context,
                         Routes.loginRoute,
                       );
-                    } else {
-                      _pageController.nextPage(
-                        duration: const Duration(
-                          milliseconds: DurationConstant.d300,
-                        ),
-                        curve: Curves.easeInOut,
-                      );
-                      _viewModel.goNext();
-                    }
-                  },
+                    },
+                    child: Text(
+                      AppStrings.skip,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ),
                 ),
-              ),
-            ],
+                Positioned(
+                  bottom: AppSize.s75,
+                  left: AppSize.s20,
+                  child: Row(
+                    children: List.generate(
+                      sliderViewObject.numOfSlides,
+                      (index) => AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        margin: EdgeInsets.symmetric(horizontal: AppSize.s5),
+                        width:
+                            sliderViewObject.currentIndex == index
+                                ? AppSize.s20
+                                : AppSize.s8,
+                        height: AppSize.s8,
+                        decoration: BoxDecoration(
+                          color:
+                              sliderViewObject.currentIndex == index
+                                  ? ColorManager.primary
+                                  : ColorManager.primaryOpacity10,
+                          borderRadius: BorderRadius.circular(AppSize.s4),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: AppSize.s50,
+                  right: AppSize.s20,
+                  child: NextButtonWithProgress(
+                    progress: sliderViewObject.progress,
+                    onTap: () {
+                      if (sliderViewObject.currentIndex ==
+                          sliderViewObject.numOfSlides - 1) {
+                        Navigator.pushReplacementNamed(
+                          context,
+                          Routes.loginRoute,
+                        );
+                      } else {
+                        _pageController.nextPage(
+                          duration: const Duration(
+                            milliseconds: DurationConstant.d300,
+                          ),
+                          curve: Curves.easeInOut,
+                        );
+                        _viewModel.goNext();
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },
@@ -145,7 +154,6 @@ class OnBoardingPage extends StatelessWidget {
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.4,

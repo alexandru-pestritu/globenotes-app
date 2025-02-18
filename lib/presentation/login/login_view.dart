@@ -3,10 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:globenotes/presentation/login/login_viewmodel.dart';
 import 'package:globenotes/presentation/resources/assets_manager.dart';
 import 'package:globenotes/presentation/resources/color_manager.dart';
-import 'package:globenotes/presentation/resources/font_manager.dart';
 import 'package:globenotes/presentation/resources/routes_manager.dart';
 import 'package:globenotes/presentation/resources/strings_manager.dart';
-import 'package:globenotes/presentation/resources/styles_manager.dart';
 import 'package:globenotes/presentation/resources/values_manager.dart';
 
 class LoginView extends StatefulWidget {
@@ -18,7 +16,6 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   final LoginViewModel _viewModel = LoginViewModel();
-
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -41,31 +38,31 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+    AssetImage logoImage =
+        isDark
+            ? const AssetImage(ImageAssets.logoHorizontalDark)
+            : const AssetImage(ImageAssets.logoHorizontal);
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ColorManager.white,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
-          color: ColorManager.lightBlack,
           onPressed: () {
             Navigator.pushReplacementNamed(context, Routes.onBoardingRoute);
           },
         ),
         centerTitle: true,
-        title: Text(
-          AppStrings.login,
-          style: getSemiBoldStyle(
-            color: ColorManager.lightBlack,
-            fontSize: FontSize.s18,
-          ),
-        ),
+        title: Text(AppStrings.login, style: textTheme.titleLarge),
         actions: [
           Padding(
             padding: EdgeInsets.only(right: AppPadding.p12),
             child: TextButton(
               onPressed: () {
-                // TODO: Change app language
+                //TODO: Change language
               },
               style: TextButton.styleFrom(
                 minimumSize: Size(80, AppSize.s16),
@@ -76,16 +73,14 @@ class _LoginViewState extends State<LoginView> {
               ),
               child: Text(
                 AppStrings.english,
-                style: getMediumStyle(
+                style: textTheme.titleSmall?.copyWith(
                   color: ColorManager.primary,
-                  fontSize: FontSize.s14,
                 ),
               ),
             ),
           ),
         ],
       ),
-      backgroundColor: ColorManager.white,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(
@@ -98,19 +93,15 @@ class _LoginViewState extends State<LoginView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Image(
-                  image: AssetImage(ImageAssets.logoHorizontal),
+                  image: logoImage,
                   width: AppSize.s360,
                   height: AppSize.s100,
                 ),
                 SizedBox(height: AppSize.s28),
-                Text(
-                  AppStrings.enterYourEmail,
-                  style: getMediumStyle(
-                    color: ColorManager.lightBlack,
-                    fontSize: FontSize.s14,
-                  ),
-                ),
+
+                Text(AppStrings.enterYourEmail, style: textTheme.titleSmall),
                 SizedBox(height: AppSize.s8),
+
                 StreamBuilder<bool>(
                   stream: _viewModel.outputEmailIcon,
                   builder: (context, snapshot) {
@@ -147,17 +138,11 @@ class _LoginViewState extends State<LoginView> {
                     );
                   },
                 ),
-
                 SizedBox(height: AppSize.s16),
 
-                Text(
-                  AppStrings.enterYourPassword,
-                  style: getMediumStyle(
-                    color: ColorManager.lightBlack,
-                    fontSize: FontSize.s14,
-                  ),
-                ),
+                Text(AppStrings.enterYourPassword, style: textTheme.titleSmall),
                 SizedBox(height: AppSize.s8),
+
                 StreamBuilder<bool>(
                   stream: _viewModel.outputIsPasswordValid,
                   builder: (context, passwordSnapshot) {
@@ -208,18 +193,11 @@ class _LoginViewState extends State<LoginView> {
                                   _viewModel.login();
                                 }
                                 : null,
-                        child: Text(
-                          AppStrings.login,
-                          style: getSemiBoldStyle(
-                            color: ColorManager.white,
-                            fontSize: FontSize.s16,
-                          ),
-                        ),
+                        child: Text(AppStrings.login),
                       ),
                     );
                   },
                 ),
-
                 SizedBox(height: AppSize.s16),
 
                 Row(
@@ -227,11 +205,9 @@ class _LoginViewState extends State<LoginView> {
                   children: [
                     Text(
                       AppStrings.dontHaveAccount,
-                      style: getMediumStyle(
-                        color: ColorManager.darkGrey,
-                        fontSize: FontSize.s14,
-                      ),
+                      style: textTheme.bodyMedium,
                     ),
+                    SizedBox(width: AppSize.s4),
                     GestureDetector(
                       onTap: () {
                         Navigator.pushReplacementNamed(
@@ -241,15 +217,14 @@ class _LoginViewState extends State<LoginView> {
                       },
                       child: Text(
                         AppStrings.signUp,
-                        style: getSemiBoldStyle(
+                        style: textTheme.titleSmall?.copyWith(
                           color: ColorManager.primary,
-                          fontSize: FontSize.s14,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
                   ],
                 ),
-
                 SizedBox(height: AppSize.s16),
 
                 Row(
@@ -259,15 +234,13 @@ class _LoginViewState extends State<LoginView> {
                       padding: EdgeInsets.symmetric(horizontal: AppPadding.p12),
                       child: Text(
                         AppStrings.or,
-                        style: getSemiBoldStyle(
-                          color: ColorManager.darkGrey,
-                          fontSize: FontSize.s14,
+                        style: textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
                   ],
                 ),
-
                 SizedBox(height: AppSize.s16),
 
                 SizedBox(
@@ -281,10 +254,7 @@ class _LoginViewState extends State<LoginView> {
                     ),
                     label: Text(
                       AppStrings.continueWithGoogle,
-                      style: getMediumStyle(
-                        color: ColorManager.lightBlack,
-                        fontSize: FontSize.s14,
-                      ),
+                      style: textTheme.titleSmall,
                     ),
                     style: OutlinedButton.styleFrom(
                       shape: RoundedRectangleBorder(
@@ -310,10 +280,7 @@ class _LoginViewState extends State<LoginView> {
                     ),
                     label: Text(
                       AppStrings.continueWithFacebook,
-                      style: getMediumStyle(
-                        color: ColorManager.lightBlack,
-                        fontSize: FontSize.s14,
-                      ),
+                      style: textTheme.titleSmall,
                     ),
                     style: OutlinedButton.styleFrom(
                       shape: RoundedRectangleBorder(
@@ -326,7 +293,6 @@ class _LoginViewState extends State<LoginView> {
                     },
                   ),
                 ),
-
                 SizedBox(height: AppSize.s16),
 
                 Row(
@@ -341,9 +307,8 @@ class _LoginViewState extends State<LoginView> {
                       },
                       child: Text(
                         AppStrings.forgetPassword,
-                        style: getMediumStyle(
+                        style: textTheme.titleSmall?.copyWith(
                           color: ColorManager.primary,
-                          fontSize: FontSize.s14,
                         ),
                       ),
                     ),
