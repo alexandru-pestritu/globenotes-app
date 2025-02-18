@@ -6,8 +6,7 @@ import 'package:globenotes/presentation/resources/theme_manager.dart';
 class MyApp extends StatefulWidget {
   MyApp._internal();
   int appState = 0;
-  static final MyApp instance =
-      MyApp._internal();
+  static final MyApp instance = MyApp._internal();
 
   factory MyApp() => instance;
 
@@ -23,7 +22,9 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       onGenerateRoute: RouteGenerator.getRoute,
       initialRoute: Routes.splashRoute,
-      theme: getApplicationTheme(),
+      theme: getApplicationLightTheme(),
+      darkTheme: getApplicationDarkTheme(),
+      themeMode: ThemeMode.system,
     );
   }
 }
