@@ -50,7 +50,10 @@ ThemeData getApplicationTheme() {
     ),
 
     textTheme: TextTheme(
-      headlineLarge: getBoldStyle(color: ColorManager.lightBlack, fontSize: FontSize.s24),
+      headlineLarge: getBoldStyle(
+        color: ColorManager.lightBlack,
+        fontSize: FontSize.s24,
+      ),
       titleLarge: getSemiBoldStyle(
         color: ColorManager.lightBlack,
         fontSize: FontSize.s16,
@@ -60,38 +63,58 @@ ThemeData getApplicationTheme() {
         fontSize: FontSize.s16,
       ),
       bodySmall: getRegularStyle(color: ColorManager.darkGrey),
-      bodyMedium: getRegularStyle(color: ColorManager.darkGrey, fontSize: FontSize.s16),
+      bodyMedium: getRegularStyle(
+        color: ColorManager.darkGrey,
+        fontSize: FontSize.s16,
+      ),
     ),
 
     inputDecorationTheme: InputDecorationTheme(
-      contentPadding: EdgeInsets.all(AppPadding.p8),
-      hintStyle: getRegularStyle(color: ColorManager.grey),
-      labelStyle: getMediumStyle(color: ColorManager.darkGrey),
+      contentPadding: EdgeInsets.only(
+        left: AppPadding.p16,
+        right: AppPadding.p8,
+        top: AppPadding.p8,
+        bottom: AppPadding.p8,
+      ),
+      hintStyle: getRegularStyle(
+        fontSize: FontSize.s14,
+        color: ColorManager.grey,
+      ),
+      labelStyle: getMediumStyle(
+        fontSize: FontSize.s14,
+        color: ColorManager.darkGrey,
+      ),
       errorStyle: getRegularStyle(color: ColorManager.error),
 
       enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: ColorManager.grey, width: AppSize.s1_5),
-        borderRadius: BorderRadius.all(Radius.circular(AppSize.s8)),
+        borderSide: BorderSide(
+          color: ColorManager.lightGrey,
+          width: AppSize.s1_5,
+        ),
+        borderRadius: BorderRadius.all(Radius.circular(AppSize.s15)),
       ),
 
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: ColorManager.primary,
+          color: ColorManager.lightGrey,
           width: AppSize.s1_5,
         ),
-        borderRadius: BorderRadius.all(Radius.circular(AppSize.s8)),
+        borderRadius: BorderRadius.all(Radius.circular(AppSize.s15)),
       ),
 
       errorBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: ColorManager.error, width: AppSize.s1_5),
-        borderRadius: BorderRadius.all(Radius.circular(AppSize.s8)),
+        borderSide: BorderSide(
+          color: ColorManager.lightGrey,
+          width: AppSize.s1_5,
+        ),
+        borderRadius: BorderRadius.all(Radius.circular(AppSize.s15)),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: ColorManager.primary,
+          color: ColorManager.lightBlack,
           width: AppSize.s1_5,
         ),
-        borderRadius: BorderRadius.all(Radius.circular(AppSize.s8)),
+        borderRadius: BorderRadius.all(Radius.circular(AppSize.s15)),
       ),
     ),
   );
