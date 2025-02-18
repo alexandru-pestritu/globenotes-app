@@ -1,6 +1,6 @@
 import 'package:globenotes/data/network/app_api.dart';
-import 'package:globenotes/data/request/auth_request.dart';
-import 'package:globenotes/data/response/auth_responses.dart';
+import 'package:globenotes/data/request/requests.dart';
+import 'package:globenotes/data/response/responses.dart';
 
 abstract class RemoteDataSource {
   Future<LoginResponse> login(LoginRequest loginRequest);

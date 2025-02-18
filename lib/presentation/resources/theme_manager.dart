@@ -53,6 +53,7 @@ ThemeData getApplicationLightTheme() {
         backgroundColor: ColorManager.primary,
         disabledBackgroundColor: ColorManager.primaryOpacity20,
         disabledForegroundColor: ColorManager.white,
+        splashFactory: NoSplash.splashFactory,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSize.s12),
         ),
@@ -202,6 +203,7 @@ ThemeData getApplicationDarkTheme() {
         foregroundColor: ColorManager.white,
         disabledBackgroundColor: ColorManager.lightBlack,
         disabledForegroundColor: ColorManager.darkGrey,
+        splashFactory: NoSplash.splashFactory,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSize.s12),
         ),

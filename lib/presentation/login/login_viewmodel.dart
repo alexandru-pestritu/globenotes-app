@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:globenotes/domain/usecase/login_usecase.dart';
 import 'package:globenotes/presentation/base/base_viewmodel.dart';
 import 'package:globenotes/presentation/common/freezed_data_classes.dart';
 import 'package:globenotes/presentation/resources/values_manager.dart';
@@ -24,7 +25,9 @@ class LoginViewModel extends BaseViewModel
 
   bool _isPasswordHidden = true;
 
-  LoginViewModel();
+  final LoginUseCase _loginUseCase;
+
+  LoginViewModel(this._loginUseCase);
 
   @override
   void dispose() {
@@ -54,7 +57,11 @@ class LoginViewModel extends BaseViewModel
   Sink get inputEmailIcon => _emailIconStreamController.sink;
 
   @override
-  login() {}
+  login() async {
+    (await _loginUseCase.execute(
+      LoginUseCaseInput(loginObject.email, loginObject.password),
+    )).fold((failure) => {}, (data) => {});
+  }
 
   @override
   setPassword(String password) {

@@ -1,20 +1,20 @@
 import 'package:dartz/dartz.dart';
 import 'package:globenotes/data/network/failure.dart';
-import 'package:globenotes/data/request/auth_request.dart';
-import 'package:globenotes/domain/model/authentication.dart';
-import 'package:globenotes/domain/repository/auth_repository.dart';
+import 'package:globenotes/data/request/requests.dart';
+import 'package:globenotes/domain/model/model.dart';
+import 'package:globenotes/domain/repository/repository.dart';
 import 'package:globenotes/domain/usecase/base_usecase.dart';
 
 class LoginUseCase implements BaseUseCase<LoginUseCaseInput, Authentication> {
-  final AuthRepository _repository;
+  final Repository _repository;
 
   LoginUseCase(this._repository);
 
   @override
   Future<Either<Failure, Authentication>> execute(
-      LoginUseCaseInput input) async {
-    return await _repository
-        .login(LoginRequest(input.email, input.password));
+    LoginUseCaseInput input,
+  ) async {
+    return await _repository.login(LoginRequest(input.email, input.password));
   }
 }
 

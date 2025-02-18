@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:globenotes/app/di.dart';
 import 'package:globenotes/presentation/login/login_viewmodel.dart';
 import 'package:globenotes/presentation/resources/assets_manager.dart';
 import 'package:globenotes/presentation/resources/color_manager.dart';
@@ -15,7 +16,7 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final LoginViewModel _viewModel = LoginViewModel();
+  final LoginViewModel _viewModel = instance<LoginViewModel>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -66,6 +67,7 @@ class _LoginViewState extends State<LoginView> {
               },
               style: TextButton.styleFrom(
                 minimumSize: Size(80, AppSize.s16),
+                splashFactory: NoSplash.splashFactory,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(AppSize.s12),
                   side: BorderSide(color: ColorManager.primary),

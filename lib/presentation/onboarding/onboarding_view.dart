@@ -214,6 +214,7 @@ class NextButtonWithProgress extends StatelessWidget {
             backgroundColor: ColorManager.primary,
             shape: const CircleBorder(),
             elevation: AppSize.s0,
+            splashColor: ColorManager.primaryOpacity70,
             child: Icon(Icons.arrow_forward_ios, color: ColorManager.white),
           ),
         ),

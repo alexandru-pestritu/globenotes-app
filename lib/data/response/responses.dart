@@ -1,6 +1,6 @@
 import 'package:globenotes/data/response/base_response.dart';
 import 'package:json_annotation/json_annotation.dart';
-part 'auth_responses.g.dart';
+part 'responses.g.dart';
 
 @JsonSerializable()
 class LoginData {

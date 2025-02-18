@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:globenotes/app/constants.dart';
-import 'package:globenotes/data/response/auth_responses.dart';
+import 'package:globenotes/data/response/responses.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 
