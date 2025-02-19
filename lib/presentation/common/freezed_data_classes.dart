@@ -6,3 +6,25 @@ part 'freezed_data_classes.freezed.dart';
 class LoginObject with _$LoginObject {
   factory LoginObject(String email, String password) = _LoginObject;
 }
+
+@freezed
+class RegisterObject with _$RegisterObject {
+  factory RegisterObject(String name, String email, String password) =
+      _RegisterObject;
+}
+
+@freezed
+class VerifyEmailObject with _$VerifyEmailObject {
+  factory VerifyEmailObject(String email, String code) = _VerifyEmailObject;
+}
+
+@freezed
+class ForgotPasswordObject with _$ForgotPasswordObject {
+  factory ForgotPasswordObject(String email) = _ForgotPasswordObject;
+}
+
+@freezed
+class ResetPasswordObject with _$ResetPasswordObject {
+  factory ResetPasswordObject(String email, String code, String password) =
+      _ResetPasswordObject;
+}

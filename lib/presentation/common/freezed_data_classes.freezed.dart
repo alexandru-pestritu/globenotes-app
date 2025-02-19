@@ -164,3 +164,654 @@ abstract class _LoginObject implements LoginObject {
   _$$LoginObjectImplCopyWith<_$LoginObjectImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+mixin _$RegisterObject {
+  String get name => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
+  String get password => throw _privateConstructorUsedError;
+
+  /// Create a copy of RegisterObject
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $RegisterObjectCopyWith<RegisterObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $RegisterObjectCopyWith<$Res> {
+  factory $RegisterObjectCopyWith(
+    RegisterObject value,
+    $Res Function(RegisterObject) then,
+  ) = _$RegisterObjectCopyWithImpl<$Res, RegisterObject>;
+  @useResult
+  $Res call({String name, String email, String password});
+}
+
+/// @nodoc
+class _$RegisterObjectCopyWithImpl<$Res, $Val extends RegisterObject>
+    implements $RegisterObjectCopyWith<$Res> {
+  _$RegisterObjectCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of RegisterObject
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? email = null,
+    Object? password = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            name:
+                null == name
+                    ? _value.name
+                    : name // ignore: cast_nullable_to_non_nullable
+                        as String,
+            email:
+                null == email
+                    ? _value.email
+                    : email // ignore: cast_nullable_to_non_nullable
+                        as String,
+            password:
+                null == password
+                    ? _value.password
+                    : password // ignore: cast_nullable_to_non_nullable
+                        as String,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$RegisterObjectImplCopyWith<$Res>
+    implements $RegisterObjectCopyWith<$Res> {
+  factory _$$RegisterObjectImplCopyWith(
+    _$RegisterObjectImpl value,
+    $Res Function(_$RegisterObjectImpl) then,
+  ) = __$$RegisterObjectImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String name, String email, String password});
+}
+
+/// @nodoc
+class __$$RegisterObjectImplCopyWithImpl<$Res>
+    extends _$RegisterObjectCopyWithImpl<$Res, _$RegisterObjectImpl>
+    implements _$$RegisterObjectImplCopyWith<$Res> {
+  __$$RegisterObjectImplCopyWithImpl(
+    _$RegisterObjectImpl _value,
+    $Res Function(_$RegisterObjectImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of RegisterObject
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? email = null,
+    Object? password = null,
+  }) {
+    return _then(
+      _$RegisterObjectImpl(
+        null == name
+            ? _value.name
+            : name // ignore: cast_nullable_to_non_nullable
+                as String,
+        null == email
+            ? _value.email
+            : email // ignore: cast_nullable_to_non_nullable
+                as String,
+        null == password
+            ? _value.password
+            : password // ignore: cast_nullable_to_non_nullable
+                as String,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$RegisterObjectImpl implements _RegisterObject {
+  _$RegisterObjectImpl(this.name, this.email, this.password);
+
+  @override
+  final String name;
+  @override
+  final String email;
+  @override
+  final String password;
+
+  @override
+  String toString() {
+    return 'RegisterObject(name: $name, email: $email, password: $password)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RegisterObjectImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.password, password) ||
+                other.password == password));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, name, email, password);
+
+  /// Create a copy of RegisterObject
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RegisterObjectImplCopyWith<_$RegisterObjectImpl> get copyWith =>
+      __$$RegisterObjectImplCopyWithImpl<_$RegisterObjectImpl>(
+        this,
+        _$identity,
+      );
+}
+
+abstract class _RegisterObject implements RegisterObject {
+  factory _RegisterObject(
+    final String name,
+    final String email,
+    final String password,
+  ) = _$RegisterObjectImpl;
+
+  @override
+  String get name;
+  @override
+  String get email;
+  @override
+  String get password;
+
+  /// Create a copy of RegisterObject
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$RegisterObjectImplCopyWith<_$RegisterObjectImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$VerifyEmailObject {
+  String get email => throw _privateConstructorUsedError;
+  String get code => throw _privateConstructorUsedError;
+
+  /// Create a copy of VerifyEmailObject
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $VerifyEmailObjectCopyWith<VerifyEmailObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $VerifyEmailObjectCopyWith<$Res> {
+  factory $VerifyEmailObjectCopyWith(
+    VerifyEmailObject value,
+    $Res Function(VerifyEmailObject) then,
+  ) = _$VerifyEmailObjectCopyWithImpl<$Res, VerifyEmailObject>;
+  @useResult
+  $Res call({String email, String code});
+}
+
+/// @nodoc
+class _$VerifyEmailObjectCopyWithImpl<$Res, $Val extends VerifyEmailObject>
+    implements $VerifyEmailObjectCopyWith<$Res> {
+  _$VerifyEmailObjectCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of VerifyEmailObject
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? email = null, Object? code = null}) {
+    return _then(
+      _value.copyWith(
+            email:
+                null == email
+                    ? _value.email
+                    : email // ignore: cast_nullable_to_non_nullable
+                        as String,
+            code:
+                null == code
+                    ? _value.code
+                    : code // ignore: cast_nullable_to_non_nullable
+                        as String,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$VerifyEmailObjectImplCopyWith<$Res>
+    implements $VerifyEmailObjectCopyWith<$Res> {
+  factory _$$VerifyEmailObjectImplCopyWith(
+    _$VerifyEmailObjectImpl value,
+    $Res Function(_$VerifyEmailObjectImpl) then,
+  ) = __$$VerifyEmailObjectImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String email, String code});
+}
+
+/// @nodoc
+class __$$VerifyEmailObjectImplCopyWithImpl<$Res>
+    extends _$VerifyEmailObjectCopyWithImpl<$Res, _$VerifyEmailObjectImpl>
+    implements _$$VerifyEmailObjectImplCopyWith<$Res> {
+  __$$VerifyEmailObjectImplCopyWithImpl(
+    _$VerifyEmailObjectImpl _value,
+    $Res Function(_$VerifyEmailObjectImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of VerifyEmailObject
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? email = null, Object? code = null}) {
+    return _then(
+      _$VerifyEmailObjectImpl(
+        null == email
+            ? _value.email
+            : email // ignore: cast_nullable_to_non_nullable
+                as String,
+        null == code
+            ? _value.code
+            : code // ignore: cast_nullable_to_non_nullable
+                as String,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$VerifyEmailObjectImpl implements _VerifyEmailObject {
+  _$VerifyEmailObjectImpl(this.email, this.code);
+
+  @override
+  final String email;
+  @override
+  final String code;
+
+  @override
+  String toString() {
+    return 'VerifyEmailObject(email: $email, code: $code)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$VerifyEmailObjectImpl &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.code, code) || other.code == code));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, email, code);
+
+  /// Create a copy of VerifyEmailObject
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$VerifyEmailObjectImplCopyWith<_$VerifyEmailObjectImpl> get copyWith =>
+      __$$VerifyEmailObjectImplCopyWithImpl<_$VerifyEmailObjectImpl>(
+        this,
+        _$identity,
+      );
+}
+
+abstract class _VerifyEmailObject implements VerifyEmailObject {
+  factory _VerifyEmailObject(final String email, final String code) =
+      _$VerifyEmailObjectImpl;
+
+  @override
+  String get email;
+  @override
+  String get code;
+
+  /// Create a copy of VerifyEmailObject
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$VerifyEmailObjectImplCopyWith<_$VerifyEmailObjectImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$ForgotPasswordObject {
+  String get email => throw _privateConstructorUsedError;
+
+  /// Create a copy of ForgotPasswordObject
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $ForgotPasswordObjectCopyWith<ForgotPasswordObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ForgotPasswordObjectCopyWith<$Res> {
+  factory $ForgotPasswordObjectCopyWith(
+    ForgotPasswordObject value,
+    $Res Function(ForgotPasswordObject) then,
+  ) = _$ForgotPasswordObjectCopyWithImpl<$Res, ForgotPasswordObject>;
+  @useResult
+  $Res call({String email});
+}
+
+/// @nodoc
+class _$ForgotPasswordObjectCopyWithImpl<
+  $Res,
+  $Val extends ForgotPasswordObject
+>
+    implements $ForgotPasswordObjectCopyWith<$Res> {
+  _$ForgotPasswordObjectCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of ForgotPasswordObject
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? email = null}) {
+    return _then(
+      _value.copyWith(
+            email:
+                null == email
+                    ? _value.email
+                    : email // ignore: cast_nullable_to_non_nullable
+                        as String,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$ForgotPasswordObjectImplCopyWith<$Res>
+    implements $ForgotPasswordObjectCopyWith<$Res> {
+  factory _$$ForgotPasswordObjectImplCopyWith(
+    _$ForgotPasswordObjectImpl value,
+    $Res Function(_$ForgotPasswordObjectImpl) then,
+  ) = __$$ForgotPasswordObjectImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String email});
+}
+
+/// @nodoc
+class __$$ForgotPasswordObjectImplCopyWithImpl<$Res>
+    extends _$ForgotPasswordObjectCopyWithImpl<$Res, _$ForgotPasswordObjectImpl>
+    implements _$$ForgotPasswordObjectImplCopyWith<$Res> {
+  __$$ForgotPasswordObjectImplCopyWithImpl(
+    _$ForgotPasswordObjectImpl _value,
+    $Res Function(_$ForgotPasswordObjectImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of ForgotPasswordObject
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? email = null}) {
+    return _then(
+      _$ForgotPasswordObjectImpl(
+        null == email
+            ? _value.email
+            : email // ignore: cast_nullable_to_non_nullable
+                as String,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$ForgotPasswordObjectImpl implements _ForgotPasswordObject {
+  _$ForgotPasswordObjectImpl(this.email);
+
+  @override
+  final String email;
+
+  @override
+  String toString() {
+    return 'ForgotPasswordObject(email: $email)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ForgotPasswordObjectImpl &&
+            (identical(other.email, email) || other.email == email));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, email);
+
+  /// Create a copy of ForgotPasswordObject
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ForgotPasswordObjectImplCopyWith<_$ForgotPasswordObjectImpl>
+  get copyWith =>
+      __$$ForgotPasswordObjectImplCopyWithImpl<_$ForgotPasswordObjectImpl>(
+        this,
+        _$identity,
+      );
+}
+
+abstract class _ForgotPasswordObject implements ForgotPasswordObject {
+  factory _ForgotPasswordObject(final String email) =
+      _$ForgotPasswordObjectImpl;
+
+  @override
+  String get email;
+
+  /// Create a copy of ForgotPasswordObject
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ForgotPasswordObjectImplCopyWith<_$ForgotPasswordObjectImpl>
+  get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$ResetPasswordObject {
+  String get email => throw _privateConstructorUsedError;
+  String get code => throw _privateConstructorUsedError;
+  String get password => throw _privateConstructorUsedError;
+
+  /// Create a copy of ResetPasswordObject
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $ResetPasswordObjectCopyWith<ResetPasswordObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ResetPasswordObjectCopyWith<$Res> {
+  factory $ResetPasswordObjectCopyWith(
+    ResetPasswordObject value,
+    $Res Function(ResetPasswordObject) then,
+  ) = _$ResetPasswordObjectCopyWithImpl<$Res, ResetPasswordObject>;
+  @useResult
+  $Res call({String email, String code, String password});
+}
+
+/// @nodoc
+class _$ResetPasswordObjectCopyWithImpl<$Res, $Val extends ResetPasswordObject>
+    implements $ResetPasswordObjectCopyWith<$Res> {
+  _$ResetPasswordObjectCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of ResetPasswordObject
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+    Object? code = null,
+    Object? password = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            email:
+                null == email
+                    ? _value.email
+                    : email // ignore: cast_nullable_to_non_nullable
+                        as String,
+            code:
+                null == code
+                    ? _value.code
+                    : code // ignore: cast_nullable_to_non_nullable
+                        as String,
+            password:
+                null == password
+                    ? _value.password
+                    : password // ignore: cast_nullable_to_non_nullable
+                        as String,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$ResetPasswordObjectImplCopyWith<$Res>
+    implements $ResetPasswordObjectCopyWith<$Res> {
+  factory _$$ResetPasswordObjectImplCopyWith(
+    _$ResetPasswordObjectImpl value,
+    $Res Function(_$ResetPasswordObjectImpl) then,
+  ) = __$$ResetPasswordObjectImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String email, String code, String password});
+}
+
+/// @nodoc
+class __$$ResetPasswordObjectImplCopyWithImpl<$Res>
+    extends _$ResetPasswordObjectCopyWithImpl<$Res, _$ResetPasswordObjectImpl>
+    implements _$$ResetPasswordObjectImplCopyWith<$Res> {
+  __$$ResetPasswordObjectImplCopyWithImpl(
+    _$ResetPasswordObjectImpl _value,
+    $Res Function(_$ResetPasswordObjectImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of ResetPasswordObject
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+    Object? code = null,
+    Object? password = null,
+  }) {
+    return _then(
+      _$ResetPasswordObjectImpl(
+        null == email
+            ? _value.email
+            : email // ignore: cast_nullable_to_non_nullable
+                as String,
+        null == code
+            ? _value.code
+            : code // ignore: cast_nullable_to_non_nullable
+                as String,
+        null == password
+            ? _value.password
+            : password // ignore: cast_nullable_to_non_nullable
+                as String,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$ResetPasswordObjectImpl implements _ResetPasswordObject {
+  _$ResetPasswordObjectImpl(this.email, this.code, this.password);
+
+  @override
+  final String email;
+  @override
+  final String code;
+  @override
+  final String password;
+
+  @override
+  String toString() {
+    return 'ResetPasswordObject(email: $email, code: $code, password: $password)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ResetPasswordObjectImpl &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.password, password) ||
+                other.password == password));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, email, code, password);
+
+  /// Create a copy of ResetPasswordObject
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ResetPasswordObjectImplCopyWith<_$ResetPasswordObjectImpl> get copyWith =>
+      __$$ResetPasswordObjectImplCopyWithImpl<_$ResetPasswordObjectImpl>(
+        this,
+        _$identity,
+      );
+}
+
+abstract class _ResetPasswordObject implements ResetPasswordObject {
+  factory _ResetPasswordObject(
+    final String email,
+    final String code,
+    final String password,
+  ) = _$ResetPasswordObjectImpl;
+
+  @override
+  String get email;
+  @override
+  String get code;
+  @override
+  String get password;
+
+  /// Create a copy of ResetPasswordObject
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ResetPasswordObjectImplCopyWith<_$ResetPasswordObjectImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
