@@ -25,4 +25,7 @@ class AppStrings {
   static const String continueWithFacebook = "Continue with Facebook";
   static const String enterYourEmail = "Enter your email";
   static const String enterYourPassword = "Enter your password";
+  static const String retry = "Retry";
+  static const String loading = "Loading";
+  static const String ok = "OK";
 }

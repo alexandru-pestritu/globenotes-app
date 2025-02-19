@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:globenotes/domain/usecase/login_usecase.dart';
 import 'package:globenotes/presentation/base/base_viewmodel.dart';
 import 'package:globenotes/presentation/common/freezed_data_classes.dart';
+import 'package:globenotes/presentation/common/state_renderer/state_renderer.dart';
+import 'package:globenotes/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:globenotes/presentation/resources/values_manager.dart';
 
 class LoginViewModel extends BaseViewModel
@@ -21,6 +23,9 @@ class LoginViewModel extends BaseViewModel
   final StreamController<bool> _emailIconStreamController =
       StreamController<bool>.broadcast();
 
+  final StreamController isUserLoggedInSuccessfullyStreamController =
+      StreamController<bool>();
+
   var loginObject = LoginObject("", "");
 
   bool _isPasswordHidden = true;
@@ -36,10 +41,13 @@ class LoginViewModel extends BaseViewModel
     _isAllInputsValidStreamController.close();
     _passwordVisibilityStreamController.close();
     _emailIconStreamController.close();
+    isUserLoggedInSuccessfullyStreamController.close();
   }
 
   @override
-  void start() {}
+  void start() {
+    inputState.add(ContentState());
+  }
 
   @override
   Sink get inputPassword => _passwordStreamController.sink;
@@ -58,9 +66,20 @@ class LoginViewModel extends BaseViewModel
 
   @override
   login() async {
+    inputState.add(LoadingState());
     (await _loginUseCase.execute(
       LoginUseCaseInput(loginObject.email, loginObject.password),
-    )).fold((failure) => {}, (data) => {});
+    )).fold(
+      (failure) => {
+        inputState.add(
+          ErrorState(StateRendererType.snackbarErrorState, failure.message),
+        ),
+      },
+      (data) {
+        inputState.add(ContentState());
+        isUserLoggedInSuccessfullyStreamController.add(true);
+      },
+    );
   }
 
   @override
