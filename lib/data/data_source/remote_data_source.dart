@@ -4,6 +4,10 @@ import 'package:globenotes/data/response/responses.dart';
 
 abstract class RemoteDataSource {
   Future<LoginResponse> login(LoginRequest loginRequest);
+  Future<RegisterResponse> register(RegisterRequest registerRequest);
+  Future<VerifyEmailResponse> verifyEmail(VerifyEmailRequest verifyEmailRequest);
+  Future<ForgotPasswordResponse> forgotPassword(ForgotPasswordRequest forgotPasswordRequest);
+  Future<ResetPasswordResponse> resetPassword(ResetPasswordRequest resetPasswordRequest);
 }
 
 class RemoteDataSourceImplementer implements RemoteDataSource {
@@ -14,6 +18,39 @@ class RemoteDataSourceImplementer implements RemoteDataSource {
     return await _appServiceClient.login(
       loginRequest.email,
       loginRequest.password,
+    );
+  }
+
+  @override
+  Future<RegisterResponse> register(RegisterRequest registerRequest) async {
+    return await _appServiceClient.register(
+      registerRequest.name,
+      registerRequest.email,
+      registerRequest.password,
+    );
+  }
+
+  @override
+  Future<VerifyEmailResponse> verifyEmail(VerifyEmailRequest verifyEmailRequest) async {
+    return await _appServiceClient.verifyEmail(
+      verifyEmailRequest.email,
+      verifyEmailRequest.code,
+    );
+  }
+
+  @override
+  Future<ForgotPasswordResponse> forgotPassword(ForgotPasswordRequest forgotPasswordRequest) async {
+    return await _appServiceClient.forgotPassword(
+      forgotPasswordRequest.email,
+    );
+  }
+
+  @override
+  Future<ResetPasswordResponse> resetPassword(ResetPasswordRequest resetPasswordRequest) async {
+    return await _appServiceClient.resetPassword(
+      resetPasswordRequest.email,
+      resetPasswordRequest.code,
+      resetPasswordRequest.password,
     );
   }
 }

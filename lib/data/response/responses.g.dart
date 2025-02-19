@@ -36,3 +36,72 @@ Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
       'message': instance.message,
       'data': instance.data,
     };
+
+RegisterResponse _$RegisterResponseFromJson(Map<String, dynamic> json) =>
+    RegisterResponse(
+      timeStamp: json['timeStamp'] as String?,
+      statusCode: (json['statusCode'] as num?)?.toInt(),
+      status: json['status'] as String?,
+      message: json['message'] as String?,
+    );
+
+Map<String, dynamic> _$RegisterResponseToJson(RegisterResponse instance) =>
+    <String, dynamic>{
+      'timeStamp': instance.timeStamp,
+      'statusCode': instance.statusCode,
+      'status': instance.status,
+      'message': instance.message,
+    };
+
+VerifyEmailResponse _$VerifyEmailResponseFromJson(Map<String, dynamic> json) =>
+    VerifyEmailResponse(
+      timeStamp: json['timeStamp'] as String?,
+      statusCode: (json['statusCode'] as num?)?.toInt(),
+      status: json['status'] as String?,
+      message: json['message'] as String?,
+    );
+
+Map<String, dynamic> _$VerifyEmailResponseToJson(
+  VerifyEmailResponse instance,
+) => <String, dynamic>{
+  'timeStamp': instance.timeStamp,
+  'statusCode': instance.statusCode,
+  'status': instance.status,
+  'message': instance.message,
+};
+
+ForgotPasswordResponse _$ForgotPasswordResponseFromJson(
+  Map<String, dynamic> json,
+) => ForgotPasswordResponse(
+  timeStamp: json['timeStamp'] as String?,
+  statusCode: (json['statusCode'] as num?)?.toInt(),
+  status: json['status'] as String?,
+  message: json['message'] as String?,
+);
+
+Map<String, dynamic> _$ForgotPasswordResponseToJson(
+  ForgotPasswordResponse instance,
+) => <String, dynamic>{
+  'timeStamp': instance.timeStamp,
+  'statusCode': instance.statusCode,
+  'status': instance.status,
+  'message': instance.message,
+};
+
+ResetPasswordResponse _$ResetPasswordResponseFromJson(
+  Map<String, dynamic> json,
+) => ResetPasswordResponse(
+  timeStamp: json['timeStamp'] as String?,
+  statusCode: (json['statusCode'] as num?)?.toInt(),
+  status: json['status'] as String?,
+  message: json['message'] as String?,
+);
+
+Map<String, dynamic> _$ResetPasswordResponseToJson(
+  ResetPasswordResponse instance,
+) => <String, dynamic>{
+  'timeStamp': instance.timeStamp,
+  'statusCode': instance.statusCode,
+  'status': instance.status,
+  'message': instance.message,
+};

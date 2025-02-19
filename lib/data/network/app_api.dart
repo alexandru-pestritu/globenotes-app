@@ -15,4 +15,27 @@ abstract class AppServiceClient {
     @Field("email") String email,
     @Field("password") String password,
   );
+
+  @POST("/auth/register")
+  Future<RegisterResponse> register(
+    @Field("name") String name,
+    @Field("email") String email,
+    @Field("password") String password,
+  );
+
+  @POST("/auth/verify-email")
+  Future<VerifyEmailResponse> verifyEmail(
+    @Field("email") String email,
+    @Field("code") String code,
+  );
+
+  @POST("/auth/forgot-password")
+  Future<ForgotPasswordResponse> forgotPassword(@Field("email") String email);
+
+  @POST("/auth/reset-password")
+  Future<ResetPasswordResponse> resetPassword(
+    @Field("email") String email,
+    @Field("otpCode") String code,
+    @Field("newPassword") String password,
+  );
 }

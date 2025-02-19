@@ -38,4 +38,114 @@ class RepositoryImpl extends Repository {
       return Left(DataSource.noInternetConnection.getFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> forgotPassword(
+    ForgotPasswordRequest forgotPasswordRequest,
+  ) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        final response = await _remoteDataSource.forgotPassword(
+          forgotPasswordRequest,
+        );
+
+        if (response.statusCode == ResponseCode.success) {
+          return Right(true);
+        } else {
+          return Left(
+            Failure(
+              response.statusCode ?? ResponseCode.defaultError,
+              response.message ?? ResponseMessage.defaultError,
+            ),
+          );
+        }
+      } catch (error) {
+        return (Left(ErrorHandler.handle(error).failure));
+      }
+    } else {
+      return Left(DataSource.noInternetConnection.getFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> register(
+    RegisterRequest registerRequest,
+  ) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        final response = await _remoteDataSource.register(registerRequest);
+
+        if (response.statusCode == ResponseCode.success) {
+          return Right(true);
+        } else {
+          return Left(
+            Failure(
+              response.statusCode ?? ResponseCode.defaultError,
+              response.message ?? ResponseMessage.defaultError,
+            ),
+          );
+        }
+      } catch (error) {
+        return (Left(ErrorHandler.handle(error).failure));
+      }
+    } else {
+      return Left(DataSource.noInternetConnection.getFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> resetPassword(
+    ResetPasswordRequest resetPasswordRequest,
+  ) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        final response = await _remoteDataSource.resetPassword(
+          resetPasswordRequest,
+        );
+
+        if (response.statusCode == ResponseCode.success) {
+          return Right(true);
+        } else {
+          return Left(
+            Failure(
+              response.statusCode ?? ResponseCode.defaultError,
+              response.message ?? ResponseMessage.defaultError,
+            ),
+          );
+        }
+      } catch (error) {
+        return (Left(ErrorHandler.handle(error).failure));
+      }
+    } else {
+      return Left(DataSource.noInternetConnection.getFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> verifyEmail(
+    VerifyEmailRequest verifyEmailRequest,
+  ) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        final response = await _remoteDataSource.verifyEmail(
+          verifyEmailRequest,
+        );
+
+        if (response.statusCode == ResponseCode.success) {
+          return Right(true);
+        } else {
+          return Left(
+            Failure(
+              response.statusCode ?? ResponseCode.defaultError,
+              response.message ?? ResponseMessage.defaultError,
+            ),
+          );
+        }
+      } catch (error) {
+        return (Left(ErrorHandler.handle(error).failure));
+      }
+    } else {
+      return Left(DataSource.noInternetConnection.getFailure());
+    }
+  }
 }

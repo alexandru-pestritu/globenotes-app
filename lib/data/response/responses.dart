@@ -36,3 +36,67 @@ class LoginResponse extends BaseResponse {
   @override
   Map<String, dynamic> toJson() => _$LoginResponseToJson(this);
 }
+
+@JsonSerializable()
+class RegisterResponse extends BaseResponse {
+  RegisterResponse({
+    super.timeStamp,
+    super.statusCode,
+    super.status,
+    super.message,
+  });
+
+  factory RegisterResponse.fromJson(Map<String, dynamic> json) =>
+      _$RegisterResponseFromJson(json);
+  
+  @override
+  Map<String, dynamic> toJson() => _$RegisterResponseToJson(this);
+}
+
+@JsonSerializable()
+class VerifyEmailResponse extends BaseResponse {
+  VerifyEmailResponse({
+    super.timeStamp,
+    super.statusCode,
+    super.status,
+    super.message,
+  });
+
+  factory VerifyEmailResponse.fromJson(Map<String, dynamic> json) =>
+      _$VerifyEmailResponseFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$VerifyEmailResponseToJson(this);
+}
+
+@JsonSerializable()
+class ForgotPasswordResponse extends BaseResponse {
+  ForgotPasswordResponse({
+    super.timeStamp,
+    super.statusCode,
+    super.status,
+    super.message,
+  });
+
+  factory ForgotPasswordResponse.fromJson(Map<String, dynamic> json) =>
+      _$ForgotPasswordResponseFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$ForgotPasswordResponseToJson(this);
+}
+
+@JsonSerializable()
+class ResetPasswordResponse extends BaseResponse {
+  ResetPasswordResponse({
+    super.timeStamp,
+    super.statusCode,
+    super.status,
+    super.message,
+  });
+
+  factory ResetPasswordResponse.fromJson(Map<String, dynamic> json) =>
+      _$ResetPasswordResponseFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$ResetPasswordResponseToJson(this);
+}
