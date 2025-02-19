@@ -33,4 +33,9 @@ class AppStrings {
   static const String retry = "Retry";
   static const String loading = "Loading";
   static const String ok = "OK";
+  static const String forgotTitle = "Forgot Your Password?";
+  static const String forgotSubTitle =
+      "Don’t worry, it happens! Please enter the email associated with your account.";
+  static const String forgot = "Forgot";
+  static const String sendOtpCode = "Send OTP Code";
 }

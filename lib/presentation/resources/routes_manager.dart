@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:globenotes/app/di.dart';
-import 'package:globenotes/presentation/forgot_password/forgot_password.dart';
+import 'package:globenotes/presentation/forgot_password/forgot_password_view.dart';
 import 'package:globenotes/presentation/home/home.dart';
 import 'package:globenotes/presentation/login/login_view.dart';
 import 'package:globenotes/presentation/onboarding/onboarding_view.dart';
@@ -37,6 +37,7 @@ class RouteGenerator {
       case Routes.verifyEmailRoute:
         return MaterialPageRoute(builder: (_) => VerifyEmailView());
       case Routes.forgotPasswordRoute:
+        initForgotPasswordModule();
         return MaterialPageRoute(builder: (_) => ForgotPasswordView());
       case Routes.resetPasswordRoute:
         return MaterialPageRoute(builder: (_) => ResetPasswordView());

@@ -7,8 +7,10 @@ import 'package:globenotes/data/network/dio_factory.dart';
 import 'package:globenotes/data/network/network_info.dart';
 import 'package:globenotes/data/repository/repository_impl.dart';
 import 'package:globenotes/domain/repository/repository.dart';
+import 'package:globenotes/domain/usecase/forgot_password_usecase.dart';
 import 'package:globenotes/domain/usecase/login_usecase.dart';
 import 'package:globenotes/domain/usecase/register_usecase.dart';
+import 'package:globenotes/presentation/forgot_password/forgot_password_viewmodel.dart';
 import 'package:globenotes/presentation/login/login_viewmodel.dart';
 import 'package:globenotes/presentation/register/register_viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -63,6 +65,17 @@ initRegisterModule() {
     );
     instance.registerFactory<RegisterViewModel>(
       () => RegisterViewModel(instance()),
+    );
+  }
+}
+
+initForgotPasswordModule() {
+  if (!GetIt.I.isRegistered<ForgotPasswordUseCase>()) {
+    instance.registerFactory<ForgotPasswordUseCase>(
+      () => ForgotPasswordUseCase(instance()),
+    );
+    instance.registerFactory<ForgotPasswordViewModel>(
+      () => ForgotPasswordViewModel(instance()),
     );
   }
 }
