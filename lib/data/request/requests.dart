@@ -17,6 +17,11 @@ class VerifyEmailRequest {
   VerifyEmailRequest(this.email, this.code);
 }
 
+class ResendVerifyEmailRequest {
+  String email;
+  ResendVerifyEmailRequest(this.email);
+}
+
 class ForgotPasswordRequest {
   String email;
   ForgotPasswordRequest(this.email);
@@ -28,4 +33,3 @@ class ResetPasswordRequest {
   String password;
   ResetPasswordRequest(this.email, this.code, this.password);
 }
-

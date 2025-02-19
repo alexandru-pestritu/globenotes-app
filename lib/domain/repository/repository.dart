@@ -7,6 +7,7 @@ abstract class Repository {
   Future<Either<Failure, Authentication>> login(LoginRequest loginRequest);
   Future<Either<Failure, bool>> register(RegisterRequest registerRequest);
   Future<Either<Failure, bool>> verifyEmail(VerifyEmailRequest verifyEmailRequest);
+  Future<Either<Failure, bool>> resendVerifyEmail(ResendVerifyEmailRequest resendVerifyEmailRequest);
   Future<Either<Failure, bool>> forgotPassword(ForgotPasswordRequest forgotPasswordRequest);
   Future<Either<Failure, bool>> resetPassword(ResetPasswordRequest resetPasswordRequest);
 }

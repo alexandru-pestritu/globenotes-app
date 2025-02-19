@@ -497,6 +497,149 @@ abstract class _VerifyEmailObject implements VerifyEmailObject {
 }
 
 /// @nodoc
+mixin _$ResendVerificationObject {
+  String get email => throw _privateConstructorUsedError;
+
+  /// Create a copy of ResendVerificationObject
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $ResendVerificationObjectCopyWith<ResendVerificationObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ResendVerificationObjectCopyWith<$Res> {
+  factory $ResendVerificationObjectCopyWith(
+    ResendVerificationObject value,
+    $Res Function(ResendVerificationObject) then,
+  ) = _$ResendVerificationObjectCopyWithImpl<$Res, ResendVerificationObject>;
+  @useResult
+  $Res call({String email});
+}
+
+/// @nodoc
+class _$ResendVerificationObjectCopyWithImpl<
+  $Res,
+  $Val extends ResendVerificationObject
+>
+    implements $ResendVerificationObjectCopyWith<$Res> {
+  _$ResendVerificationObjectCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of ResendVerificationObject
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? email = null}) {
+    return _then(
+      _value.copyWith(
+            email:
+                null == email
+                    ? _value.email
+                    : email // ignore: cast_nullable_to_non_nullable
+                        as String,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$ResendVerificationObjectImplCopyWith<$Res>
+    implements $ResendVerificationObjectCopyWith<$Res> {
+  factory _$$ResendVerificationObjectImplCopyWith(
+    _$ResendVerificationObjectImpl value,
+    $Res Function(_$ResendVerificationObjectImpl) then,
+  ) = __$$ResendVerificationObjectImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String email});
+}
+
+/// @nodoc
+class __$$ResendVerificationObjectImplCopyWithImpl<$Res>
+    extends
+        _$ResendVerificationObjectCopyWithImpl<
+          $Res,
+          _$ResendVerificationObjectImpl
+        >
+    implements _$$ResendVerificationObjectImplCopyWith<$Res> {
+  __$$ResendVerificationObjectImplCopyWithImpl(
+    _$ResendVerificationObjectImpl _value,
+    $Res Function(_$ResendVerificationObjectImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of ResendVerificationObject
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? email = null}) {
+    return _then(
+      _$ResendVerificationObjectImpl(
+        null == email
+            ? _value.email
+            : email // ignore: cast_nullable_to_non_nullable
+                as String,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$ResendVerificationObjectImpl implements _ResendVerificationObject {
+  _$ResendVerificationObjectImpl(this.email);
+
+  @override
+  final String email;
+
+  @override
+  String toString() {
+    return 'ResendVerificationObject(email: $email)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ResendVerificationObjectImpl &&
+            (identical(other.email, email) || other.email == email));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, email);
+
+  /// Create a copy of ResendVerificationObject
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ResendVerificationObjectImplCopyWith<_$ResendVerificationObjectImpl>
+  get copyWith => __$$ResendVerificationObjectImplCopyWithImpl<
+    _$ResendVerificationObjectImpl
+  >(this, _$identity);
+}
+
+abstract class _ResendVerificationObject implements ResendVerificationObject {
+  factory _ResendVerificationObject(final String email) =
+      _$ResendVerificationObjectImpl;
+
+  @override
+  String get email;
+
+  /// Create a copy of ResendVerificationObject
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ResendVerificationObjectImplCopyWith<_$ResendVerificationObjectImpl>
+  get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$ForgotPasswordObject {
   String get email => throw _privateConstructorUsedError;
 

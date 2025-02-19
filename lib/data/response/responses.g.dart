@@ -70,6 +70,24 @@ Map<String, dynamic> _$VerifyEmailResponseToJson(
   'message': instance.message,
 };
 
+ResendVerifyEmailResponse _$ResendVerifyEmailResponseFromJson(
+  Map<String, dynamic> json,
+) => ResendVerifyEmailResponse(
+  timeStamp: json['timeStamp'] as String?,
+  statusCode: (json['statusCode'] as num?)?.toInt(),
+  status: json['status'] as String?,
+  message: json['message'] as String?,
+);
+
+Map<String, dynamic> _$ResendVerifyEmailResponseToJson(
+  ResendVerifyEmailResponse instance,
+) => <String, dynamic>{
+  'timeStamp': instance.timeStamp,
+  'statusCode': instance.statusCode,
+  'status': instance.status,
+  'message': instance.message,
+};
+
 ForgotPasswordResponse _$ForgotPasswordResponseFromJson(
   Map<String, dynamic> json,
 ) => ForgotPasswordResponse(

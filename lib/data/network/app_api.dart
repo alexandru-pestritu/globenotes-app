@@ -23,6 +23,9 @@ abstract class AppServiceClient {
     @Field("password") String password,
   );
 
+  @POST("/auth/register/resend-otp")
+  Future<ResendVerifyEmailResponse> resendVerifyEmail(@Field("email") String email);
+
   @POST("/auth/verify-email")
   Future<VerifyEmailResponse> verifyEmail(
     @Field("email") String email,

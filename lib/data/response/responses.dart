@@ -48,7 +48,7 @@ class RegisterResponse extends BaseResponse {
 
   factory RegisterResponse.fromJson(Map<String, dynamic> json) =>
       _$RegisterResponseFromJson(json);
-  
+
   @override
   Map<String, dynamic> toJson() => _$RegisterResponseToJson(this);
 }
@@ -67,6 +67,22 @@ class VerifyEmailResponse extends BaseResponse {
 
   @override
   Map<String, dynamic> toJson() => _$VerifyEmailResponseToJson(this);
+}
+
+@JsonSerializable()
+class ResendVerifyEmailResponse extends BaseResponse {
+  ResendVerifyEmailResponse({
+    super.timeStamp,
+    super.statusCode,
+    super.status,
+    super.message,
+  });
+
+  factory ResendVerifyEmailResponse.fromJson(Map<String, dynamic> json) =>
+      _$ResendVerifyEmailResponseFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$ResendVerifyEmailResponseToJson(this);
 }
 
 @JsonSerializable()

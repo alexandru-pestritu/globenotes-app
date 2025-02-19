@@ -6,6 +6,7 @@ abstract class RemoteDataSource {
   Future<LoginResponse> login(LoginRequest loginRequest);
   Future<RegisterResponse> register(RegisterRequest registerRequest);
   Future<VerifyEmailResponse> verifyEmail(VerifyEmailRequest verifyEmailRequest);
+  Future<ResendVerifyEmailResponse> resendVerifyEmail(ResendVerifyEmailRequest resendVerifyEmailRequest);
   Future<ForgotPasswordResponse> forgotPassword(ForgotPasswordRequest forgotPasswordRequest);
   Future<ResetPasswordResponse> resetPassword(ResetPasswordRequest resetPasswordRequest);
 }
@@ -35,6 +36,13 @@ class RemoteDataSourceImplementer implements RemoteDataSource {
     return await _appServiceClient.verifyEmail(
       verifyEmailRequest.email,
       verifyEmailRequest.code,
+    );
+  }
+
+    @override
+  Future<ResendVerifyEmailResponse> resendVerifyEmail(ResendVerifyEmailRequest resendVerifyEmailRequest) async {
+    return await _appServiceClient.resendVerifyEmail(
+      resendVerifyEmailRequest.email,
     );
   }
 

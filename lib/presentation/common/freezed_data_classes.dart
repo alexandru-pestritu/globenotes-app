@@ -19,6 +19,11 @@ class VerifyEmailObject with _$VerifyEmailObject {
 }
 
 @freezed
+class ResendVerificationObject with _$ResendVerificationObject {
+  factory ResendVerificationObject(String email) = _ResendVerificationObject;
+}
+
+@freezed
 class ForgotPasswordObject with _$ForgotPasswordObject {
   factory ForgotPasswordObject(String email) = _ForgotPasswordObject;
 }
