@@ -102,6 +102,22 @@ class ForgotPasswordResponse extends BaseResponse {
 }
 
 @JsonSerializable()
+class VerifyForgotPasswordResponse extends BaseResponse {
+  VerifyForgotPasswordResponse({
+    super.timeStamp,
+    super.statusCode,
+    super.status,
+    super.message,
+  });
+
+  factory VerifyForgotPasswordResponse.fromJson(Map<String, dynamic> json) =>
+      _$VerifyForgotPasswordResponseFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$VerifyForgotPasswordResponseToJson(this);
+}
+
+@JsonSerializable()
 class ResetPasswordResponse extends BaseResponse {
   ResetPasswordResponse({
     super.timeStamp,

@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: unused_element_parameter
-
 part of 'app_api.dart';
 
 // **************************************************************************
@@ -153,6 +151,36 @@ class _AppServiceClient implements AppServiceClient {
     late ForgotPasswordResponse _value;
     try {
       _value = ForgotPasswordResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<VerifyForgotPasswordResponse> verifyForgotPassword(
+    String email,
+    String code,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {'email': email, 'code': code};
+    final _options = _setStreamType<VerifyForgotPasswordResponse>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/auth/forgot-password/verify-otp',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late VerifyForgotPasswordResponse _value;
+    try {
+      _value = VerifyForgotPasswordResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

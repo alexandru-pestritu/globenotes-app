@@ -148,13 +148,43 @@ class RepositoryImpl extends Repository {
       return Left(DataSource.noInternetConnection.getFailure());
     }
   }
-  
+
   @override
-  Future<Either<Failure, bool>> resendVerifyEmail(ResendVerifyEmailRequest resendVerifyEmailRequest) async {
+  Future<Either<Failure, bool>> resendVerifyEmail(
+    ResendVerifyEmailRequest resendVerifyEmailRequest,
+  ) async {
     if (await _networkInfo.isConnected) {
       try {
         final response = await _remoteDataSource.resendVerifyEmail(
           resendVerifyEmailRequest,
+        );
+
+        if (response.statusCode == ResponseCode.success) {
+          return Right(true);
+        } else {
+          return Left(
+            Failure(
+              response.statusCode ?? ResponseCode.defaultError,
+              response.message ?? ResponseMessage.defaultError,
+            ),
+          );
+        }
+      } catch (error) {
+        return (Left(ErrorHandler.handle(error).failure));
+      }
+    } else {
+      return Left(DataSource.noInternetConnection.getFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> verifyForgotPassword(
+    VerifyForgotPasswordRequest verifyForgotPasswordRequest,
+  ) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        final response = await _remoteDataSource.verifyForgotPassword(
+          verifyForgotPasswordRequest,
         );
 
         if (response.statusCode == ResponseCode.success) {

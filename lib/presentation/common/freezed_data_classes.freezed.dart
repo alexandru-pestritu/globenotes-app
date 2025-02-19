@@ -781,6 +781,169 @@ abstract class _ForgotPasswordObject implements ForgotPasswordObject {
 }
 
 /// @nodoc
+mixin _$VerifyForgotPasswordObject {
+  String get email => throw _privateConstructorUsedError;
+  String get code => throw _privateConstructorUsedError;
+
+  /// Create a copy of VerifyForgotPasswordObject
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $VerifyForgotPasswordObjectCopyWith<VerifyForgotPasswordObject>
+  get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $VerifyForgotPasswordObjectCopyWith<$Res> {
+  factory $VerifyForgotPasswordObjectCopyWith(
+    VerifyForgotPasswordObject value,
+    $Res Function(VerifyForgotPasswordObject) then,
+  ) =
+      _$VerifyForgotPasswordObjectCopyWithImpl<
+        $Res,
+        VerifyForgotPasswordObject
+      >;
+  @useResult
+  $Res call({String email, String code});
+}
+
+/// @nodoc
+class _$VerifyForgotPasswordObjectCopyWithImpl<
+  $Res,
+  $Val extends VerifyForgotPasswordObject
+>
+    implements $VerifyForgotPasswordObjectCopyWith<$Res> {
+  _$VerifyForgotPasswordObjectCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of VerifyForgotPasswordObject
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? email = null, Object? code = null}) {
+    return _then(
+      _value.copyWith(
+            email:
+                null == email
+                    ? _value.email
+                    : email // ignore: cast_nullable_to_non_nullable
+                        as String,
+            code:
+                null == code
+                    ? _value.code
+                    : code // ignore: cast_nullable_to_non_nullable
+                        as String,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$VerifyForgotPasswordObjectImplCopyWith<$Res>
+    implements $VerifyForgotPasswordObjectCopyWith<$Res> {
+  factory _$$VerifyForgotPasswordObjectImplCopyWith(
+    _$VerifyForgotPasswordObjectImpl value,
+    $Res Function(_$VerifyForgotPasswordObjectImpl) then,
+  ) = __$$VerifyForgotPasswordObjectImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String email, String code});
+}
+
+/// @nodoc
+class __$$VerifyForgotPasswordObjectImplCopyWithImpl<$Res>
+    extends
+        _$VerifyForgotPasswordObjectCopyWithImpl<
+          $Res,
+          _$VerifyForgotPasswordObjectImpl
+        >
+    implements _$$VerifyForgotPasswordObjectImplCopyWith<$Res> {
+  __$$VerifyForgotPasswordObjectImplCopyWithImpl(
+    _$VerifyForgotPasswordObjectImpl _value,
+    $Res Function(_$VerifyForgotPasswordObjectImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of VerifyForgotPasswordObject
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? email = null, Object? code = null}) {
+    return _then(
+      _$VerifyForgotPasswordObjectImpl(
+        null == email
+            ? _value.email
+            : email // ignore: cast_nullable_to_non_nullable
+                as String,
+        null == code
+            ? _value.code
+            : code // ignore: cast_nullable_to_non_nullable
+                as String,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$VerifyForgotPasswordObjectImpl implements _VerifyForgotPasswordObject {
+  _$VerifyForgotPasswordObjectImpl(this.email, this.code);
+
+  @override
+  final String email;
+  @override
+  final String code;
+
+  @override
+  String toString() {
+    return 'VerifyForgotPasswordObject(email: $email, code: $code)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$VerifyForgotPasswordObjectImpl &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.code, code) || other.code == code));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, email, code);
+
+  /// Create a copy of VerifyForgotPasswordObject
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$VerifyForgotPasswordObjectImplCopyWith<_$VerifyForgotPasswordObjectImpl>
+  get copyWith => __$$VerifyForgotPasswordObjectImplCopyWithImpl<
+    _$VerifyForgotPasswordObjectImpl
+  >(this, _$identity);
+}
+
+abstract class _VerifyForgotPasswordObject
+    implements VerifyForgotPasswordObject {
+  factory _VerifyForgotPasswordObject(final String email, final String code) =
+      _$VerifyForgotPasswordObjectImpl;
+
+  @override
+  String get email;
+  @override
+  String get code;
+
+  /// Create a copy of VerifyForgotPasswordObject
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$VerifyForgotPasswordObjectImplCopyWith<_$VerifyForgotPasswordObjectImpl>
+  get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$ResetPasswordObject {
   String get email => throw _privateConstructorUsedError;
   String get code => throw _privateConstructorUsedError;

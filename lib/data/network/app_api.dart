@@ -24,7 +24,9 @@ abstract class AppServiceClient {
   );
 
   @POST("/auth/register/resend-otp")
-  Future<ResendVerifyEmailResponse> resendVerifyEmail(@Field("email") String email);
+  Future<ResendVerifyEmailResponse> resendVerifyEmail(
+    @Field("email") String email,
+  );
 
   @POST("/auth/verify-email")
   Future<VerifyEmailResponse> verifyEmail(
@@ -34,6 +36,12 @@ abstract class AppServiceClient {
 
   @POST("/auth/forgot-password")
   Future<ForgotPasswordResponse> forgotPassword(@Field("email") String email);
+
+  @POST("/auth/forgot-password/verify-otp")
+  Future<VerifyForgotPasswordResponse> verifyForgotPassword(
+    @Field("email") String email,
+    @Field("code") String code,
+  );
 
   @POST("/auth/reset-password")
   Future<ResetPasswordResponse> resetPassword(

@@ -29,6 +29,12 @@ class ForgotPasswordObject with _$ForgotPasswordObject {
 }
 
 @freezed
+class VerifyForgotPasswordObject with _$VerifyForgotPasswordObject {
+  factory VerifyForgotPasswordObject(String email, String code) =
+      _VerifyForgotPasswordObject;
+}
+
+@freezed
 class ResetPasswordObject with _$ResetPasswordObject {
   factory ResetPasswordObject(String email, String code, String password) =
       _ResetPasswordObject;

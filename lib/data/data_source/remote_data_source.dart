@@ -5,10 +5,21 @@ import 'package:globenotes/data/response/responses.dart';
 abstract class RemoteDataSource {
   Future<LoginResponse> login(LoginRequest loginRequest);
   Future<RegisterResponse> register(RegisterRequest registerRequest);
-  Future<VerifyEmailResponse> verifyEmail(VerifyEmailRequest verifyEmailRequest);
-  Future<ResendVerifyEmailResponse> resendVerifyEmail(ResendVerifyEmailRequest resendVerifyEmailRequest);
-  Future<ForgotPasswordResponse> forgotPassword(ForgotPasswordRequest forgotPasswordRequest);
-  Future<ResetPasswordResponse> resetPassword(ResetPasswordRequest resetPasswordRequest);
+  Future<VerifyEmailResponse> verifyEmail(
+    VerifyEmailRequest verifyEmailRequest,
+  );
+  Future<ResendVerifyEmailResponse> resendVerifyEmail(
+    ResendVerifyEmailRequest resendVerifyEmailRequest,
+  );
+  Future<ForgotPasswordResponse> forgotPassword(
+    ForgotPasswordRequest forgotPasswordRequest,
+  );
+  Future<VerifyForgotPasswordResponse> verifyForgotPassword(
+    VerifyForgotPasswordRequest verifyForgotPasswordRequest,
+  );
+  Future<ResetPasswordResponse> resetPassword(
+    ResetPasswordRequest resetPasswordRequest,
+  );
 }
 
 class RemoteDataSourceImplementer implements RemoteDataSource {
@@ -32,33 +43,49 @@ class RemoteDataSourceImplementer implements RemoteDataSource {
   }
 
   @override
-  Future<VerifyEmailResponse> verifyEmail(VerifyEmailRequest verifyEmailRequest) async {
+  Future<VerifyEmailResponse> verifyEmail(
+    VerifyEmailRequest verifyEmailRequest,
+  ) async {
     return await _appServiceClient.verifyEmail(
       verifyEmailRequest.email,
       verifyEmailRequest.code,
     );
   }
 
-    @override
-  Future<ResendVerifyEmailResponse> resendVerifyEmail(ResendVerifyEmailRequest resendVerifyEmailRequest) async {
+  @override
+  Future<ResendVerifyEmailResponse> resendVerifyEmail(
+    ResendVerifyEmailRequest resendVerifyEmailRequest,
+  ) async {
     return await _appServiceClient.resendVerifyEmail(
       resendVerifyEmailRequest.email,
     );
   }
 
   @override
-  Future<ForgotPasswordResponse> forgotPassword(ForgotPasswordRequest forgotPasswordRequest) async {
-    return await _appServiceClient.forgotPassword(
-      forgotPasswordRequest.email,
-    );
+  Future<ForgotPasswordResponse> forgotPassword(
+    ForgotPasswordRequest forgotPasswordRequest,
+  ) async {
+    return await _appServiceClient.forgotPassword(forgotPasswordRequest.email);
   }
 
   @override
-  Future<ResetPasswordResponse> resetPassword(ResetPasswordRequest resetPasswordRequest) async {
+  Future<ResetPasswordResponse> resetPassword(
+    ResetPasswordRequest resetPasswordRequest,
+  ) async {
     return await _appServiceClient.resetPassword(
       resetPasswordRequest.email,
       resetPasswordRequest.code,
       resetPasswordRequest.password,
+    );
+  }
+
+  @override
+  Future<VerifyForgotPasswordResponse> verifyForgotPassword(
+    VerifyForgotPasswordRequest verifyForgotPasswordRequest,
+  ) async {
+    return await _appServiceClient.verifyForgotPassword(
+      verifyForgotPasswordRequest.email,
+      verifyForgotPasswordRequest.code,
     );
   }
 }

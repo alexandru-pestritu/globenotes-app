@@ -106,6 +106,24 @@ Map<String, dynamic> _$ForgotPasswordResponseToJson(
   'message': instance.message,
 };
 
+VerifyForgotPasswordResponse _$VerifyForgotPasswordResponseFromJson(
+  Map<String, dynamic> json,
+) => VerifyForgotPasswordResponse(
+  timeStamp: json['timeStamp'] as String?,
+  statusCode: (json['statusCode'] as num?)?.toInt(),
+  status: json['status'] as String?,
+  message: json['message'] as String?,
+);
+
+Map<String, dynamic> _$VerifyForgotPasswordResponseToJson(
+  VerifyForgotPasswordResponse instance,
+) => <String, dynamic>{
+  'timeStamp': instance.timeStamp,
+  'statusCode': instance.statusCode,
+  'status': instance.status,
+  'message': instance.message,
+};
+
 ResetPasswordResponse _$ResetPasswordResponseFromJson(
   Map<String, dynamic> json,
 ) => ResetPasswordResponse(

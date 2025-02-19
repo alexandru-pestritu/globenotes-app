@@ -27,6 +27,12 @@ class ForgotPasswordRequest {
   ForgotPasswordRequest(this.email);
 }
 
+class VerifyForgotPasswordRequest {
+  String email;
+  String code;
+  VerifyForgotPasswordRequest(this.email, this.code);
+}
+
 class ResetPasswordRequest {
   String email;
   String code;
