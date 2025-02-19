@@ -12,7 +12,7 @@ class RegisterUseCase implements BaseUseCase<RegisterUseCaseInput, bool> {
   @override
   Future<Either<Failure, bool>> execute(RegisterUseCaseInput input) async {
     return await _repository.register(
-      RegisterRequest(input.email, input.password, input.name),
+      RegisterRequest(input.name, input.email, input.password),
     );
   }
 }
@@ -24,5 +24,3 @@ class RegisterUseCaseInput {
 
   RegisterUseCaseInput(this.email, this.password, this.name);
 }
-
-

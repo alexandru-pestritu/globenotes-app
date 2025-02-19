@@ -4,7 +4,7 @@ import 'package:globenotes/presentation/forgot_password/forgot_password.dart';
 import 'package:globenotes/presentation/home/home.dart';
 import 'package:globenotes/presentation/login/login_view.dart';
 import 'package:globenotes/presentation/onboarding/onboarding_view.dart';
-import 'package:globenotes/presentation/register/register.dart';
+import 'package:globenotes/presentation/register/register_view.dart';
 import 'package:globenotes/presentation/reset_password/reset_password.dart';
 import 'package:globenotes/presentation/resources/strings_manager.dart';
 import 'package:globenotes/presentation/splash/splash_view.dart';
@@ -32,6 +32,7 @@ class RouteGenerator {
         initLoginModule();
         return MaterialPageRoute(builder: (_) => LoginView());
       case Routes.registerRoute:
+        initRegisterModule();
         return MaterialPageRoute(builder: (_) => RegisterView());
       case Routes.verifyEmailRoute:
         return MaterialPageRoute(builder: (_) => VerifyEmailView());

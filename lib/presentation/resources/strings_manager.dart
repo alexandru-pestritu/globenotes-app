@@ -10,19 +10,24 @@ class AppStrings {
   static const String onBoardingSubTitle3 =
       "Turn your travel journals into beautifully designed PDFs, ready for printing or sharing. Choose from customizable templates for a unique keepsake!";
   static const String skip = "Skip";
+  static const String name = "Name";
   static const String email = "Email";
   static const String emailError = "Email can't be empty";
   static const String passwordError = "Password can't be empty";
   static const String password = "Password";
   static const String login = "Login";
+  static const String register = "Register";
   static const String forgetPassword = "Forgot your password?";
   static const String dontHaveAccount = "Don't have an account? ";
+  static const String alreadyHaveAccount = "Already have an account? ";
+  static const String signIn = "Sign in";
   static const String signUp = "Sign up";
   static const String or = "or";
   static const String english = "English";
   static const String romanian = "Romanian";
   static const String continueWithGoogle = "Continue with Google";
   static const String continueWithFacebook = "Continue with Facebook";
+  static const String enterYourName = "Enter your name";
   static const String enterYourEmail = "Enter your email";
   static const String enterYourPassword = "Enter your password";
   static const String retry = "Retry";

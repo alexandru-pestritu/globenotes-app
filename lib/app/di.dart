@@ -8,7 +8,9 @@ import 'package:globenotes/data/network/network_info.dart';
 import 'package:globenotes/data/repository/repository_impl.dart';
 import 'package:globenotes/domain/repository/repository.dart';
 import 'package:globenotes/domain/usecase/login_usecase.dart';
+import 'package:globenotes/domain/usecase/register_usecase.dart';
 import 'package:globenotes/presentation/login/login_viewmodel.dart';
+import 'package:globenotes/presentation/register/register_viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final instance = GetIt.instance;
@@ -20,12 +22,14 @@ Future<void> initAppModule() async {
   instance.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
 
   // app preferences instance
-  instance
-      .registerLazySingleton<AppPreferences>(() => AppPreferences(instance()));
+  instance.registerLazySingleton<AppPreferences>(
+    () => AppPreferences(instance()),
+  );
 
   // network info instance
   instance.registerLazySingleton<NetworkInfo>(
-      () => NetworkInfoImpl(Connectivity()));
+    () => NetworkInfoImpl(Connectivity()),
+  );
 
   // dio factory
   instance.registerLazySingleton<DioFactory>(() => DioFactory(instance()));
@@ -36,16 +40,29 @@ Future<void> initAppModule() async {
 
   // remote data source
   instance.registerLazySingleton<RemoteDataSource>(
-      () => RemoteDataSourceImplementer(instance()));
+    () => RemoteDataSourceImplementer(instance()),
+  );
 
   // repository
   instance.registerLazySingleton<Repository>(
-      () => RepositoryImpl(instance(), instance()));
+    () => RepositoryImpl(instance(), instance()),
+  );
 }
 
-initLoginModule(){
-  if(!GetIt.I.isRegistered<LoginUseCase>()){
+initLoginModule() {
+  if (!GetIt.I.isRegistered<LoginUseCase>()) {
     instance.registerFactory<LoginUseCase>(() => LoginUseCase(instance()));
     instance.registerFactory<LoginViewModel>(() => LoginViewModel(instance()));
+  }
+}
+
+initRegisterModule() {
+  if (!GetIt.I.isRegistered<RegisterUseCase>()) {
+    instance.registerFactory<RegisterUseCase>(
+      () => RegisterUseCase(instance()),
+    );
+    instance.registerFactory<RegisterViewModel>(
+      () => RegisterViewModel(instance()),
+    );
   }
 }
