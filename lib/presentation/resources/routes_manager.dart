@@ -7,7 +7,7 @@ import 'package:globenotes/presentation/onboarding/onboarding_view.dart';
 import 'package:globenotes/presentation/register/register.dart';
 import 'package:globenotes/presentation/reset_password/reset_password.dart';
 import 'package:globenotes/presentation/resources/strings_manager.dart';
-import 'package:globenotes/presentation/splash/splash.dart';
+import 'package:globenotes/presentation/splash/splash_view.dart';
 import 'package:globenotes/presentation/verify_email/verify_email.dart';
 
 class Routes {

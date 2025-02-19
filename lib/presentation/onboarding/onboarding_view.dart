@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:globenotes/app/app_preferences.dart';
+import 'package:globenotes/app/di.dart';
 import 'package:globenotes/domain/model/model.dart';
 import 'package:globenotes/presentation/resources/color_manager.dart';
 import 'package:globenotes/presentation/resources/routes_manager.dart';
@@ -18,10 +20,12 @@ class OnboardingView extends StatefulWidget {
 class _OnboardingViewState extends State<OnboardingView> {
   final PageController _pageController = PageController(initialPage: 0);
   final OnBoardingViewModel _viewModel = OnBoardingViewModel();
+  final AppPreferences _appPreferences = instance<AppPreferences>();
 
   @override
   void initState() {
     super.initState();
+    _appPreferences.setOnBoardingScreenViewed();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _viewModel.start();
     });
