@@ -11,11 +11,13 @@ import 'package:globenotes/domain/usecase/forgot_password_usecase.dart';
 import 'package:globenotes/domain/usecase/login_usecase.dart';
 import 'package:globenotes/domain/usecase/register_usecase.dart';
 import 'package:globenotes/domain/usecase/resend_verify_email_usecase.dart';
+import 'package:globenotes/domain/usecase/reset_password_usecase.dart';
 import 'package:globenotes/domain/usecase/verify_email_usecase.dart';
 import 'package:globenotes/domain/usecase/verify_forgot_password_usecase.dart';
 import 'package:globenotes/presentation/forgot_password/forgot_password_viewmodel.dart';
 import 'package:globenotes/presentation/login/login_viewmodel.dart';
 import 'package:globenotes/presentation/register/register_viewmodel.dart';
+import 'package:globenotes/presentation/reset_password/reset_password_viewmodel.dart';
 import 'package:globenotes/presentation/verify_email/verify_email_viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -118,6 +120,17 @@ initVerifyEmailModule() {
         getIt<VerifyEmailUseCase>(),
         getIt<ResendVerifyEmailUseCase>(),
       ),
+    );
+  }
+}
+
+initResetPasswordModule() {
+  if (!GetIt.I.isRegistered<ResetPasswordUseCase>()) {
+    instance.registerFactory<ResetPasswordUseCase>(
+      () => ResetPasswordUseCase(instance()),
+    );
+    instance.registerFactory<ResetPasswordViewModel>(
+      () => ResetPasswordViewModel(instance()),
     );
   }
 }

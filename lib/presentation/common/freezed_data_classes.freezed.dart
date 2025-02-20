@@ -948,6 +948,7 @@ mixin _$ResetPasswordObject {
   String get email => throw _privateConstructorUsedError;
   String get code => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
+  String get confirmPassword => throw _privateConstructorUsedError;
 
   /// Create a copy of ResetPasswordObject
   /// with the given fields replaced by the non-null parameter values.
@@ -963,7 +964,12 @@ abstract class $ResetPasswordObjectCopyWith<$Res> {
     $Res Function(ResetPasswordObject) then,
   ) = _$ResetPasswordObjectCopyWithImpl<$Res, ResetPasswordObject>;
   @useResult
-  $Res call({String email, String code, String password});
+  $Res call({
+    String email,
+    String code,
+    String password,
+    String confirmPassword,
+  });
 }
 
 /// @nodoc
@@ -984,6 +990,7 @@ class _$ResetPasswordObjectCopyWithImpl<$Res, $Val extends ResetPasswordObject>
     Object? email = null,
     Object? code = null,
     Object? password = null,
+    Object? confirmPassword = null,
   }) {
     return _then(
       _value.copyWith(
@@ -1002,6 +1009,11 @@ class _$ResetPasswordObjectCopyWithImpl<$Res, $Val extends ResetPasswordObject>
                     ? _value.password
                     : password // ignore: cast_nullable_to_non_nullable
                         as String,
+            confirmPassword:
+                null == confirmPassword
+                    ? _value.confirmPassword
+                    : confirmPassword // ignore: cast_nullable_to_non_nullable
+                        as String,
           )
           as $Val,
     );
@@ -1017,7 +1029,12 @@ abstract class _$$ResetPasswordObjectImplCopyWith<$Res>
   ) = __$$ResetPasswordObjectImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String email, String code, String password});
+  $Res call({
+    String email,
+    String code,
+    String password,
+    String confirmPassword,
+  });
 }
 
 /// @nodoc
@@ -1037,6 +1054,7 @@ class __$$ResetPasswordObjectImplCopyWithImpl<$Res>
     Object? email = null,
     Object? code = null,
     Object? password = null,
+    Object? confirmPassword = null,
   }) {
     return _then(
       _$ResetPasswordObjectImpl(
@@ -1052,6 +1070,10 @@ class __$$ResetPasswordObjectImplCopyWithImpl<$Res>
             ? _value.password
             : password // ignore: cast_nullable_to_non_nullable
                 as String,
+        null == confirmPassword
+            ? _value.confirmPassword
+            : confirmPassword // ignore: cast_nullable_to_non_nullable
+                as String,
       ),
     );
   }
@@ -1060,7 +1082,12 @@ class __$$ResetPasswordObjectImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ResetPasswordObjectImpl implements _ResetPasswordObject {
-  _$ResetPasswordObjectImpl(this.email, this.code, this.password);
+  _$ResetPasswordObjectImpl(
+    this.email,
+    this.code,
+    this.password,
+    this.confirmPassword,
+  );
 
   @override
   final String email;
@@ -1068,10 +1095,12 @@ class _$ResetPasswordObjectImpl implements _ResetPasswordObject {
   final String code;
   @override
   final String password;
+  @override
+  final String confirmPassword;
 
   @override
   String toString() {
-    return 'ResetPasswordObject(email: $email, code: $code, password: $password)';
+    return 'ResetPasswordObject(email: $email, code: $code, password: $password, confirmPassword: $confirmPassword)';
   }
 
   @override
@@ -1082,11 +1111,14 @@ class _$ResetPasswordObjectImpl implements _ResetPasswordObject {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.password, password) ||
-                other.password == password));
+                other.password == password) &&
+            (identical(other.confirmPassword, confirmPassword) ||
+                other.confirmPassword == confirmPassword));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, email, code, password);
+  int get hashCode =>
+      Object.hash(runtimeType, email, code, password, confirmPassword);
 
   /// Create a copy of ResetPasswordObject
   /// with the given fields replaced by the non-null parameter values.
@@ -1105,6 +1137,7 @@ abstract class _ResetPasswordObject implements ResetPasswordObject {
     final String email,
     final String code,
     final String password,
+    final String confirmPassword,
   ) = _$ResetPasswordObjectImpl;
 
   @override
@@ -1113,6 +1146,8 @@ abstract class _ResetPasswordObject implements ResetPasswordObject {
   String get code;
   @override
   String get password;
+  @override
+  String get confirmPassword;
 
   /// Create a copy of ResetPasswordObject
   /// with the given fields replaced by the non-null parameter values.

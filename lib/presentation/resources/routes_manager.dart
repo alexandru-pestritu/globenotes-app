@@ -6,7 +6,7 @@ import 'package:globenotes/presentation/home/home.dart';
 import 'package:globenotes/presentation/login/login_view.dart';
 import 'package:globenotes/presentation/onboarding/onboarding_view.dart';
 import 'package:globenotes/presentation/register/register_view.dart';
-import 'package:globenotes/presentation/reset_password/reset_password.dart';
+import 'package:globenotes/presentation/reset_password/reset_password_view.dart';
 import 'package:globenotes/presentation/resources/strings_manager.dart';
 import 'package:globenotes/presentation/resources/values_manager.dart';
 import 'package:globenotes/presentation/splash/splash_view.dart';
@@ -52,7 +52,17 @@ class RouteGenerator {
         initForgotPasswordModule();
         return MaterialPageRoute(builder: (_) => ForgotPasswordView());
       case Routes.resetPasswordRoute:
-        return MaterialPageRoute(builder: (_) => ResetPasswordView());
+        initResetPasswordModule();
+        final args = routeSettings.arguments;
+        if (args != null && args is Map<String, dynamic>) {
+          final email = args[RouteParameter.email] ?? empty;
+          final code = args[RouteParameter.code] ?? empty;
+          return MaterialPageRoute(
+            builder: (_) => ResetPasswordView(email: email, code: code),
+          );
+        } else {
+          return unDefinedRoute();
+        }
       case Routes.homeRoute:
         return MaterialPageRoute(builder: (_) => HomeView());
       default:

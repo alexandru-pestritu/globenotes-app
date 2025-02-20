@@ -42,4 +42,13 @@ class AppStrings {
   static const String resendOTP = "Resend OTP";
   static const String verifyEmailTitle = "Enter OTP";
   static const String verifyEmailSubtitle = "A 4 digit OTP has been sent to";
+  static const String reset = "Reset";
+  static const String resetPasswordTitle = "Reset Your Password";
+  static const String resetPasswordSubtitle =
+      "Now you can reset your old password.";
+  static const String enterNewPassword = "Enter new password";
+  static const String confirmNewPassword = "Confirm new password";
+  static const String newPassword = "New password";
+  static const String confirmPassword = "Confirm password";
+  static const String change = "Change";
 }
