@@ -5,24 +5,24 @@ import 'package:globenotes/domain/repository/repository.dart';
 import 'package:globenotes/domain/usecase/base_usecase.dart';
 
 class VerifyForgotPasswordUseCase
-    implements BaseUseCase<VerifyForgotPasswordUseCaseUseCaseInput, bool> {
+    implements BaseUseCase<VerifyForgotPasswordUseCaseInput, bool> {
   final Repository _repository;
 
   VerifyForgotPasswordUseCase(this._repository);
 
   @override
   Future<Either<Failure, bool>> execute(
-    VerifyForgotPasswordUseCaseUseCaseInput input,
+    VerifyForgotPasswordUseCaseInput input,
   ) async {
-    return await _repository.verifyEmail(
-      VerifyEmailRequest(input.email, input.code),
+    return await _repository.verifyForgotPassword(
+      VerifyForgotPasswordRequest(input.email, input.code),
     );
   }
 }
 
-class VerifyForgotPasswordUseCaseUseCaseInput {
+class VerifyForgotPasswordUseCaseInput {
   String email;
   String code;
 
-  VerifyForgotPasswordUseCaseUseCaseInput(this.email, this.code);
+  VerifyForgotPasswordUseCaseInput(this.email, this.code);
 }

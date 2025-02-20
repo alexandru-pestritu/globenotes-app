@@ -10,9 +10,13 @@ import 'package:globenotes/domain/repository/repository.dart';
 import 'package:globenotes/domain/usecase/forgot_password_usecase.dart';
 import 'package:globenotes/domain/usecase/login_usecase.dart';
 import 'package:globenotes/domain/usecase/register_usecase.dart';
+import 'package:globenotes/domain/usecase/resend_verify_email_usecase.dart';
+import 'package:globenotes/domain/usecase/verify_email_usecase.dart';
+import 'package:globenotes/domain/usecase/verify_forgot_password_usecase.dart';
 import 'package:globenotes/presentation/forgot_password/forgot_password_viewmodel.dart';
 import 'package:globenotes/presentation/login/login_viewmodel.dart';
 import 'package:globenotes/presentation/register/register_viewmodel.dart';
+import 'package:globenotes/presentation/verify_email/verify_email_viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final instance = GetIt.instance;
@@ -76,6 +80,44 @@ initForgotPasswordModule() {
     );
     instance.registerFactory<ForgotPasswordViewModel>(
       () => ForgotPasswordViewModel(instance()),
+    );
+  }
+}
+
+initVerifyEmailModule() {
+  final getIt = GetIt.instance;
+  if (!getIt.isRegistered<ForgotPasswordUseCase>()) {
+    getIt.registerFactory<ForgotPasswordUseCase>(
+      () => ForgotPasswordUseCase(getIt()),
+    );
+  }
+
+  if (!getIt.isRegistered<VerifyForgotPasswordUseCase>()) {
+    getIt.registerFactory<VerifyForgotPasswordUseCase>(
+      () => VerifyForgotPasswordUseCase(getIt()),
+    );
+  }
+
+  if (!getIt.isRegistered<VerifyEmailUseCase>()) {
+    getIt.registerFactory<VerifyEmailUseCase>(
+      () => VerifyEmailUseCase(getIt()),
+    );
+  }
+
+  if (!getIt.isRegistered<ResendVerifyEmailUseCase>()) {
+    getIt.registerFactory<ResendVerifyEmailUseCase>(
+      () => ResendVerifyEmailUseCase(getIt()),
+    );
+  }
+
+  if (!getIt.isRegistered<VerifyEmailViewModel>()) {
+    getIt.registerFactory<VerifyEmailViewModel>(
+      () => VerifyEmailViewModel(
+        getIt<ForgotPasswordUseCase>(),
+        getIt<VerifyForgotPasswordUseCase>(),
+        getIt<VerifyEmailUseCase>(),
+        getIt<ResendVerifyEmailUseCase>(),
+      ),
     );
   }
 }

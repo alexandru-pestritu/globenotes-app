@@ -8,7 +8,7 @@ import 'package:globenotes/presentation/register/register_view.dart';
 import 'package:globenotes/presentation/reset_password/reset_password.dart';
 import 'package:globenotes/presentation/resources/strings_manager.dart';
 import 'package:globenotes/presentation/splash/splash_view.dart';
-import 'package:globenotes/presentation/verify_email/verify_email.dart';
+import 'package:globenotes/presentation/verify_email/verify_email_view.dart';
 
 class Routes {
   static const String splashRoute = "/";
@@ -35,7 +35,17 @@ class RouteGenerator {
         initRegisterModule();
         return MaterialPageRoute(builder: (_) => RegisterView());
       case Routes.verifyEmailRoute:
-        return MaterialPageRoute(builder: (_) => VerifyEmailView());
+        initVerifyEmailModule();
+        final args = routeSettings.arguments;
+        if (args != null && args is Map<String, dynamic>) {
+          final email = args["email"] ?? "";
+          final flow = args["flow"] ?? "";
+          return MaterialPageRoute(
+            builder: (_) => VerifyEmailView(email: email, flow: flow),
+          );
+        } else {
+          return unDefinedRoute();
+        }
       case Routes.forgotPasswordRoute:
         initForgotPasswordModule();
         return MaterialPageRoute(builder: (_) => ForgotPasswordView());

@@ -38,4 +38,8 @@ class AppStrings {
       "Don’t worry, it happens! Please enter the email associated with your account.";
   static const String forgot = "Forgot";
   static const String sendOtpCode = "Send OTP Code";
+  static const String verify = "Verify";
+  static const String resendOTP = "Resend OTP";
+  static const String verifyEmailTitle = "Enter OTP";
+  static const String verifyEmailSubtitle = "A 4 digit OTP has been sent to";
 }
