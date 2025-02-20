@@ -17,8 +17,8 @@ class VerifyEmailViewModel extends BaseViewModel
   final StreamController _isAllInputsValidStreamController =
       StreamController<void>.broadcast();
 
-  final StreamController<int> _resendCountDownStreamController =
-      StreamController<int>.broadcast();
+  final StreamController<String> _resendCountDownStreamController =
+      StreamController<String>.broadcast();
 
   final StreamController<bool> _isResendEnabledStreamController =
       StreamController<bool>.broadcast();
@@ -199,7 +199,7 @@ class VerifyEmailViewModel extends BaseViewModel
       _isAllInputsValidStreamController.stream.map((_) => _isAllInputsValid());
 
   @override
-  Stream<int> get outputResendCountDown =>
+  Stream<String> get outputResendCountDown =>
       _resendCountDownStreamController.stream;
 
   @override
@@ -209,17 +209,23 @@ class VerifyEmailViewModel extends BaseViewModel
   Stream<Map<String, dynamic>> get onVerifySuccessStream =>
       _onVerifySuccessController.stream;
 
+  String formatTime(int seconds) {
+    final minutes = (seconds ~/ 60).toString().padLeft(2, '0');
+    final remainingSeconds = (seconds % 60).toString().padLeft(2, '0');
+    return "$minutes:$remainingSeconds";
+  }
+
   void _startResendTimer() {
     _isResendEnabled = false;
     inputIsResendEnabled.add(false);
 
     _resendTimer?.cancel();
     _resendCountDown = 60;
-    inputResendCountDown.add(_resendCountDown);
+    inputResendCountDown.add(formatTime(_resendCountDown));
 
     _resendTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       _resendCountDown--;
-      inputResendCountDown.add(_resendCountDown);
+      inputResendCountDown.add(formatTime(_resendCountDown));
 
       if (_resendCountDown <= 0) {
         timer.cancel();
@@ -258,6 +264,6 @@ mixin VerifyEmailViewModelInputs {
 mixin VerifyEmailViewModelOutputs {
   Stream<bool> get outputIsOtpValid;
   Stream<bool> get outputIsAllInputsValid;
-  Stream<int> get outputResendCountDown;
+  Stream<String> get outputResendCountDown;
   Stream<bool> get outputIsResendEnabled;
 }

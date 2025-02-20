@@ -269,10 +269,10 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
             ),
             SizedBox(height: AppSize.s16),
 
-            StreamBuilder<int>(
+            StreamBuilder<String>(
               stream: _viewModel.outputResendCountDown,
               builder: (context, snapshot) {
-                final secondsLeft = snapshot.data ?? 60;
+                final formattedTime = snapshot.data ?? "01:00";
                 return StreamBuilder<bool>(
                   stream: _viewModel.outputIsResendEnabled,
                   builder: (context, snapshot2) {
@@ -304,7 +304,7 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
                               );
                             },
                             child: Text(
-                              "(00:$secondsLeft)",
+                              "($formattedTime)",
                               style: textTheme.titleSmall?.copyWith(
                                 color: ColorManager.grey,
                                 fontWeight: FontWeight.w600,
