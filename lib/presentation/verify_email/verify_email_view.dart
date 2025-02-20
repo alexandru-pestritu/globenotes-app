@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:globenotes/app/di.dart';
+import 'package:globenotes/app/extensions.dart';
 import 'package:globenotes/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:globenotes/presentation/resources/assets_manager.dart';
 import 'package:globenotes/presentation/resources/color_manager.dart';
@@ -44,20 +45,23 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
     _viewModel.init(widget.email, widget.flow);
 
     _viewModel.onVerifySuccessStream.listen((event) {
-      final flowType = event["flow"] as String;
-      final emailArg = event["email"] as String;
+      final flowType = event[RouteParameter.flow] as String;
+      final emailArg = event[RouteParameter.email] as String;
 
-      if (flowType == "register") {
+      if (flowType == VerifyFlowType.register) {
         SchedulerBinding.instance.addPostFrameCallback((_) {
           Navigator.pushReplacementNamed(context, Routes.loginRoute);
         });
       } else {
-        final code = event["code"] as String;
+        final code = event[RouteParameter.code] as String;
         SchedulerBinding.instance.addPostFrameCallback((_) {
           Navigator.pushReplacementNamed(
             context,
             Routes.resetPasswordRoute,
-            arguments: {"email": emailArg, "code": code},
+            arguments: {
+              RouteParameter.email: emailArg,
+              RouteParameter.code: code,
+            },
           );
         });
       }
@@ -86,7 +90,7 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
       TextEditingController controller,
       FocusNode currentFocus,
       FocusNode? nextFocus,
-      FocusNode? previousFocus, // Adăugat pentru backspace
+      FocusNode? previousFocus,
     ) {
       if (value.isNotEmpty) {
         if (nextFocus != null) {
@@ -95,7 +99,6 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
           currentFocus.unfocus();
         }
       } else {
-        // Dacă utilizatorul șterge și câmpul este gol, mută focusul la cel anterior
         if (previousFocus != null) {
           FocusScope.of(context).requestFocus(previousFocus);
         }
@@ -136,8 +139,8 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
     onChanged,
   ) {
     return SizedBox(
-      width: 65,
-      height: 50,
+      width: AppSize.s65,
+      height: AppSize.s50,
       child: TextField(
         controller: controller,
         focusNode: currentFocus,
@@ -154,7 +157,7 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
               previousFocus,
             ),
         decoration: InputDecoration(
-          counterText: "",
+          counterText: empty,
           border: OutlineInputBorder(),
           contentPadding: EdgeInsets.fromLTRB(
             AppPadding.p12,
@@ -179,7 +182,7 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios),
               onPressed: () {
-                if (widget.flow == "register") {
+                if (widget.flow == VerifyFlowType.register) {
                   Navigator.pushReplacementNamed(context, Routes.registerRoute);
                 } else {
                   Navigator.pushReplacementNamed(

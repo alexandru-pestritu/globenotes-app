@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:globenotes/app/di.dart';
+import 'package:globenotes/app/extensions.dart';
 import 'package:globenotes/presentation/forgot_password/forgot_password_view.dart';
 import 'package:globenotes/presentation/home/home.dart';
 import 'package:globenotes/presentation/login/login_view.dart';
@@ -7,6 +8,7 @@ import 'package:globenotes/presentation/onboarding/onboarding_view.dart';
 import 'package:globenotes/presentation/register/register_view.dart';
 import 'package:globenotes/presentation/reset_password/reset_password.dart';
 import 'package:globenotes/presentation/resources/strings_manager.dart';
+import 'package:globenotes/presentation/resources/values_manager.dart';
 import 'package:globenotes/presentation/splash/splash_view.dart';
 import 'package:globenotes/presentation/verify_email/verify_email_view.dart';
 
@@ -38,8 +40,8 @@ class RouteGenerator {
         initVerifyEmailModule();
         final args = routeSettings.arguments;
         if (args != null && args is Map<String, dynamic>) {
-          final email = args["email"] ?? "";
-          final flow = args["flow"] ?? "";
+          final email = args[RouteParameter.email] ?? empty;
+          final flow = args[RouteParameter.flow] ?? empty;
           return MaterialPageRoute(
             builder: (_) => VerifyEmailView(email: email, flow: flow),
           );

@@ -40,8 +40,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
           Navigator.of(context).pushReplacementNamed(
             Routes.verifyEmailRoute,
             arguments: {
-              "email": _viewModel.forgotPasswordObject.email,
-              "flow": "forgotPassword",
+              RouteParameter.email: _viewModel.forgotPasswordObject.email,
+              RouteParameter.flow: VerifyFlowType.forgotPassword,
             },
           );
         });

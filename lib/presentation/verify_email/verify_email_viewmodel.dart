@@ -7,6 +7,7 @@ import 'package:globenotes/presentation/base/base_viewmodel.dart';
 import 'package:globenotes/presentation/common/freezed_data_classes.dart';
 import 'package:globenotes/presentation/common/state_renderer/state_renderer.dart';
 import 'package:globenotes/presentation/common/state_renderer/state_renderer_impl.dart';
+import 'package:globenotes/presentation/resources/values_manager.dart';
 
 class VerifyEmailViewModel extends BaseViewModel
     with VerifyEmailViewModelInputs, VerifyEmailViewModelOutputs {
@@ -93,7 +94,7 @@ class VerifyEmailViewModel extends BaseViewModel
 
   @override
   void setOtp(String otp) {
-    if (_flow == "register") {
+    if (_flow == VerifyFlowType.register) {
       verifyEmailObject = verifyEmailObject.copyWith(code: otp);
     } else {
       verifyForgotPasswordObject = verifyForgotPasswordObject.copyWith(
@@ -108,7 +109,7 @@ class VerifyEmailViewModel extends BaseViewModel
   Future<void> verify() async {
     inputState.add(LoadingState());
 
-    if (_flow == "register") {
+    if (_flow == VerifyFlowType.register) {
       (await _verifyEmailUseCase.execute(
         VerifyEmailUseCaseInput(
           verifyEmailObject.email,
@@ -123,8 +124,8 @@ class VerifyEmailViewModel extends BaseViewModel
         (success) {
           inputState.add(ContentState());
           _onVerifySuccessController.add({
-            "flow": "register",
-            "email": verifyEmailObject.email,
+            RouteParameter.flow: VerifyFlowType.register,
+            RouteParameter.email: verifyEmailObject.email,
           });
         },
       );
@@ -143,9 +144,9 @@ class VerifyEmailViewModel extends BaseViewModel
         (success) {
           inputState.add(ContentState());
           _onVerifySuccessController.add({
-            "flow": "forgotPassword",
-            "email": verifyForgotPasswordObject.email,
-            "code": verifyForgotPasswordObject.code,
+            RouteParameter.flow: VerifyFlowType.forgotPassword,
+            RouteParameter.email: verifyForgotPasswordObject.email,
+            RouteParameter.code: verifyForgotPasswordObject.code,
           });
         },
       );
@@ -158,7 +159,7 @@ class VerifyEmailViewModel extends BaseViewModel
 
     inputState.add(LoadingState());
 
-    if (_flow == "register") {
+    if (_flow == VerifyFlowType.register) {
       (await _resendVerifyEmailUseCase.execute(
         ResendVerifyEmailUseCaseInput(resendVerifyEmailObject.email),
       )).fold(
@@ -235,7 +236,7 @@ class VerifyEmailViewModel extends BaseViewModel
   bool _isOtpValid(String otp) => otp.length == 4;
 
   bool _isAllInputsValid() {
-    if (_flow == "register") {
+    if (_flow == VerifyFlowType.register) {
       return _isOtpValid(verifyEmailObject.code);
     } else {
       return _isOtpValid(verifyForgotPasswordObject.code);

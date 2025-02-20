@@ -71,3 +71,14 @@ class RegexValidation {
   static const String emailRegex =
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
 }
+
+class VerifyFlowType {
+  static const String register = "register";
+  static const String forgotPassword = "forgotPassword";
+}
+
+class RouteParameter {
+  static const String flow = "flow";
+  static const String email = "email";
+  static const String code = "code";
+}

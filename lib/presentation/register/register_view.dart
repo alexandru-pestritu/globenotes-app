@@ -45,8 +45,8 @@ class _RegisterViewState extends State<RegisterView> {
           Navigator.of(context).pushReplacementNamed(
             Routes.verifyEmailRoute,
             arguments: {
-              "email": _viewModel.registerObject.email,
-              "flow": "register",
+              RouteParameter.email: _viewModel.registerObject.email,
+              RouteParameter.flow: VerifyFlowType.register,
             },
           );
         });
