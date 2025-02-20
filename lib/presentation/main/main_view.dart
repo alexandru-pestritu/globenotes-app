@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:globenotes/presentation/home/home_page.dart';
 import 'package:globenotes/presentation/journals/journals_page.dart';
@@ -59,52 +60,57 @@ class _MainViewState extends State<MainView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _pages[_currentIndex],
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          boxShadow: [BoxShadow(color: ColorManager.grey, blurRadius: 0.1)],
-        ),
-        child: Theme(
-          data: Theme.of(context).copyWith(
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            hoverColor: Colors.transparent,
-          ),
-          child: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            currentIndex: _currentIndex,
-            onTap: _onTap,
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
-            showSelectedLabels: true,
-            showUnselectedLabels: true,
-            items: [
-              _buildNavItem(
-                assetName: IconAssets.home,
-                label: AppStrings.home,
-                index: 0,
-              ),
-              _buildNavItem(
-                assetName: IconAssets.journal,
-                label: AppStrings.journals,
-                index: 1,
-              ),
-              _buildNavItem(
-                assetName: IconAssets.addCircle,
-                label: AppStrings.newMoment,
-                index: 2,
-              ),
-              _buildNavItem(
-                assetName: IconAssets.notifications,
-                label: AppStrings.notifications,
-                index: 3,
-              ),
-              _buildNavItem(
-                assetName: IconAssets.profile,
-                label: AppStrings.profile,
-                index: 4,
-              ),
-            ],
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: isDark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark,
+      child: Scaffold(
+        body: _pages[_currentIndex],
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            boxShadow: [BoxShadow(color: ColorManager.grey, blurRadius: 0.1)],
+          ),
+          child: Theme(
+            data: Theme.of(context).copyWith(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+            ),
+            child: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              currentIndex: _currentIndex,
+              onTap: _onTap,
+
+              showSelectedLabels: true,
+              showUnselectedLabels: true,
+              items: [
+                _buildNavItem(
+                  assetName: IconAssets.home,
+                  label: AppStrings.home,
+                  index: 0,
+                ),
+                _buildNavItem(
+                  assetName: IconAssets.journal,
+                  label: AppStrings.journals,
+                  index: 1,
+                ),
+                _buildNavItem(
+                  assetName: IconAssets.addCircle,
+                  label: AppStrings.newMoment,
+                  index: 2,
+                ),
+                _buildNavItem(
+                  assetName: IconAssets.notifications,
+                  label: AppStrings.notifications,
+                  index: 3,
+                ),
+                _buildNavItem(
+                  assetName: IconAssets.profile,
+                  label: AppStrings.profile,
+                  index: 4,
+                ),
+              ],
+            ),
           ),
         ),
       ),
