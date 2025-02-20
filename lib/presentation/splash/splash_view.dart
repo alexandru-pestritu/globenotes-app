@@ -26,7 +26,7 @@ class _SplashViewState extends State<SplashView> {
     if (!mounted) return;
 
     if (isUserLoggedIn) {
-      Navigator.pushReplacementNamed(context, Routes.homeRoute);
+      Navigator.pushReplacementNamed(context, Routes.mainRoute);
     } else {
       bool isOnBoardingScreenViewed =
           await _appPreferences.isOnBoardingScreenViewed();

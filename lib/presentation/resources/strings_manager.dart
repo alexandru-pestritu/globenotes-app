@@ -51,4 +51,9 @@ class AppStrings {
   static const String newPassword = "New password";
   static const String confirmPassword = "Confirm password";
   static const String change = "Change";
+  static const String home = "Home";
+  static const String journals = "Journals";
+  static const String newMoment = "New Moment";
+  static const String notifications = "Notifications";
+  static const String profile = "Profile";
 }

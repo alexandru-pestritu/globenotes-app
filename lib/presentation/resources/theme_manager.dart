@@ -161,6 +161,21 @@ ThemeData getApplicationLightTheme() {
     ),
     fontFamily: FontConstants.fontFamily,
     iconTheme: IconThemeData(color: ColorManager.lightBlack),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: ColorManager.white,
+      selectedItemColor: ColorManager.primary,
+      unselectedItemColor: ColorManager.darkGrey,
+      selectedLabelStyle: getMediumStyle(
+        fontSize: FontSize.s10,
+        color: ColorManager.primary,
+      ),
+      unselectedLabelStyle: getMediumStyle(
+        fontSize: FontSize.s10,
+        color: ColorManager.darkGrey,
+      ),
+      type: BottomNavigationBarType.fixed,
+      enableFeedback: false,
+    ),
   );
 }
 
@@ -302,5 +317,20 @@ ThemeData getApplicationDarkTheme() {
     ),
     fontFamily: FontConstants.fontFamily,
     iconTheme: IconThemeData(color: ColorManager.white),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: Colors.grey[850],
+      selectedItemColor: ColorManager.primary,
+      unselectedItemColor: ColorManager.darkGrey,
+      selectedLabelStyle: getMediumStyle(
+        fontSize: FontSize.s10,
+        color: ColorManager.primary,
+      ),
+      unselectedLabelStyle: getMediumStyle(
+        fontSize: FontSize.s10,
+        color: ColorManager.darkGrey,
+      ),
+      type: BottomNavigationBarType.fixed,
+      enableFeedback: false,
+    ),
   );
 }

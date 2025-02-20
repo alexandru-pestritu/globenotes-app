@@ -93,6 +93,11 @@ flutter:
     - assets/images/verify_email_illustration.svg
     - assets/images/forgot_password_illustration.svg
     - assets/images/reset_password_illustration.svg
+    - assets/icons/home.svg
+    - assets/icons/journal.svg
+    - assets/icons/add_circle.svg
+    - assets/icons/notifications.svg
+    - assets/icons/profile.svg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
