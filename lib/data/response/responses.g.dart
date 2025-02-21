@@ -6,12 +6,12 @@ part of 'responses.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-LoginData _$LoginDataFromJson(Map<String, dynamic> json) => LoginData(
+AuthData _$AuthDataFromJson(Map<String, dynamic> json) => AuthData(
   accessToken: json['access_token'] as String?,
   refreshToken: json['refresh_token'] as String?,
 );
 
-Map<String, dynamic> _$LoginDataToJson(LoginData instance) => <String, dynamic>{
+Map<String, dynamic> _$AuthDataToJson(AuthData instance) => <String, dynamic>{
   'access_token': instance.accessToken,
   'refresh_token': instance.refreshToken,
 };
@@ -25,7 +25,7 @@ LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) =>
       data:
           json['data'] == null
               ? null
-              : LoginData.fromJson(json['data'] as Map<String, dynamic>),
+              : AuthData.fromJson(json['data'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
@@ -140,4 +140,27 @@ Map<String, dynamic> _$ResetPasswordResponseToJson(
   'statusCode': instance.statusCode,
   'status': instance.status,
   'message': instance.message,
+};
+
+RefreshTokenResponse _$RefreshTokenResponseFromJson(
+  Map<String, dynamic> json,
+) => RefreshTokenResponse(
+  timeStamp: json['timeStamp'] as String?,
+  statusCode: (json['statusCode'] as num?)?.toInt(),
+  status: json['status'] as String?,
+  message: json['message'] as String?,
+  data:
+      json['data'] == null
+          ? null
+          : AuthData.fromJson(json['data'] as Map<String, dynamic>),
+);
+
+Map<String, dynamic> _$RefreshTokenResponseToJson(
+  RefreshTokenResponse instance,
+) => <String, dynamic>{
+  'timeStamp': instance.timeStamp,
+  'statusCode': instance.statusCode,
+  'status': instance.status,
+  'message': instance.message,
+  'data': instance.data,
 };

@@ -3,24 +3,24 @@ import 'package:json_annotation/json_annotation.dart';
 part 'responses.g.dart';
 
 @JsonSerializable()
-class LoginData {
+class AuthData {
   @JsonKey(name: "access_token")
   String? accessToken;
 
   @JsonKey(name: "refresh_token")
   String? refreshToken;
 
-  LoginData({this.accessToken, this.refreshToken});
+  AuthData({this.accessToken, this.refreshToken});
 
-  factory LoginData.fromJson(Map<String, dynamic> json) =>
-      _$LoginDataFromJson(json);
-  Map<String, dynamic> toJson() => _$LoginDataToJson(this);
+  factory AuthData.fromJson(Map<String, dynamic> json) =>
+      _$AuthDataFromJson(json);
+  Map<String, dynamic> toJson() => _$AuthDataToJson(this);
 }
 
 @JsonSerializable()
 class LoginResponse extends BaseResponse {
   @JsonKey(name: "data")
-  LoginData? data;
+  AuthData? data;
 
   LoginResponse({
     super.timeStamp,
@@ -131,4 +131,24 @@ class ResetPasswordResponse extends BaseResponse {
 
   @override
   Map<String, dynamic> toJson() => _$ResetPasswordResponseToJson(this);
+}
+
+@JsonSerializable()
+class RefreshTokenResponse extends BaseResponse {
+  @JsonKey(name: "data")
+  AuthData? data;
+
+  RefreshTokenResponse({
+    super.timeStamp,
+    super.statusCode,
+    super.status,
+    super.message,
+    this.data,
+  });
+
+  factory RefreshTokenResponse.fromJson(Map<String, dynamic> json) =>
+      _$RefreshTokenResponseFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$RefreshTokenResponseToJson(this);
 }

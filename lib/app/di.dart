@@ -38,13 +38,25 @@ Future<void> initAppModule() async {
     () => AppPreferences(instance()),
   );
 
+  // flutter secure storage instance
+  instance.registerLazySingleton<FlutterSecureStorage>(
+    () => FlutterSecureStorage(),
+  );
+
+  //secure storage local data source
+  instance.registerLazySingleton<SecureStorageLocalDataSource>(
+    () => SecureStorageLocalDataSourceImpl(instance()),
+  );
+
   // network info instance
   instance.registerLazySingleton<NetworkInfo>(
     () => NetworkInfoImpl(Connectivity()),
   );
 
   // dio factory
-  instance.registerLazySingleton<DioFactory>(() => DioFactory(instance()));
+  instance.registerLazySingleton<DioFactory>(
+    () => DioFactory(instance(), instance()),
+  );
 
   // app  service client
   final dio = await instance<DioFactory>().getDio();
@@ -58,16 +70,6 @@ Future<void> initAppModule() async {
   // social login local data source
   instance.registerLazySingleton<SocialAuthLocalDataSource>(
     () => SocialAuthLocalDataSourceImpl(),
-  );
-
-  // flutter secure storage instance
-  instance.registerLazySingleton<FlutterSecureStorage>(
-    () => FlutterSecureStorage(),
-  );
-
-  //secure storage local data source
-  instance.registerLazySingleton<SecureStorageLocalDataSource>(
-    () => SecureStorageLocalDataSourceImpl(instance()),
   );
 
   // repository

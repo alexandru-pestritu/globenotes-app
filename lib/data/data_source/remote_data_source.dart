@@ -41,9 +41,7 @@ class RemoteDataSourceImplementer implements RemoteDataSource {
   Future<LoginResponse> loginWithGoogle(
     SocialLoginRequest socialLoginRequest,
   ) async {
-    return await _appServiceClient.loginWithGoogle(
-      socialLoginRequest.idToken,
-    );
+    return await _appServiceClient.loginWithGoogle(socialLoginRequest.idToken);
   }
 
   @override

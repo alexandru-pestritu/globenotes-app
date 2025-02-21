@@ -2,7 +2,7 @@ import 'package:globenotes/app/extensions.dart';
 import 'package:globenotes/data/response/responses.dart';
 import 'package:globenotes/domain/model/model.dart';
 
-extension LoginDataMapper on LoginData? {
+extension LoginDataMapper on AuthData? {
   Authentication toDomain() {
     return Authentication(
       this?.accessToken?.orEmpty() ?? empty,
