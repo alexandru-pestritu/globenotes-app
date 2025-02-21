@@ -1,7 +1,9 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:globenotes/app/app_preferences.dart';
 import 'package:globenotes/data/data_source/remote_data_source.dart';
+import 'package:globenotes/data/data_source/secure_storage_local_data_source.dart';
 import 'package:globenotes/data/data_source/social_auth_local_data_source.dart';
 import 'package:globenotes/data/network/app_api.dart';
 import 'package:globenotes/data/network/dio_factory.dart';
@@ -58,9 +60,19 @@ Future<void> initAppModule() async {
     () => SocialAuthLocalDataSourceImpl(),
   );
 
+  // flutter secure storage instance
+  instance.registerLazySingleton<FlutterSecureStorage>(
+    () => FlutterSecureStorage(),
+  );
+
+  //secure storage local data source
+  instance.registerLazySingleton<SecureStorageLocalDataSource>(
+    () => SecureStorageLocalDataSourceImpl(instance()),
+  );
+
   // repository
   instance.registerLazySingleton<Repository>(
-    () => RepositoryImpl(instance(), instance(), instance()),
+    () => RepositoryImpl(instance(), instance(), instance(), instance()),
   );
 }
 
