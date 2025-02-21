@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:globenotes/presentation/resources/language_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -10,25 +12,33 @@ class AppPreferences {
 
   AppPreferences(this._sharedPreferences);
 
-  Future<String> getAppLanguage() async {
-    String? language = _sharedPreferences.getString(prefKeyLang);
+  Future<Locale> getAppLanguage() async {
+    String? languageCode = _sharedPreferences.getString(prefKeyLang);
 
-    if (language != null && language.isNotEmpty) {
-      return language;
+    if (languageCode != null && languageCode.isNotEmpty) {
+      return AppLanguages.getLocaleFromCode(languageCode);
     } else {
-      return LanguageType.english.getValue();
+      return AppLanguages.english;
     }
   }
 
-   Future<void> setOnBoardingScreenViewed() async {
+  Future<void> setAppLanguage(Locale locale) async {
+    String languageCode = locale.languageCode;
+    await _sharedPreferences.setString(prefKeyLang, languageCode);
+  }
+
+  Future<void> setOnBoardingScreenViewed() async {
     _sharedPreferences.setBool(prefKeyOnboardingScreen, true);
   }
+
   Future<bool> isOnBoardingScreenViewed() async {
     return _sharedPreferences.getBool(prefKeyOnboardingScreen) ?? false;
   }
+
   Future<void> setIsUserLoggedIn() async {
     _sharedPreferences.setBool(prefKeyIsUserLoggedIn, true);
   }
+
   Future<bool> isUserLoggedIn() async {
     return _sharedPreferences.getBool(prefKeyIsUserLoggedIn) ?? false;
   }

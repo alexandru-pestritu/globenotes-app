@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:globenotes/app/app_preferences.dart';
@@ -21,7 +23,9 @@ class DioFactory {
   Future<Dio> getDio() async {
     Dio dio = Dio();
     Duration timeout = Duration(seconds: 60);
-    String language = await _appPreferences.getAppLanguage();
+    Locale appLocale = await _appPreferences.getAppLanguage();
+    String language = appLocale.languageCode;
+
     Map<String, String> headers = {
       contentType: applicationJson,
       accept: applicationJson,
