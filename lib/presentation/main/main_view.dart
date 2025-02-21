@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -86,27 +87,27 @@ class _MainViewState extends State<MainView> {
               items: [
                 _buildNavItem(
                   assetName: IconAssets.home,
-                  label: AppStrings.home,
+                  label: AppStrings.home.tr(),
                   index: 0,
                 ),
                 _buildNavItem(
                   assetName: IconAssets.journal,
-                  label: AppStrings.journals,
+                  label: AppStrings.journals.tr(),
                   index: 1,
                 ),
                 _buildNavItem(
                   assetName: IconAssets.addCircle,
-                  label: AppStrings.newMoment,
+                  label: AppStrings.newMoment.tr(),
                   index: 2,
                 ),
                 _buildNavItem(
                   assetName: IconAssets.notifications,
-                  label: AppStrings.notifications,
+                  label: AppStrings.notifications.tr(),
                   index: 3,
                 ),
                 _buildNavItem(
                   assetName: IconAssets.profile,
-                  label: AppStrings.profile,
+                  label: AppStrings.profile.tr(),
                   index: 4,
                 ),
               ],

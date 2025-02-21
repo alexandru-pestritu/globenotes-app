@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:globenotes/app/extensions.dart';
 import 'package:lottie/lottie.dart';
@@ -45,7 +46,7 @@ class StateRenderer extends StatelessWidget {
         return _getItemsInColumn([
           _getAnimatedImage(animationPath: JsonAssets.error, repeat: false),
           _getMessage(message, context),
-          _getRetryButton(AppStrings.retry, context),
+          _getRetryButton(AppStrings.retry.tr(), context),
         ]);
 
       case StateRendererType.emptyScreenState:

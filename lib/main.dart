@@ -6,6 +6,7 @@ import 'package:globenotes/presentation/resources/language_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   await initAppModule();
   runApp(
     EasyLocalization(

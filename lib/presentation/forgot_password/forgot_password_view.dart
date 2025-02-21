@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/svg.dart';
@@ -72,7 +73,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
             ),
             centerTitle: true,
             title: Text(
-              AppStrings.forgot,
+              AppStrings.forgot.tr(),
               style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
@@ -112,13 +113,13 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
               ),
 
               Text(
-                AppStrings.forgotTitle,
+                AppStrings.forgotTitle.tr(),
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
               SizedBox(height: AppSize.s15),
               Text(
-                AppStrings.forgotSubTitle,
+                AppStrings.forgotSubTitle.tr(),
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
@@ -126,7 +127,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  AppStrings.enterYourEmail,
+                  AppStrings.enterYourEmail.tr(),
                   style: textTheme.titleSmall,
                 ),
               ),
@@ -140,7 +141,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                      hintText: AppStrings.email,
+                      hintText: AppStrings.email.tr(),
                       suffixIcon: Icon(
                         Icons.check_circle,
                         size: AppSize.s18,
@@ -163,7 +164,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                     child: ElevatedButton(
                       onPressed:
                           isAllValid ? () => _viewModel.forgotPassword() : null,
-                      child: Text(AppStrings.sendOtpCode),
+                      child: Text(AppStrings.sendOtpCode.tr()),
                     ),
                   );
                 },

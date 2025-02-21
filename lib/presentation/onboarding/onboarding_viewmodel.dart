@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:globenotes/domain/model/model.dart';
 import 'package:globenotes/presentation/base/base_viewmodel.dart';
 import 'package:globenotes/presentation/resources/assets_manager.dart';
@@ -11,8 +12,6 @@ class OnBoardingViewModel extends BaseViewModel
 
   late final List<SliderObject> _list;
   int _currentIndex = 0;
-
-  // Inputs
 
   @override
   void start() {
@@ -52,28 +51,24 @@ class OnBoardingViewModel extends BaseViewModel
   @override
   Sink get inputSliderViewObject => _streamController.sink;
 
-  // Outputs
-
   @override
   Stream<SliderViewObject> get outputSliderViewObject =>
       _streamController.stream.map((sliderViewObject) => sliderViewObject);
 
-  // Private methods
-
   List<SliderObject> _getSliderData() => [
     SliderObject(
-      AppStrings.onBoardingTitle1,
-      AppStrings.onBoardingSubTitle1,
+      AppStrings.onBoardingTitle1.tr(),
+      AppStrings.onBoardingSubTitle1.tr(),
       ImageAssets.onboardingIllustration1,
     ),
     SliderObject(
-      AppStrings.onBoardingTitle2,
-      AppStrings.onBoardingSubTitle2,
+      AppStrings.onBoardingTitle2.tr(),
+      AppStrings.onBoardingSubTitle2.tr(),
       ImageAssets.onboardingIllustration2,
     ),
     SliderObject(
-      AppStrings.onBoardingTitle3,
-      AppStrings.onBoardingSubTitle3,
+      AppStrings.onBoardingTitle3.tr(),
+      AppStrings.onBoardingSubTitle3.tr(),
       ImageAssets.onboardingIllustration3,
     ),
   ];

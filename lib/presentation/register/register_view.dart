@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -87,7 +88,7 @@ class _RegisterViewState extends State<RegisterView> {
             ),
             centerTitle: true,
             title: Text(
-              AppStrings.signUp,
+              AppStrings.signUp.tr(),
               style: Theme.of(context).textTheme.titleLarge,
             ),
             actions: [
@@ -106,7 +107,7 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                   ),
                   child: Text(
-                    AppStrings.english,
+                    AppStrings.english.tr(),
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       color: ColorManager.primary,
                     ),
@@ -151,7 +152,7 @@ class _RegisterViewState extends State<RegisterView> {
               ),
               SizedBox(height: AppSize.s28),
 
-              Text(AppStrings.enterYourName, style: textTheme.titleSmall),
+              Text(AppStrings.enterYourName.tr(), style: textTheme.titleSmall),
               SizedBox(height: AppSize.s8),
 
               StreamBuilder<bool>(
@@ -162,7 +163,7 @@ class _RegisterViewState extends State<RegisterView> {
                     controller: _nameController,
                     keyboardType: TextInputType.name,
                     decoration: InputDecoration(
-                      hintText: AppStrings.name,
+                      hintText: AppStrings.name.tr(),
                       suffixIcon: Icon(
                         Icons.check_circle,
                         size: AppSize.s18,
@@ -175,7 +176,7 @@ class _RegisterViewState extends State<RegisterView> {
               ),
               SizedBox(height: AppSize.s16),
 
-              Text(AppStrings.enterYourEmail, style: textTheme.titleSmall),
+              Text(AppStrings.enterYourEmail.tr(), style: textTheme.titleSmall),
               SizedBox(height: AppSize.s8),
 
               StreamBuilder<bool>(
@@ -186,7 +187,7 @@ class _RegisterViewState extends State<RegisterView> {
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                      hintText: AppStrings.email,
+                      hintText: AppStrings.email.tr(),
                       suffixIcon: Icon(
                         Icons.check_circle,
                         size: AppSize.s18,
@@ -199,7 +200,7 @@ class _RegisterViewState extends State<RegisterView> {
               ),
               SizedBox(height: AppSize.s16),
 
-              Text(AppStrings.enterYourPassword, style: textTheme.titleSmall),
+              Text(AppStrings.enterYourPassword.tr(), style: textTheme.titleSmall),
               SizedBox(height: AppSize.s8),
 
               StreamBuilder<bool>(
@@ -215,7 +216,7 @@ class _RegisterViewState extends State<RegisterView> {
                         keyboardType: TextInputType.visiblePassword,
                         obscureText: isHidden,
                         decoration: InputDecoration(
-                          hintText: AppStrings.password,
+                          hintText: AppStrings.password.tr(),
                           suffixIcon: IconButton(
                             iconSize: AppSize.s18,
                             icon: Icon(
@@ -249,7 +250,7 @@ class _RegisterViewState extends State<RegisterView> {
                     child: ElevatedButton(
                       onPressed:
                           isAllValid ? () => _viewModel.register() : null,
-                      child: Text(AppStrings.register),
+                      child: Text(AppStrings.register.tr()),
                     ),
                   );
                 },
@@ -260,7 +261,7 @@ class _RegisterViewState extends State<RegisterView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    AppStrings.alreadyHaveAccount,
+                    AppStrings.alreadyHaveAccount.tr(),
                     style: textTheme.bodyMedium,
                   ),
                   SizedBox(width: AppSize.s4),
@@ -272,7 +273,7 @@ class _RegisterViewState extends State<RegisterView> {
                       );
                     },
                     child: Text(
-                      AppStrings.signIn,
+                      AppStrings.signIn.tr(),
                       style: textTheme.titleSmall?.copyWith(
                         color: ColorManager.primary,
                         fontWeight: FontWeight.w600,
@@ -289,7 +290,7 @@ class _RegisterViewState extends State<RegisterView> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: AppPadding.p12),
                     child: Text(
-                      AppStrings.or,
+                      AppStrings.or.tr(),
                       style: textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
@@ -309,7 +310,7 @@ class _RegisterViewState extends State<RegisterView> {
                     height: AppSize.s20,
                   ),
                   label: Text(
-                    AppStrings.continueWithGoogle,
+                    AppStrings.continueWithGoogle.tr(),
                     style: textTheme.titleSmall,
                   ),
                   style: OutlinedButton.styleFrom(
@@ -335,7 +336,7 @@ class _RegisterViewState extends State<RegisterView> {
                     height: AppSize.s20,
                   ),
                   label: Text(
-                    AppStrings.continueWithFacebook,
+                    AppStrings.continueWithFacebook.tr(),
                     style: textTheme.titleSmall,
                   ),
                   style: OutlinedButton.styleFrom(

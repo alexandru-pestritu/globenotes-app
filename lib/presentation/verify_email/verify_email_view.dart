@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -194,7 +195,7 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
             ),
             centerTitle: true,
             title: Text(
-              AppStrings.verify,
+              AppStrings.verify.tr(),
               style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
@@ -230,13 +231,13 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
             ),
             SizedBox(height: AppSize.s40),
             Text(
-              AppStrings.verifyEmailTitle,
+              AppStrings.verifyEmailTitle.tr(),
               textAlign: TextAlign.center,
               style: textTheme.headlineLarge,
             ),
             SizedBox(height: AppSize.s20),
             Text(
-              AppStrings.verifyEmailSubtitle,
+              AppStrings.verifyEmailSubtitle.tr(),
               textAlign: TextAlign.center,
               style: textTheme.bodyMedium,
             ),
@@ -262,7 +263,7 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
                   height: AppSize.s45,
                   child: ElevatedButton(
                     onPressed: isAllValid ? () => _viewModel.verify() : null,
-                    child: Text(AppStrings.sendOtpCode),
+                    child: Text(AppStrings.verify.tr()),
                   ),
                 );
               },
@@ -281,7 +282,7 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
                       return GestureDetector(
                         onTap: () => _viewModel.resendOTP(),
                         child: Text(
-                          AppStrings.resendOTP,
+                          AppStrings.resendOTP.tr(),
                           style: textTheme.titleSmall?.copyWith(
                             color: ColorManager.primary,
                           ),
@@ -292,7 +293,7 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            AppStrings.resendOTP,
+                            AppStrings.resendOTP.tr(),
                             style: textTheme.bodyMedium,
                           ),
                           SizedBox(width: AppSize.s4),

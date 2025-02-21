@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -81,7 +82,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                       );
                     },
                     child: Text(
-                      AppStrings.skip,
+                      AppStrings.skip.tr(),
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ),

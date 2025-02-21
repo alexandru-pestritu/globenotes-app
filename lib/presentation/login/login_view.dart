@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/svg.dart';
@@ -71,7 +72,7 @@ class _LoginViewState extends State<LoginView> {
             ),
             centerTitle: true,
             title: Text(
-              AppStrings.login,
+              AppStrings.login.tr(),
               style: Theme.of(context).textTheme.titleLarge,
             ),
             actions: [
@@ -90,7 +91,7 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ),
                   child: Text(
-                    AppStrings.english,
+                    AppStrings.english.tr(),
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       color: ColorManager.primary,
                     ),
@@ -135,7 +136,7 @@ class _LoginViewState extends State<LoginView> {
               ),
               SizedBox(height: AppSize.s28),
 
-              Text(AppStrings.enterYourEmail, style: textTheme.titleSmall),
+              Text(AppStrings.enterYourEmail.tr(), style: textTheme.titleSmall),
               SizedBox(height: AppSize.s8),
 
               StreamBuilder<bool>(
@@ -148,7 +149,7 @@ class _LoginViewState extends State<LoginView> {
                         controller: _emailController,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
-                          hintText: AppStrings.email,
+                          hintText: AppStrings.email.tr(),
                           suffixIcon: StreamBuilder<bool>(
                             stream: _viewModel.outputEmailIcon,
                             builder: (context, snapshot) {
@@ -174,7 +175,7 @@ class _LoginViewState extends State<LoginView> {
               ),
               SizedBox(height: AppSize.s16),
 
-              Text(AppStrings.enterYourPassword, style: textTheme.titleSmall),
+              Text(AppStrings.enterYourPassword.tr(), style: textTheme.titleSmall),
               SizedBox(height: AppSize.s8),
 
               StreamBuilder<bool>(
@@ -190,7 +191,7 @@ class _LoginViewState extends State<LoginView> {
                         keyboardType: TextInputType.visiblePassword,
                         obscureText: isHidden,
                         decoration: InputDecoration(
-                          hintText: AppStrings.password,
+                          hintText: AppStrings.password.tr(),
                           suffixIcon: IconButton(
                             iconSize: AppSize.s18,
                             icon: Icon(
@@ -227,7 +228,7 @@ class _LoginViewState extends State<LoginView> {
                                 _viewModel.login();
                               }
                               : null,
-                      child: Text(AppStrings.login),
+                      child: Text(AppStrings.login.tr()),
                     ),
                   );
                 },
@@ -237,7 +238,7 @@ class _LoginViewState extends State<LoginView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(AppStrings.dontHaveAccount, style: textTheme.bodyMedium),
+                  Text(AppStrings.dontHaveAccount.tr(), style: textTheme.bodyMedium),
                   SizedBox(width: AppSize.s4),
                   GestureDetector(
                     onTap: () {
@@ -247,7 +248,7 @@ class _LoginViewState extends State<LoginView> {
                       );
                     },
                     child: Text(
-                      AppStrings.signUp,
+                      AppStrings.signUp.tr(),
                       style: textTheme.titleSmall?.copyWith(
                         color: ColorManager.primary,
                         fontWeight: FontWeight.w600,
@@ -264,7 +265,7 @@ class _LoginViewState extends State<LoginView> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: AppPadding.p12),
                     child: Text(
-                      AppStrings.or,
+                      AppStrings.or.tr(),
                       style: textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
@@ -284,7 +285,7 @@ class _LoginViewState extends State<LoginView> {
                     height: AppSize.s20,
                   ),
                   label: Text(
-                    AppStrings.continueWithGoogle,
+                    AppStrings.continueWithGoogle.tr(),
                     style: textTheme.titleSmall,
                   ),
                   style: OutlinedButton.styleFrom(
@@ -310,7 +311,7 @@ class _LoginViewState extends State<LoginView> {
                     height: AppSize.s20,
                   ),
                   label: Text(
-                    AppStrings.continueWithFacebook,
+                    AppStrings.continueWithFacebook.tr(),
                     style: textTheme.titleSmall,
                   ),
                   style: OutlinedButton.styleFrom(
@@ -337,7 +338,7 @@ class _LoginViewState extends State<LoginView> {
                       );
                     },
                     child: Text(
-                      AppStrings.forgetPassword,
+                      AppStrings.forgetPassword.tr(),
                       style: textTheme.titleSmall?.copyWith(
                         color: ColorManager.primary,
                       ),

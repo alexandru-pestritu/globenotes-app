@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/svg.dart';
@@ -78,7 +79,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
             ),
             centerTitle: true,
             title: Text(
-              AppStrings.reset,
+              AppStrings.reset.tr(),
               style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
@@ -118,13 +119,13 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
               ),
               SizedBox(height: AppSize.s40),
               Text(
-                AppStrings.resetPasswordTitle,
+                AppStrings.resetPasswordTitle.tr(),
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
               SizedBox(height: AppSize.s15),
               Text(
-                AppStrings.resetPasswordSubtitle,
+                AppStrings.resetPasswordSubtitle.tr(),
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
@@ -132,7 +133,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  AppStrings.enterNewPassword,
+                  AppStrings.enterNewPassword.tr(),
                   style: textTheme.titleSmall,
                 ),
               ),
@@ -151,7 +152,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                         keyboardType: TextInputType.visiblePassword,
                         obscureText: isHidden,
                         decoration: InputDecoration(
-                          hintText: AppStrings.newPassword,
+                          hintText: AppStrings.newPassword.tr(),
                           suffixIcon: IconButton(
                             iconSize: AppSize.s18,
                             icon: Icon(
@@ -177,7 +178,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  AppStrings.confirmNewPassword,
+                  AppStrings.confirmNewPassword.tr(),
                   style: textTheme.titleSmall,
                 ),
               ),
@@ -196,7 +197,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                         keyboardType: TextInputType.visiblePassword,
                         obscureText: isHidden,
                         decoration: InputDecoration(
-                          hintText: AppStrings.confirmPassword,
+                          hintText: AppStrings.confirmPassword.tr(),
                           suffixIcon: IconButton(
                             iconSize: AppSize.s18,
                             icon: Icon(
@@ -230,7 +231,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                     child: ElevatedButton(
                       onPressed:
                           isAllValid ? () => _viewModel.resetPassword() : null,
-                      child: Text(AppStrings.change),
+                      child: Text(AppStrings.change.tr()),
                     ),
                   );
                 },
