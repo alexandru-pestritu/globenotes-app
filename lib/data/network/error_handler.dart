@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:globenotes/data/network/failure.dart';
+import 'package:globenotes/presentation/resources/strings_manager.dart';
 
 enum DataSource {
   success,
@@ -128,21 +130,19 @@ class ResponseCode {
 }
 
 class ResponseMessage {
-  static const String success = "Success";
-  static const String noContent = "Success with no content";
-  static const String badRequest = "Bad request, try again later";
-  static const String forbidden = "Forbidden request, try again later";
-  static const String unauthorised = "User is unauthorized, try again later";
-  static const String notFound = "URL is not found, try again later";
-  static const String internalServerError =
-      "Something went wrong, try again later";
+  static String success = AppStrings.success.tr();
+  static String noContent = AppStrings.noContent.tr();
+  static String badRequest = AppStrings.badRequest.tr();
+  static String forbidden = AppStrings.forbidden.tr();
+  static String unauthorised = AppStrings.unauthorised.tr();
+  static String notFound = AppStrings.notFound.tr();
+  static String internalServerError = AppStrings.internalServerError.tr();
 
-  static const String defaultError = "Something went wrong, try again later";
-  static const String connectionTimeout = "Timeout error, try again later";
-  static const String cancel = "Request was cancelled, try again later";
-  static const String receiveTimeout = "Timeout error, try again later";
-  static const String sendTimeout = "Timeout error, try again later";
-  static const String cacheError = "Cache error, try again later";
-  static const String noInternetConnection =
-      "Please check your internet connection";
+  static String defaultError = AppStrings.defaultError.tr();
+  static String connectionTimeout = AppStrings.connectionTimeout.tr();
+  static String cancel = AppStrings.cancel.tr();
+  static String receiveTimeout = AppStrings.receiveTimeout.tr();
+  static String sendTimeout = AppStrings.sendTimeout.tr();
+  static String cacheError = AppStrings.cacheError.tr();
+  static String noInternetConnection = AppStrings.noInternetConnection.tr();
 }
