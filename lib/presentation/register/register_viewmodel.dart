@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'package:globenotes/domain/usecase/base_usecase.dart';
 import 'package:globenotes/domain/usecase/register_usecase.dart';
+import 'package:globenotes/domain/usecase/social_login_usecase.dart';
 import 'package:globenotes/presentation/base/base_viewmodel.dart';
 import 'package:globenotes/presentation/common/freezed_data_classes.dart';
 import 'package:globenotes/presentation/common/state_renderer/state_renderer.dart';
@@ -32,13 +34,22 @@ class RegisterViewModel extends BaseViewModel
   final StreamController isUserRegisteredSuccessfullyStreamController =
       StreamController<bool>();
 
+  final StreamController isUserSocialRegisterSuccessfulStreamController =
+      StreamController<bool>();
+
   var registerObject = RegisterObject("", "", "");
 
   bool _isPasswordHidden = true;
 
   final RegisterUseCase _registerUseCase;
+  final GoogleLoginUseCase _googleLoginUseCase;
+  final FacebookLoginUseCase _facebookLoginUseCase;
 
-  RegisterViewModel(this._registerUseCase);
+  RegisterViewModel(
+    this._registerUseCase,
+    this._googleLoginUseCase,
+    this._facebookLoginUseCase,
+  );
 
   @override
   void dispose() {
@@ -96,6 +107,40 @@ class RegisterViewModel extends BaseViewModel
       (data) {
         inputState.add(ContentState());
         isUserRegisteredSuccessfullyStreamController.add(true);
+      },
+    );
+  }
+
+  @override
+  loginWithGoogle() async {
+    inputState.add(LoadingState());
+
+    (await _googleLoginUseCase.execute(const NoParams())).fold(
+      (failure) {
+        inputState.add(
+          ErrorState(StateRendererType.snackbarErrorState, failure.message),
+        );
+      },
+      (authData) {
+        inputState.add(ContentState());
+        isUserSocialRegisterSuccessfulStreamController.add(true);
+      },
+    );
+  }
+
+  @override
+  loginWithFacebook() async {
+    inputState.add(LoadingState());
+
+    (await _facebookLoginUseCase.execute(const NoParams())).fold(
+      (failure) {
+        inputState.add(
+          ErrorState(StateRendererType.snackbarErrorState, failure.message),
+        );
+      },
+      (authData) {
+        inputState.add(ContentState());
+        isUserSocialRegisterSuccessfulStreamController.add(true);
       },
     );
   }
@@ -186,6 +231,8 @@ mixin RegisterViewModelInputs {
   setPassword(String password);
 
   register();
+  loginWithGoogle();
+  loginWithFacebook();
 
   Sink get inputName;
 

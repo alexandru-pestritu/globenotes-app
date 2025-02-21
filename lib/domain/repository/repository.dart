@@ -5,12 +5,8 @@ import 'package:globenotes/domain/model/model.dart';
 
 abstract class Repository {
   Future<Either<Failure, Authentication>> login(LoginRequest loginRequest);
-  Future<Either<Failure, Authentication>> loginWithGoogle(
-    SocialLoginRequest socialLoginRequest,
-  );
-  Future<Either<Failure, Authentication>> loginWithFacebook(
-    SocialLoginRequest socialLoginRequest,
-  );
+  Future<Either<Failure, Authentication>> loginWithGoogle();
+  Future<Either<Failure, Authentication>> loginWithFacebook();
   Future<Either<Failure, bool>> register(RegisterRequest registerRequest);
   Future<Either<Failure, bool>> verifyEmail(
     VerifyEmailRequest verifyEmailRequest,

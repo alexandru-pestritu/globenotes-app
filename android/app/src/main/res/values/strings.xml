@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Globenotes</string>
+    <string name="facebook_app_id">616168024461488</string>
+    <string name="fb_login_protocol_scheme">fb616168024461488</string>
+    <string name="facebook_client_token">2c510c0b4c9e48f19109cce22ac2814c</string>
+</resources>

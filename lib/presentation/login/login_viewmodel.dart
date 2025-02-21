@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'package:globenotes/domain/usecase/base_usecase.dart';
 import 'package:globenotes/domain/usecase/login_usecase.dart';
+import 'package:globenotes/domain/usecase/social_login_usecase.dart';
 import 'package:globenotes/presentation/base/base_viewmodel.dart';
 import 'package:globenotes/presentation/common/freezed_data_classes.dart';
 import 'package:globenotes/presentation/common/state_renderer/state_renderer.dart';
@@ -31,8 +33,14 @@ class LoginViewModel extends BaseViewModel
   bool _isPasswordHidden = true;
 
   final LoginUseCase _loginUseCase;
+  final GoogleLoginUseCase _googleLoginUseCase;
+  final FacebookLoginUseCase _facebookLoginUseCase;
 
-  LoginViewModel(this._loginUseCase);
+  LoginViewModel(
+    this._loginUseCase,
+    this._googleLoginUseCase,
+    this._facebookLoginUseCase,
+  );
 
   @override
   void dispose() {
@@ -76,6 +84,40 @@ class LoginViewModel extends BaseViewModel
         ),
       },
       (data) {
+        inputState.add(ContentState());
+        isUserLoggedInSuccessfullyStreamController.add(true);
+      },
+    );
+  }
+
+  @override
+  loginWithGoogle() async {
+    inputState.add(LoadingState());
+
+    (await _googleLoginUseCase.execute(const NoParams())).fold(
+      (failure) {
+        inputState.add(
+          ErrorState(StateRendererType.snackbarErrorState, failure.message),
+        );
+      },
+      (authData) {
+        inputState.add(ContentState());
+        isUserLoggedInSuccessfullyStreamController.add(true);
+      },
+    );
+  }
+
+  @override
+  loginWithFacebook() async {
+    inputState.add(LoadingState());
+
+    (await _facebookLoginUseCase.execute(const NoParams())).fold(
+      (failure) {
+        inputState.add(
+          ErrorState(StateRendererType.snackbarErrorState, failure.message),
+        );
+      },
+      (authData) {
         inputState.add(ContentState());
         isUserLoggedInSuccessfullyStreamController.add(true);
       },
@@ -146,6 +188,8 @@ mixin LoginViewModelInputs {
   setPassword(String password);
 
   login();
+  loginWithGoogle();
+  loginWithFacebook();
 
   Sink get inputEmail;
 

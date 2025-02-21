@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:globenotes/app/app_preferences.dart';
+//import 'package:globenotes/app/app_preferences.dart';
 import 'package:globenotes/app/di.dart';
 import 'package:globenotes/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:globenotes/presentation/login/login_viewmodel.dart';
@@ -20,7 +20,7 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   final LoginViewModel _viewModel = instance<LoginViewModel>();
-  final AppPreferences _appPreferences = instance<AppPreferences>();
+  //final AppPreferences _appPreferences = instance<AppPreferences>();
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -40,7 +40,7 @@ class _LoginViewState extends State<LoginView> {
     ) {
       if (isSuccessLoggedIn) {
         SchedulerBinding.instance.addPostFrameCallback((_) {
-          _appPreferences.setIsUserLoggedIn();
+          //_appPreferences.setIsUserLoggedIn();
           Navigator.of(context).pushReplacementNamed(Routes.mainRoute);
         });
       }
@@ -294,7 +294,7 @@ class _LoginViewState extends State<LoginView> {
                     side: BorderSide(color: ColorManager.lightGrey),
                   ),
                   onPressed: () {
-                    // TODO: Google sign-in
+                    _viewModel.loginWithGoogle();
                   },
                 ),
               ),
@@ -320,7 +320,7 @@ class _LoginViewState extends State<LoginView> {
                     side: BorderSide(color: ColorManager.lightGrey),
                   ),
                   onPressed: () {
-                    // TODO: Facebook sign-in
+                    _viewModel.loginWithFacebook();
                   },
                 ),
               ),

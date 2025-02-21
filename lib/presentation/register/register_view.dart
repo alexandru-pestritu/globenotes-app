@@ -52,6 +52,16 @@ class _RegisterViewState extends State<RegisterView> {
         });
       }
     });
+
+    _viewModel.isUserSocialRegisterSuccessfulStreamController.stream.listen((
+      isSocialRegisterSuccessful,
+    ) {
+      if (isSocialRegisterSuccessful) {
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          Navigator.of(context).pushReplacementNamed(Routes.mainRoute);
+        });
+      }
+    });
   }
 
   @override
@@ -309,7 +319,7 @@ class _RegisterViewState extends State<RegisterView> {
                     side: BorderSide(color: ColorManager.lightGrey),
                   ),
                   onPressed: () {
-                    // TODO: Google sign-in
+                    _viewModel.loginWithGoogle();
                   },
                 ),
               ),
@@ -335,7 +345,7 @@ class _RegisterViewState extends State<RegisterView> {
                     side: BorderSide(color: ColorManager.lightGrey),
                   ),
                   onPressed: () {
-                    // TODO: Facebook sign-in
+                    _viewModel.loginWithFacebook();
                   },
                 ),
               ),

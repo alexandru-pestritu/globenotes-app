@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:globenotes/app/app_preferences.dart';
 import 'package:globenotes/data/data_source/remote_data_source.dart';
+import 'package:globenotes/data/data_source/social_auth_local_data_source.dart';
 import 'package:globenotes/data/network/app_api.dart';
 import 'package:globenotes/data/network/dio_factory.dart';
 import 'package:globenotes/data/network/network_info.dart';
@@ -52,9 +53,14 @@ Future<void> initAppModule() async {
     () => RemoteDataSourceImplementer(instance()),
   );
 
+  // social login local data source
+  instance.registerLazySingleton<SocialAuthLocalDataSource>(
+    () => SocialAuthLocalDataSourceImpl(),
+  );
+
   // repository
   instance.registerLazySingleton<Repository>(
-    () => RepositoryImpl(instance(), instance()),
+    () => RepositoryImpl(instance(), instance(), instance()),
   );
 }
 
@@ -67,7 +73,9 @@ initLoginModule() {
     instance.registerFactory<FacebookLoginUseCase>(
       () => FacebookLoginUseCase(instance()),
     );
-    instance.registerFactory<LoginViewModel>(() => LoginViewModel(instance()));
+    instance.registerFactory<LoginViewModel>(
+      () => LoginViewModel(instance(), instance(), instance()),
+    );
   }
 }
 
@@ -76,14 +84,8 @@ initRegisterModule() {
     instance.registerFactory<RegisterUseCase>(
       () => RegisterUseCase(instance()),
     );
-    instance.registerFactory<GoogleLoginUseCase>(
-      () => GoogleLoginUseCase(instance()),
-    );
-    instance.registerFactory<FacebookLoginUseCase>(
-      () => FacebookLoginUseCase(instance()),
-    );
     instance.registerFactory<RegisterViewModel>(
-      () => RegisterViewModel(instance()),
+      () => RegisterViewModel(instance(), instance(), instance()),
     );
   }
 }

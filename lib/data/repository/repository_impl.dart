@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:globenotes/data/data_source/remote_data_source.dart';
+import 'package:globenotes/data/data_source/social_auth_local_data_source.dart';
 import 'package:globenotes/data/network/error_handler.dart';
 import 'package:globenotes/data/network/failure.dart';
 import 'package:globenotes/data/network/network_info.dart';
@@ -10,8 +11,13 @@ import 'package:globenotes/data/mapper/mapper.dart';
 
 class RepositoryImpl extends Repository {
   final RemoteDataSource _remoteDataSource;
+  final SocialAuthLocalDataSource _socialAuthLocalDataSource;
   final NetworkInfo _networkInfo;
-  RepositoryImpl(this._remoteDataSource, this._networkInfo);
+  RepositoryImpl(
+    this._remoteDataSource,
+    this._socialAuthLocalDataSource,
+    this._networkInfo,
+  );
 
   @override
   Future<Either<Failure, Authentication>> login(
@@ -206,13 +212,18 @@ class RepositoryImpl extends Repository {
   }
 
   @override
-  Future<Either<Failure, Authentication>> loginWithFacebook(
-    SocialLoginRequest socialLoginRequest,
-  ) async {
+  Future<Either<Failure, Authentication>> loginWithGoogle() async {
     if (await _networkInfo.isConnected) {
       try {
-        final response = await _remoteDataSource.loginWithFacebook(
-          socialLoginRequest,
+        final String? idToken =
+            await _socialAuthLocalDataSource.signInWithGoogle();
+
+        if (idToken == null) {
+          return Left(Failure(ResponseCode.cancel, ResponseMessage.cancel));
+        }
+
+        final response = await _remoteDataSource.loginWithGoogle(
+          SocialLoginRequest(idToken),
         );
 
         if (response.statusCode == ResponseCode.success) {
@@ -226,7 +237,7 @@ class RepositoryImpl extends Repository {
           );
         }
       } catch (error) {
-        return (Left(ErrorHandler.handle(error).failure));
+        return Left(ErrorHandler.handle(error).failure);
       }
     } else {
       return Left(DataSource.noInternetConnection.getFailure());
@@ -234,13 +245,18 @@ class RepositoryImpl extends Repository {
   }
 
   @override
-  Future<Either<Failure, Authentication>> loginWithGoogle(
-    SocialLoginRequest socialLoginRequest,
-  ) async {
+  Future<Either<Failure, Authentication>> loginWithFacebook() async {
     if (await _networkInfo.isConnected) {
       try {
-        final response = await _remoteDataSource.loginWithGoogle(
-          socialLoginRequest,
+        final String? token =
+            await _socialAuthLocalDataSource.signInWithFacebook();
+
+        if (token == null) {
+          return Left(Failure(ResponseCode.cancel, ResponseMessage.cancel));
+        }
+
+        final response = await _remoteDataSource.loginWithFacebook(
+          SocialLoginRequest(token),
         );
 
         if (response.statusCode == ResponseCode.success) {
@@ -254,7 +270,7 @@ class RepositoryImpl extends Repository {
           );
         }
       } catch (error) {
-        return (Left(ErrorHandler.handle(error).failure));
+        return Left(ErrorHandler.handle(error).failure);
       }
     } else {
       return Left(DataSource.noInternetConnection.getFailure());
