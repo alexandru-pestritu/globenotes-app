@@ -22,6 +22,7 @@ import 'package:globenotes/presentation/forgot_password/forgot_password_viewmode
 import 'package:globenotes/presentation/login/login_viewmodel.dart';
 import 'package:globenotes/presentation/register/register_viewmodel.dart';
 import 'package:globenotes/presentation/reset_password/reset_password_viewmodel.dart';
+import 'package:globenotes/presentation/settings/language_selection/language_selection_viewmodel.dart';
 import 'package:globenotes/presentation/verify_email/verify_email_viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -160,6 +161,14 @@ initResetPasswordModule() {
     );
     instance.registerFactory<ResetPasswordViewModel>(
       () => ResetPasswordViewModel(instance()),
+    );
+  }
+}
+
+initLanguageSelectionModule() {
+  if (!GetIt.I.isRegistered<LanguageSelectionViewModel>()) {
+    instance.registerFactory<LanguageSelectionViewModel>(
+      () => LanguageSelectionViewModel(instance()),
     );
   }
 }

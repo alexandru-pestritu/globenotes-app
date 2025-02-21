@@ -1,4 +1,5 @@
 class AppStrings {
+  static const String languageTitle = "language_title";
   static const String noRouteFound = "no_route_found";
   static const String onBoardingTitle1 = "onboarding_title_1";
   static const String onBoardingTitle2 = "onboarding_title_2";
