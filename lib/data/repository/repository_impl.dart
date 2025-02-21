@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:globenotes/data/data_source/remote_data_source.dart';
+import 'package:globenotes/data/data_source/secure_storage_local_data_source.dart';
 import 'package:globenotes/data/data_source/social_auth_local_data_source.dart';
 import 'package:globenotes/data/network/error_handler.dart';
 import 'package:globenotes/data/network/failure.dart';
@@ -12,10 +13,12 @@ import 'package:globenotes/data/mapper/mapper.dart';
 class RepositoryImpl extends Repository {
   final RemoteDataSource _remoteDataSource;
   final SocialAuthLocalDataSource _socialAuthLocalDataSource;
+  final SecureStorageLocalDataSource _secureStorageLocalDataSource;
   final NetworkInfo _networkInfo;
   RepositoryImpl(
     this._remoteDataSource,
     this._socialAuthLocalDataSource,
+    this._secureStorageLocalDataSource,
     this._networkInfo,
   );
 
@@ -28,7 +31,12 @@ class RepositoryImpl extends Repository {
         final response = await _remoteDataSource.login(loginRequest);
 
         if (response.statusCode == ResponseCode.success) {
-          return Right(response.toDomain());
+          final auth = response.toDomain();
+          await _secureStorageLocalDataSource.saveAuthTokens(
+            auth.accessToken,
+            auth.refreshToken,
+          );
+          return Right(auth);
         } else {
           return Left(
             Failure(
@@ -227,7 +235,12 @@ class RepositoryImpl extends Repository {
         );
 
         if (response.statusCode == ResponseCode.success) {
-          return Right(response.toDomain());
+          final auth = response.toDomain();
+          await _secureStorageLocalDataSource.saveAuthTokens(
+            auth.accessToken,
+            auth.refreshToken,
+          );
+          return Right(auth);
         } else {
           return Left(
             Failure(
@@ -260,7 +273,12 @@ class RepositoryImpl extends Repository {
         );
 
         if (response.statusCode == ResponseCode.success) {
-          return Right(response.toDomain());
+          final auth = response.toDomain();
+          await _secureStorageLocalDataSource.saveAuthTokens(
+            auth.accessToken,
+            auth.refreshToken,
+          );
+          return Right(auth);
         } else {
           return Left(
             Failure(
