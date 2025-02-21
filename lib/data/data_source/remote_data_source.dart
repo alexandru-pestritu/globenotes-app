@@ -4,6 +4,10 @@ import 'package:globenotes/data/response/responses.dart';
 
 abstract class RemoteDataSource {
   Future<LoginResponse> login(LoginRequest loginRequest);
+  Future<LoginResponse> loginWithGoogle(SocialLoginRequest socialLoginRequest);
+  Future<LoginResponse> loginWithFacebook(
+    SocialLoginRequest socialLoginRequest,
+  );
   Future<RegisterResponse> register(RegisterRequest registerRequest);
   Future<VerifyEmailResponse> verifyEmail(
     VerifyEmailRequest verifyEmailRequest,
@@ -30,6 +34,24 @@ class RemoteDataSourceImplementer implements RemoteDataSource {
     return await _appServiceClient.login(
       loginRequest.email,
       loginRequest.password,
+    );
+  }
+
+  @override
+  Future<LoginResponse> loginWithGoogle(
+    SocialLoginRequest socialLoginRequest,
+  ) async {
+    return await _appServiceClient.loginWithGoogle(
+      socialLoginRequest.idToken,
+    );
+  }
+
+  @override
+  Future<LoginResponse> loginWithFacebook(
+    SocialLoginRequest socialLoginRequest,
+  ) async {
+    return await _appServiceClient.loginWithFacebook(
+      socialLoginRequest.idToken,
     );
   }
 

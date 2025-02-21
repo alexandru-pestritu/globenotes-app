@@ -16,6 +16,12 @@ abstract class AppServiceClient {
     @Field("password") String password,
   );
 
+  @POST("/auth/login/google")
+  Future<LoginResponse> loginWithGoogle(@Field("idToken") String idToken);
+
+  @POST("/auth/login/facebook")
+  Future<LoginResponse> loginWithFacebook(@Field("idToken") String idToken);
+
   @POST("/auth/register")
   Future<RegisterResponse> register(
     @Field("name") String name,

@@ -166,6 +166,142 @@ abstract class _LoginObject implements LoginObject {
 }
 
 /// @nodoc
+mixin _$SocialLoginObject {
+  String get idToken => throw _privateConstructorUsedError;
+
+  /// Create a copy of SocialLoginObject
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $SocialLoginObjectCopyWith<SocialLoginObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SocialLoginObjectCopyWith<$Res> {
+  factory $SocialLoginObjectCopyWith(
+    SocialLoginObject value,
+    $Res Function(SocialLoginObject) then,
+  ) = _$SocialLoginObjectCopyWithImpl<$Res, SocialLoginObject>;
+  @useResult
+  $Res call({String idToken});
+}
+
+/// @nodoc
+class _$SocialLoginObjectCopyWithImpl<$Res, $Val extends SocialLoginObject>
+    implements $SocialLoginObjectCopyWith<$Res> {
+  _$SocialLoginObjectCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of SocialLoginObject
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? idToken = null}) {
+    return _then(
+      _value.copyWith(
+            idToken:
+                null == idToken
+                    ? _value.idToken
+                    : idToken // ignore: cast_nullable_to_non_nullable
+                        as String,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$SocialLoginObjectImplCopyWith<$Res>
+    implements $SocialLoginObjectCopyWith<$Res> {
+  factory _$$SocialLoginObjectImplCopyWith(
+    _$SocialLoginObjectImpl value,
+    $Res Function(_$SocialLoginObjectImpl) then,
+  ) = __$$SocialLoginObjectImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String idToken});
+}
+
+/// @nodoc
+class __$$SocialLoginObjectImplCopyWithImpl<$Res>
+    extends _$SocialLoginObjectCopyWithImpl<$Res, _$SocialLoginObjectImpl>
+    implements _$$SocialLoginObjectImplCopyWith<$Res> {
+  __$$SocialLoginObjectImplCopyWithImpl(
+    _$SocialLoginObjectImpl _value,
+    $Res Function(_$SocialLoginObjectImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of SocialLoginObject
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? idToken = null}) {
+    return _then(
+      _$SocialLoginObjectImpl(
+        null == idToken
+            ? _value.idToken
+            : idToken // ignore: cast_nullable_to_non_nullable
+                as String,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$SocialLoginObjectImpl implements _SocialLoginObject {
+  _$SocialLoginObjectImpl(this.idToken);
+
+  @override
+  final String idToken;
+
+  @override
+  String toString() {
+    return 'SocialLoginObject(idToken: $idToken)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SocialLoginObjectImpl &&
+            (identical(other.idToken, idToken) || other.idToken == idToken));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, idToken);
+
+  /// Create a copy of SocialLoginObject
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SocialLoginObjectImplCopyWith<_$SocialLoginObjectImpl> get copyWith =>
+      __$$SocialLoginObjectImplCopyWithImpl<_$SocialLoginObjectImpl>(
+        this,
+        _$identity,
+      );
+}
+
+abstract class _SocialLoginObject implements SocialLoginObject {
+  factory _SocialLoginObject(final String idToken) = _$SocialLoginObjectImpl;
+
+  @override
+  String get idToken;
+
+  /// Create a copy of SocialLoginObject
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SocialLoginObjectImplCopyWith<_$SocialLoginObjectImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$RegisterObject {
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;

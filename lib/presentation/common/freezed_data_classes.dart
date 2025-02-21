@@ -8,6 +8,11 @@ class LoginObject with _$LoginObject {
 }
 
 @freezed
+class SocialLoginObject with _$SocialLoginObject {
+  factory SocialLoginObject(String idToken) = _SocialLoginObject;
+}
+
+@freezed
 class RegisterObject with _$RegisterObject {
   factory RegisterObject(String name, String email, String password) =
       _RegisterObject;

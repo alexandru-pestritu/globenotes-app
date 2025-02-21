@@ -204,4 +204,60 @@ class RepositoryImpl extends Repository {
       return Left(DataSource.noInternetConnection.getFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, Authentication>> loginWithFacebook(
+    SocialLoginRequest socialLoginRequest,
+  ) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        final response = await _remoteDataSource.loginWithFacebook(
+          socialLoginRequest,
+        );
+
+        if (response.statusCode == ResponseCode.success) {
+          return Right(response.toDomain());
+        } else {
+          return Left(
+            Failure(
+              response.statusCode ?? ResponseCode.defaultError,
+              response.message ?? ResponseMessage.defaultError,
+            ),
+          );
+        }
+      } catch (error) {
+        return (Left(ErrorHandler.handle(error).failure));
+      }
+    } else {
+      return Left(DataSource.noInternetConnection.getFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Authentication>> loginWithGoogle(
+    SocialLoginRequest socialLoginRequest,
+  ) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        final response = await _remoteDataSource.loginWithGoogle(
+          socialLoginRequest,
+        );
+
+        if (response.statusCode == ResponseCode.success) {
+          return Right(response.toDomain());
+        } else {
+          return Left(
+            Failure(
+              response.statusCode ?? ResponseCode.defaultError,
+              response.message ?? ResponseMessage.defaultError,
+            ),
+          );
+        }
+      } catch (error) {
+        return (Left(ErrorHandler.handle(error).failure));
+      }
+    } else {
+      return Left(DataSource.noInternetConnection.getFailure());
+    }
+  }
 }

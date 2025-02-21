@@ -12,6 +12,7 @@ import 'package:globenotes/domain/usecase/login_usecase.dart';
 import 'package:globenotes/domain/usecase/register_usecase.dart';
 import 'package:globenotes/domain/usecase/resend_verify_email_usecase.dart';
 import 'package:globenotes/domain/usecase/reset_password_usecase.dart';
+import 'package:globenotes/domain/usecase/social_login_usecase.dart';
 import 'package:globenotes/domain/usecase/verify_email_usecase.dart';
 import 'package:globenotes/domain/usecase/verify_forgot_password_usecase.dart';
 import 'package:globenotes/presentation/forgot_password/forgot_password_viewmodel.dart';
@@ -60,6 +61,12 @@ Future<void> initAppModule() async {
 initLoginModule() {
   if (!GetIt.I.isRegistered<LoginUseCase>()) {
     instance.registerFactory<LoginUseCase>(() => LoginUseCase(instance()));
+    instance.registerFactory<GoogleLoginUseCase>(
+      () => GoogleLoginUseCase(instance()),
+    );
+    instance.registerFactory<FacebookLoginUseCase>(
+      () => FacebookLoginUseCase(instance()),
+    );
     instance.registerFactory<LoginViewModel>(() => LoginViewModel(instance()));
   }
 }
@@ -68,6 +75,12 @@ initRegisterModule() {
   if (!GetIt.I.isRegistered<RegisterUseCase>()) {
     instance.registerFactory<RegisterUseCase>(
       () => RegisterUseCase(instance()),
+    );
+    instance.registerFactory<GoogleLoginUseCase>(
+      () => GoogleLoginUseCase(instance()),
+    );
+    instance.registerFactory<FacebookLoginUseCase>(
+      () => FacebookLoginUseCase(instance()),
     );
     instance.registerFactory<RegisterViewModel>(
       () => RegisterViewModel(instance()),

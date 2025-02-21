@@ -4,6 +4,11 @@ class LoginRequest {
   LoginRequest(this.email, this.password);
 }
 
+class SocialLoginRequest {
+  String idToken;
+  SocialLoginRequest(this.idToken);
+}
+
 class RegisterRequest {
   String name;
   String email;
