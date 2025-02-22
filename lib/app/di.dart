@@ -5,6 +5,7 @@ import 'package:globenotes/app/app_preferences.dart';
 import 'package:globenotes/data/data_source/remote_data_source.dart';
 import 'package:globenotes/data/data_source/secure_storage_local_data_source.dart';
 import 'package:globenotes/data/data_source/social_auth_local_data_source.dart';
+import 'package:globenotes/data/database/app_database.dart';
 import 'package:globenotes/data/network/app_api.dart';
 import 'package:globenotes/data/network/dio_factory.dart';
 import 'package:globenotes/data/network/network_info.dart';
@@ -29,6 +30,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 final instance = GetIt.instance;
 
 Future<void> initAppModule() async {
+  instance.registerLazySingleton<AppDatabase>(() => AppDatabase());
+
   final sharedPrefs = await SharedPreferences.getInstance();
 
   // shared preferences instance

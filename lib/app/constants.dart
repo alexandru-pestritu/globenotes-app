@@ -1,5 +1,6 @@
 class Constants {
   static const String baseUrl = "http://100.66.65.82:8080/api";
+  static const String driftDatabaseName = "globenotes_db.sqlite";
   static const String webGoogleClientId =
       "1006453621944-8860hmcm3sa4l09qtfv12kdj1vgoeddn.apps.googleusercontent.com";
   static const String iosGoogleClientId =
