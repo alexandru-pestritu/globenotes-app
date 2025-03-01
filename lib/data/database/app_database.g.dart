@@ -74,7 +74,7 @@ class $ContinentsLocalTable extends ContinentsLocal
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
-    defaultValue: const Constant(SyncStatus.pending),
+    defaultValue: const Constant(SyncStatus.pendingAdd),
   );
   @override
   List<GeneratedColumn> get $columns => [
@@ -496,7 +496,7 @@ class $CountriesLocalTable extends CountriesLocal
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
-    defaultValue: const Constant(SyncStatus.pending),
+    defaultValue: const Constant(SyncStatus.pendingAdd),
   );
   @override
   List<GeneratedColumn> get $columns => [
@@ -1013,7 +1013,7 @@ class $LocationsLocalTable extends LocationsLocal
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
-    defaultValue: const Constant(SyncStatus.pending),
+    defaultValue: const Constant(SyncStatus.pendingAdd),
   );
   @override
   List<GeneratedColumn> get $columns => [
@@ -1599,15 +1599,6 @@ class $UsersLocalTable extends UsersLocal
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _nameMeta = const VerificationMeta('name');
-  @override
-  late final GeneratedColumn<String> name = GeneratedColumn<String>(
-    'name',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
   static const VerificationMeta _emailMeta = const VerificationMeta('email');
   @override
   late final GeneratedColumn<String> email = GeneratedColumn<String>(
@@ -1652,13 +1643,12 @@ class $UsersLocalTable extends UsersLocal
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
-    defaultValue: const Constant(SyncStatus.pending),
+    defaultValue: const Constant(SyncStatus.pendingAdd),
   );
   @override
   List<GeneratedColumn> get $columns => [
     localId,
     serverId,
-    name,
     email,
     isVerified,
     updatedAt,
@@ -1687,14 +1677,6 @@ class $UsersLocalTable extends UsersLocal
         _serverIdMeta,
         serverId.isAcceptableOrUnknown(data['server_id']!, _serverIdMeta),
       );
-    }
-    if (data.containsKey('name')) {
-      context.handle(
-        _nameMeta,
-        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_nameMeta);
     }
     if (data.containsKey('email')) {
       context.handle(
@@ -1744,11 +1726,6 @@ class $UsersLocalTable extends UsersLocal
         DriftSqlType.string,
         data['${effectivePrefix}server_id'],
       ),
-      name:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}name'],
-          )!,
       email:
           attachedDatabase.typeMapping.read(
             DriftSqlType.string,
@@ -1781,7 +1758,6 @@ class $UsersLocalTable extends UsersLocal
 class UsersLocalData extends DataClass implements Insertable<UsersLocalData> {
   final int localId;
   final String? serverId;
-  final String name;
   final String email;
   final bool isVerified;
   final DateTime updatedAt;
@@ -1789,7 +1765,6 @@ class UsersLocalData extends DataClass implements Insertable<UsersLocalData> {
   const UsersLocalData({
     required this.localId,
     this.serverId,
-    required this.name,
     required this.email,
     required this.isVerified,
     required this.updatedAt,
@@ -1802,7 +1777,6 @@ class UsersLocalData extends DataClass implements Insertable<UsersLocalData> {
     if (!nullToAbsent || serverId != null) {
       map['server_id'] = Variable<String>(serverId);
     }
-    map['name'] = Variable<String>(name);
     map['email'] = Variable<String>(email);
     map['is_verified'] = Variable<bool>(isVerified);
     map['updated_at'] = Variable<DateTime>(updatedAt);
@@ -1817,7 +1791,6 @@ class UsersLocalData extends DataClass implements Insertable<UsersLocalData> {
           serverId == null && nullToAbsent
               ? const Value.absent()
               : Value(serverId),
-      name: Value(name),
       email: Value(email),
       isVerified: Value(isVerified),
       updatedAt: Value(updatedAt),
@@ -1833,7 +1806,6 @@ class UsersLocalData extends DataClass implements Insertable<UsersLocalData> {
     return UsersLocalData(
       localId: serializer.fromJson<int>(json['localId']),
       serverId: serializer.fromJson<String?>(json['serverId']),
-      name: serializer.fromJson<String>(json['name']),
       email: serializer.fromJson<String>(json['email']),
       isVerified: serializer.fromJson<bool>(json['isVerified']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
@@ -1846,7 +1818,6 @@ class UsersLocalData extends DataClass implements Insertable<UsersLocalData> {
     return <String, dynamic>{
       'localId': serializer.toJson<int>(localId),
       'serverId': serializer.toJson<String?>(serverId),
-      'name': serializer.toJson<String>(name),
       'email': serializer.toJson<String>(email),
       'isVerified': serializer.toJson<bool>(isVerified),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
@@ -1857,7 +1828,6 @@ class UsersLocalData extends DataClass implements Insertable<UsersLocalData> {
   UsersLocalData copyWith({
     int? localId,
     Value<String?> serverId = const Value.absent(),
-    String? name,
     String? email,
     bool? isVerified,
     DateTime? updatedAt,
@@ -1865,7 +1835,6 @@ class UsersLocalData extends DataClass implements Insertable<UsersLocalData> {
   }) => UsersLocalData(
     localId: localId ?? this.localId,
     serverId: serverId.present ? serverId.value : this.serverId,
-    name: name ?? this.name,
     email: email ?? this.email,
     isVerified: isVerified ?? this.isVerified,
     updatedAt: updatedAt ?? this.updatedAt,
@@ -1875,7 +1844,6 @@ class UsersLocalData extends DataClass implements Insertable<UsersLocalData> {
     return UsersLocalData(
       localId: data.localId.present ? data.localId.value : this.localId,
       serverId: data.serverId.present ? data.serverId.value : this.serverId,
-      name: data.name.present ? data.name.value : this.name,
       email: data.email.present ? data.email.value : this.email,
       isVerified:
           data.isVerified.present ? data.isVerified.value : this.isVerified,
@@ -1890,7 +1858,6 @@ class UsersLocalData extends DataClass implements Insertable<UsersLocalData> {
     return (StringBuffer('UsersLocalData(')
           ..write('localId: $localId, ')
           ..write('serverId: $serverId, ')
-          ..write('name: $name, ')
           ..write('email: $email, ')
           ..write('isVerified: $isVerified, ')
           ..write('updatedAt: $updatedAt, ')
@@ -1900,22 +1867,14 @@ class UsersLocalData extends DataClass implements Insertable<UsersLocalData> {
   }
 
   @override
-  int get hashCode => Object.hash(
-    localId,
-    serverId,
-    name,
-    email,
-    isVerified,
-    updatedAt,
-    syncStatus,
-  );
+  int get hashCode =>
+      Object.hash(localId, serverId, email, isVerified, updatedAt, syncStatus);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is UsersLocalData &&
           other.localId == this.localId &&
           other.serverId == this.serverId &&
-          other.name == this.name &&
           other.email == this.email &&
           other.isVerified == this.isVerified &&
           other.updatedAt == this.updatedAt &&
@@ -1925,7 +1884,6 @@ class UsersLocalData extends DataClass implements Insertable<UsersLocalData> {
 class UsersLocalCompanion extends UpdateCompanion<UsersLocalData> {
   final Value<int> localId;
   final Value<String?> serverId;
-  final Value<String> name;
   final Value<String> email;
   final Value<bool> isVerified;
   final Value<DateTime> updatedAt;
@@ -1933,7 +1891,6 @@ class UsersLocalCompanion extends UpdateCompanion<UsersLocalData> {
   const UsersLocalCompanion({
     this.localId = const Value.absent(),
     this.serverId = const Value.absent(),
-    this.name = const Value.absent(),
     this.email = const Value.absent(),
     this.isVerified = const Value.absent(),
     this.updatedAt = const Value.absent(),
@@ -1942,19 +1899,16 @@ class UsersLocalCompanion extends UpdateCompanion<UsersLocalData> {
   UsersLocalCompanion.insert({
     this.localId = const Value.absent(),
     this.serverId = const Value.absent(),
-    required String name,
     required String email,
     required bool isVerified,
     required DateTime updatedAt,
     this.syncStatus = const Value.absent(),
-  }) : name = Value(name),
-       email = Value(email),
+  }) : email = Value(email),
        isVerified = Value(isVerified),
        updatedAt = Value(updatedAt);
   static Insertable<UsersLocalData> custom({
     Expression<int>? localId,
     Expression<String>? serverId,
-    Expression<String>? name,
     Expression<String>? email,
     Expression<bool>? isVerified,
     Expression<DateTime>? updatedAt,
@@ -1963,7 +1917,6 @@ class UsersLocalCompanion extends UpdateCompanion<UsersLocalData> {
     return RawValuesInsertable({
       if (localId != null) 'local_id': localId,
       if (serverId != null) 'server_id': serverId,
-      if (name != null) 'name': name,
       if (email != null) 'email': email,
       if (isVerified != null) 'is_verified': isVerified,
       if (updatedAt != null) 'updated_at': updatedAt,
@@ -1974,7 +1927,6 @@ class UsersLocalCompanion extends UpdateCompanion<UsersLocalData> {
   UsersLocalCompanion copyWith({
     Value<int>? localId,
     Value<String?>? serverId,
-    Value<String>? name,
     Value<String>? email,
     Value<bool>? isVerified,
     Value<DateTime>? updatedAt,
@@ -1983,7 +1935,6 @@ class UsersLocalCompanion extends UpdateCompanion<UsersLocalData> {
     return UsersLocalCompanion(
       localId: localId ?? this.localId,
       serverId: serverId ?? this.serverId,
-      name: name ?? this.name,
       email: email ?? this.email,
       isVerified: isVerified ?? this.isVerified,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -1999,9 +1950,6 @@ class UsersLocalCompanion extends UpdateCompanion<UsersLocalData> {
     }
     if (serverId.present) {
       map['server_id'] = Variable<String>(serverId.value);
-    }
-    if (name.present) {
-      map['name'] = Variable<String>(name.value);
     }
     if (email.present) {
       map['email'] = Variable<String>(email.value);
@@ -2023,7 +1971,6 @@ class UsersLocalCompanion extends UpdateCompanion<UsersLocalData> {
     return (StringBuffer('UsersLocalCompanion(')
           ..write('localId: $localId, ')
           ..write('serverId: $serverId, ')
-          ..write('name: $name, ')
           ..write('email: $email, ')
           ..write('isVerified: $isVerified, ')
           ..write('updatedAt: $updatedAt, ')
@@ -2078,6 +2025,15 @@ class $UserProfilesLocalTable extends UserProfilesLocal
     defaultConstraints: GeneratedColumn.constraintIsAlways(
       'REFERENCES users_local (local_id)',
     ),
+  );
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
   );
   static const VerificationMeta _profilePhotoUrlMeta = const VerificationMeta(
     'profilePhotoUrl',
@@ -2167,13 +2123,14 @@ class $UserProfilesLocalTable extends UserProfilesLocal
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
-    defaultValue: const Constant(SyncStatus.pending),
+    defaultValue: const Constant(SyncStatus.pendingAdd),
   );
   @override
   List<GeneratedColumn> get $columns => [
     localId,
     serverId,
     userLocalId,
+    name,
     profilePhotoUrl,
     coverPhotoUrl,
     profileLocalFilePath,
@@ -2217,6 +2174,14 @@ class $UserProfilesLocalTable extends UserProfilesLocal
       );
     } else if (isInserting) {
       context.missing(_userLocalIdMeta);
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nameMeta);
     }
     if (data.containsKey('profile_photo_url')) {
       context.handle(
@@ -2308,6 +2273,11 @@ class $UserProfilesLocalTable extends UserProfilesLocal
             DriftSqlType.int,
             data['${effectivePrefix}user_local_id'],
           )!,
+      name:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}name'],
+          )!,
       profilePhotoUrl: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}profile_photo_url'],
@@ -2357,6 +2327,7 @@ class UserProfilesLocalData extends DataClass
   final int localId;
   final String? serverId;
   final int userLocalId;
+  final String name;
   final String? profilePhotoUrl;
   final String? coverPhotoUrl;
   final String? profileLocalFilePath;
@@ -2369,6 +2340,7 @@ class UserProfilesLocalData extends DataClass
     required this.localId,
     this.serverId,
     required this.userLocalId,
+    required this.name,
     this.profilePhotoUrl,
     this.coverPhotoUrl,
     this.profileLocalFilePath,
@@ -2386,6 +2358,7 @@ class UserProfilesLocalData extends DataClass
       map['server_id'] = Variable<String>(serverId);
     }
     map['user_local_id'] = Variable<int>(userLocalId);
+    map['name'] = Variable<String>(name);
     if (!nullToAbsent || profilePhotoUrl != null) {
       map['profile_photo_url'] = Variable<String>(profilePhotoUrl);
     }
@@ -2415,6 +2388,7 @@ class UserProfilesLocalData extends DataClass
               ? const Value.absent()
               : Value(serverId),
       userLocalId: Value(userLocalId),
+      name: Value(name),
       profilePhotoUrl:
           profilePhotoUrl == null && nullToAbsent
               ? const Value.absent()
@@ -2447,6 +2421,7 @@ class UserProfilesLocalData extends DataClass
       localId: serializer.fromJson<int>(json['localId']),
       serverId: serializer.fromJson<String?>(json['serverId']),
       userLocalId: serializer.fromJson<int>(json['userLocalId']),
+      name: serializer.fromJson<String>(json['name']),
       profilePhotoUrl: serializer.fromJson<String?>(json['profilePhotoUrl']),
       coverPhotoUrl: serializer.fromJson<String?>(json['coverPhotoUrl']),
       profileLocalFilePath: serializer.fromJson<String?>(
@@ -2468,6 +2443,7 @@ class UserProfilesLocalData extends DataClass
       'localId': serializer.toJson<int>(localId),
       'serverId': serializer.toJson<String?>(serverId),
       'userLocalId': serializer.toJson<int>(userLocalId),
+      'name': serializer.toJson<String>(name),
       'profilePhotoUrl': serializer.toJson<String?>(profilePhotoUrl),
       'coverPhotoUrl': serializer.toJson<String?>(coverPhotoUrl),
       'profileLocalFilePath': serializer.toJson<String?>(profileLocalFilePath),
@@ -2483,6 +2459,7 @@ class UserProfilesLocalData extends DataClass
     int? localId,
     Value<String?> serverId = const Value.absent(),
     int? userLocalId,
+    String? name,
     Value<String?> profilePhotoUrl = const Value.absent(),
     Value<String?> coverPhotoUrl = const Value.absent(),
     Value<String?> profileLocalFilePath = const Value.absent(),
@@ -2495,6 +2472,7 @@ class UserProfilesLocalData extends DataClass
     localId: localId ?? this.localId,
     serverId: serverId.present ? serverId.value : this.serverId,
     userLocalId: userLocalId ?? this.userLocalId,
+    name: name ?? this.name,
     profilePhotoUrl:
         profilePhotoUrl.present ? profilePhotoUrl.value : this.profilePhotoUrl,
     coverPhotoUrl:
@@ -2518,6 +2496,7 @@ class UserProfilesLocalData extends DataClass
       serverId: data.serverId.present ? data.serverId.value : this.serverId,
       userLocalId:
           data.userLocalId.present ? data.userLocalId.value : this.userLocalId,
+      name: data.name.present ? data.name.value : this.name,
       profilePhotoUrl:
           data.profilePhotoUrl.present
               ? data.profilePhotoUrl.value
@@ -2551,6 +2530,7 @@ class UserProfilesLocalData extends DataClass
           ..write('localId: $localId, ')
           ..write('serverId: $serverId, ')
           ..write('userLocalId: $userLocalId, ')
+          ..write('name: $name, ')
           ..write('profilePhotoUrl: $profilePhotoUrl, ')
           ..write('coverPhotoUrl: $coverPhotoUrl, ')
           ..write('profileLocalFilePath: $profileLocalFilePath, ')
@@ -2568,6 +2548,7 @@ class UserProfilesLocalData extends DataClass
     localId,
     serverId,
     userLocalId,
+    name,
     profilePhotoUrl,
     coverPhotoUrl,
     profileLocalFilePath,
@@ -2584,6 +2565,7 @@ class UserProfilesLocalData extends DataClass
           other.localId == this.localId &&
           other.serverId == this.serverId &&
           other.userLocalId == this.userLocalId &&
+          other.name == this.name &&
           other.profilePhotoUrl == this.profilePhotoUrl &&
           other.coverPhotoUrl == this.coverPhotoUrl &&
           other.profileLocalFilePath == this.profileLocalFilePath &&
@@ -2599,6 +2581,7 @@ class UserProfilesLocalCompanion
   final Value<int> localId;
   final Value<String?> serverId;
   final Value<int> userLocalId;
+  final Value<String> name;
   final Value<String?> profilePhotoUrl;
   final Value<String?> coverPhotoUrl;
   final Value<String?> profileLocalFilePath;
@@ -2611,6 +2594,7 @@ class UserProfilesLocalCompanion
     this.localId = const Value.absent(),
     this.serverId = const Value.absent(),
     this.userLocalId = const Value.absent(),
+    this.name = const Value.absent(),
     this.profilePhotoUrl = const Value.absent(),
     this.coverPhotoUrl = const Value.absent(),
     this.profileLocalFilePath = const Value.absent(),
@@ -2624,6 +2608,7 @@ class UserProfilesLocalCompanion
     this.localId = const Value.absent(),
     this.serverId = const Value.absent(),
     required int userLocalId,
+    required String name,
     this.profilePhotoUrl = const Value.absent(),
     this.coverPhotoUrl = const Value.absent(),
     this.profileLocalFilePath = const Value.absent(),
@@ -2633,12 +2618,14 @@ class UserProfilesLocalCompanion
     required DateTime updatedAt,
     this.syncStatus = const Value.absent(),
   }) : userLocalId = Value(userLocalId),
+       name = Value(name),
        locationLocalId = Value(locationLocalId),
        updatedAt = Value(updatedAt);
   static Insertable<UserProfilesLocalData> custom({
     Expression<int>? localId,
     Expression<String>? serverId,
     Expression<int>? userLocalId,
+    Expression<String>? name,
     Expression<String>? profilePhotoUrl,
     Expression<String>? coverPhotoUrl,
     Expression<String>? profileLocalFilePath,
@@ -2652,6 +2639,7 @@ class UserProfilesLocalCompanion
       if (localId != null) 'local_id': localId,
       if (serverId != null) 'server_id': serverId,
       if (userLocalId != null) 'user_local_id': userLocalId,
+      if (name != null) 'name': name,
       if (profilePhotoUrl != null) 'profile_photo_url': profilePhotoUrl,
       if (coverPhotoUrl != null) 'cover_photo_url': coverPhotoUrl,
       if (profileLocalFilePath != null)
@@ -2669,6 +2657,7 @@ class UserProfilesLocalCompanion
     Value<int>? localId,
     Value<String?>? serverId,
     Value<int>? userLocalId,
+    Value<String>? name,
     Value<String?>? profilePhotoUrl,
     Value<String?>? coverPhotoUrl,
     Value<String?>? profileLocalFilePath,
@@ -2682,6 +2671,7 @@ class UserProfilesLocalCompanion
       localId: localId ?? this.localId,
       serverId: serverId ?? this.serverId,
       userLocalId: userLocalId ?? this.userLocalId,
+      name: name ?? this.name,
       profilePhotoUrl: profilePhotoUrl ?? this.profilePhotoUrl,
       coverPhotoUrl: coverPhotoUrl ?? this.coverPhotoUrl,
       profileLocalFilePath: profileLocalFilePath ?? this.profileLocalFilePath,
@@ -2704,6 +2694,9 @@ class UserProfilesLocalCompanion
     }
     if (userLocalId.present) {
       map['user_local_id'] = Variable<int>(userLocalId.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
     }
     if (profilePhotoUrl.present) {
       map['profile_photo_url'] = Variable<String>(profilePhotoUrl.value);
@@ -2740,6 +2733,7 @@ class UserProfilesLocalCompanion
           ..write('localId: $localId, ')
           ..write('serverId: $serverId, ')
           ..write('userLocalId: $userLocalId, ')
+          ..write('name: $name, ')
           ..write('profilePhotoUrl: $profilePhotoUrl, ')
           ..write('coverPhotoUrl: $coverPhotoUrl, ')
           ..write('profileLocalFilePath: $profileLocalFilePath, ')
@@ -2849,7 +2843,7 @@ class $UserVisitedCountriesLocalTable extends UserVisitedCountriesLocal
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
-    defaultValue: const Constant(SyncStatus.pending),
+    defaultValue: const Constant(SyncStatus.pendingAdd),
   );
   @override
   List<GeneratedColumn> get $columns => [
@@ -3405,7 +3399,7 @@ class $JournalsLocalTable extends JournalsLocal
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
-    defaultValue: const Constant(SyncStatus.pending),
+    defaultValue: const Constant(SyncStatus.pendingAdd),
   );
   @override
   List<GeneratedColumn> get $columns => [
@@ -4121,7 +4115,7 @@ class $CategoriesLocalTable extends CategoriesLocal
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
-    defaultValue: const Constant(SyncStatus.pending),
+    defaultValue: const Constant(SyncStatus.pendingAdd),
   );
   @override
   List<GeneratedColumn> get $columns => [
@@ -4547,7 +4541,7 @@ class $MomentsLocalTable extends MomentsLocal
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
-    defaultValue: const Constant(SyncStatus.pending),
+    defaultValue: const Constant(SyncStatus.pendingAdd),
   );
   @override
   List<GeneratedColumn> get $columns => [
@@ -5165,7 +5159,7 @@ class $MomentMediaLocalTable extends MomentMediaLocal
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
-    defaultValue: const Constant(SyncStatus.pending),
+    defaultValue: const Constant(SyncStatus.pendingAdd),
   );
   @override
   List<GeneratedColumn> get $columns => [
@@ -5599,6 +5593,376 @@ class MomentMediaLocalCompanion extends UpdateCompanion<MomentMediaLocalData> {
   }
 }
 
+class $SyncHistoryTable extends SyncHistory
+    with TableInfo<$SyncHistoryTable, SyncHistoryData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SyncHistoryTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _localIdMeta = const VerificationMeta(
+    'localId',
+  );
+  @override
+  late final GeneratedColumn<int> localId = GeneratedColumn<int>(
+    'local_id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _syncStatusMeta = const VerificationMeta(
+    'syncStatus',
+  );
+  @override
+  late final GeneratedColumn<String> syncStatus = GeneratedColumn<String>(
+    'sync_status',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _syncTypeMeta = const VerificationMeta(
+    'syncType',
+  );
+  @override
+  late final GeneratedColumn<String> syncType = GeneratedColumn<String>(
+    'sync_type',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _syncTimeMeta = const VerificationMeta(
+    'syncTime',
+  );
+  @override
+  late final GeneratedColumn<DateTime> syncTime = GeneratedColumn<DateTime>(
+    'sync_time',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _syncMessageMeta = const VerificationMeta(
+    'syncMessage',
+  );
+  @override
+  late final GeneratedColumn<String> syncMessage = GeneratedColumn<String>(
+    'sync_message',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    localId,
+    syncStatus,
+    syncType,
+    syncTime,
+    syncMessage,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'sync_history';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SyncHistoryData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('local_id')) {
+      context.handle(
+        _localIdMeta,
+        localId.isAcceptableOrUnknown(data['local_id']!, _localIdMeta),
+      );
+    }
+    if (data.containsKey('sync_status')) {
+      context.handle(
+        _syncStatusMeta,
+        syncStatus.isAcceptableOrUnknown(data['sync_status']!, _syncStatusMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_syncStatusMeta);
+    }
+    if (data.containsKey('sync_type')) {
+      context.handle(
+        _syncTypeMeta,
+        syncType.isAcceptableOrUnknown(data['sync_type']!, _syncTypeMeta),
+      );
+    }
+    if (data.containsKey('sync_time')) {
+      context.handle(
+        _syncTimeMeta,
+        syncTime.isAcceptableOrUnknown(data['sync_time']!, _syncTimeMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_syncTimeMeta);
+    }
+    if (data.containsKey('sync_message')) {
+      context.handle(
+        _syncMessageMeta,
+        syncMessage.isAcceptableOrUnknown(
+          data['sync_message']!,
+          _syncMessageMeta,
+        ),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {localId};
+  @override
+  SyncHistoryData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SyncHistoryData(
+      localId:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}local_id'],
+          )!,
+      syncStatus:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}sync_status'],
+          )!,
+      syncType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sync_type'],
+      ),
+      syncTime:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.dateTime,
+            data['${effectivePrefix}sync_time'],
+          )!,
+      syncMessage: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sync_message'],
+      ),
+    );
+  }
+
+  @override
+  $SyncHistoryTable createAlias(String alias) {
+    return $SyncHistoryTable(attachedDatabase, alias);
+  }
+}
+
+class SyncHistoryData extends DataClass implements Insertable<SyncHistoryData> {
+  final int localId;
+  final String syncStatus;
+  final String? syncType;
+  final DateTime syncTime;
+  final String? syncMessage;
+  const SyncHistoryData({
+    required this.localId,
+    required this.syncStatus,
+    this.syncType,
+    required this.syncTime,
+    this.syncMessage,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['local_id'] = Variable<int>(localId);
+    map['sync_status'] = Variable<String>(syncStatus);
+    if (!nullToAbsent || syncType != null) {
+      map['sync_type'] = Variable<String>(syncType);
+    }
+    map['sync_time'] = Variable<DateTime>(syncTime);
+    if (!nullToAbsent || syncMessage != null) {
+      map['sync_message'] = Variable<String>(syncMessage);
+    }
+    return map;
+  }
+
+  SyncHistoryCompanion toCompanion(bool nullToAbsent) {
+    return SyncHistoryCompanion(
+      localId: Value(localId),
+      syncStatus: Value(syncStatus),
+      syncType:
+          syncType == null && nullToAbsent
+              ? const Value.absent()
+              : Value(syncType),
+      syncTime: Value(syncTime),
+      syncMessage:
+          syncMessage == null && nullToAbsent
+              ? const Value.absent()
+              : Value(syncMessage),
+    );
+  }
+
+  factory SyncHistoryData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SyncHistoryData(
+      localId: serializer.fromJson<int>(json['localId']),
+      syncStatus: serializer.fromJson<String>(json['syncStatus']),
+      syncType: serializer.fromJson<String?>(json['syncType']),
+      syncTime: serializer.fromJson<DateTime>(json['syncTime']),
+      syncMessage: serializer.fromJson<String?>(json['syncMessage']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'localId': serializer.toJson<int>(localId),
+      'syncStatus': serializer.toJson<String>(syncStatus),
+      'syncType': serializer.toJson<String?>(syncType),
+      'syncTime': serializer.toJson<DateTime>(syncTime),
+      'syncMessage': serializer.toJson<String?>(syncMessage),
+    };
+  }
+
+  SyncHistoryData copyWith({
+    int? localId,
+    String? syncStatus,
+    Value<String?> syncType = const Value.absent(),
+    DateTime? syncTime,
+    Value<String?> syncMessage = const Value.absent(),
+  }) => SyncHistoryData(
+    localId: localId ?? this.localId,
+    syncStatus: syncStatus ?? this.syncStatus,
+    syncType: syncType.present ? syncType.value : this.syncType,
+    syncTime: syncTime ?? this.syncTime,
+    syncMessage: syncMessage.present ? syncMessage.value : this.syncMessage,
+  );
+  SyncHistoryData copyWithCompanion(SyncHistoryCompanion data) {
+    return SyncHistoryData(
+      localId: data.localId.present ? data.localId.value : this.localId,
+      syncStatus:
+          data.syncStatus.present ? data.syncStatus.value : this.syncStatus,
+      syncType: data.syncType.present ? data.syncType.value : this.syncType,
+      syncTime: data.syncTime.present ? data.syncTime.value : this.syncTime,
+      syncMessage:
+          data.syncMessage.present ? data.syncMessage.value : this.syncMessage,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SyncHistoryData(')
+          ..write('localId: $localId, ')
+          ..write('syncStatus: $syncStatus, ')
+          ..write('syncType: $syncType, ')
+          ..write('syncTime: $syncTime, ')
+          ..write('syncMessage: $syncMessage')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(localId, syncStatus, syncType, syncTime, syncMessage);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SyncHistoryData &&
+          other.localId == this.localId &&
+          other.syncStatus == this.syncStatus &&
+          other.syncType == this.syncType &&
+          other.syncTime == this.syncTime &&
+          other.syncMessage == this.syncMessage);
+}
+
+class SyncHistoryCompanion extends UpdateCompanion<SyncHistoryData> {
+  final Value<int> localId;
+  final Value<String> syncStatus;
+  final Value<String?> syncType;
+  final Value<DateTime> syncTime;
+  final Value<String?> syncMessage;
+  const SyncHistoryCompanion({
+    this.localId = const Value.absent(),
+    this.syncStatus = const Value.absent(),
+    this.syncType = const Value.absent(),
+    this.syncTime = const Value.absent(),
+    this.syncMessage = const Value.absent(),
+  });
+  SyncHistoryCompanion.insert({
+    this.localId = const Value.absent(),
+    required String syncStatus,
+    this.syncType = const Value.absent(),
+    required DateTime syncTime,
+    this.syncMessage = const Value.absent(),
+  }) : syncStatus = Value(syncStatus),
+       syncTime = Value(syncTime);
+  static Insertable<SyncHistoryData> custom({
+    Expression<int>? localId,
+    Expression<String>? syncStatus,
+    Expression<String>? syncType,
+    Expression<DateTime>? syncTime,
+    Expression<String>? syncMessage,
+  }) {
+    return RawValuesInsertable({
+      if (localId != null) 'local_id': localId,
+      if (syncStatus != null) 'sync_status': syncStatus,
+      if (syncType != null) 'sync_type': syncType,
+      if (syncTime != null) 'sync_time': syncTime,
+      if (syncMessage != null) 'sync_message': syncMessage,
+    });
+  }
+
+  SyncHistoryCompanion copyWith({
+    Value<int>? localId,
+    Value<String>? syncStatus,
+    Value<String?>? syncType,
+    Value<DateTime>? syncTime,
+    Value<String?>? syncMessage,
+  }) {
+    return SyncHistoryCompanion(
+      localId: localId ?? this.localId,
+      syncStatus: syncStatus ?? this.syncStatus,
+      syncType: syncType ?? this.syncType,
+      syncTime: syncTime ?? this.syncTime,
+      syncMessage: syncMessage ?? this.syncMessage,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (localId.present) {
+      map['local_id'] = Variable<int>(localId.value);
+    }
+    if (syncStatus.present) {
+      map['sync_status'] = Variable<String>(syncStatus.value);
+    }
+    if (syncType.present) {
+      map['sync_type'] = Variable<String>(syncType.value);
+    }
+    if (syncTime.present) {
+      map['sync_time'] = Variable<DateTime>(syncTime.value);
+    }
+    if (syncMessage.present) {
+      map['sync_message'] = Variable<String>(syncMessage.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SyncHistoryCompanion(')
+          ..write('localId: $localId, ')
+          ..write('syncStatus: $syncStatus, ')
+          ..write('syncType: $syncType, ')
+          ..write('syncTime: $syncTime, ')
+          ..write('syncMessage: $syncMessage')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -5620,6 +5984,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $MomentMediaLocalTable momentMediaLocal = $MomentMediaLocalTable(
     this,
   );
+  late final $SyncHistoryTable syncHistory = $SyncHistoryTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -5635,6 +6000,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     categoriesLocal,
     momentsLocal,
     momentMediaLocal,
+    syncHistory,
   ];
 }
 
@@ -7347,7 +7713,6 @@ typedef $$UsersLocalTableCreateCompanionBuilder =
     UsersLocalCompanion Function({
       Value<int> localId,
       Value<String?> serverId,
-      required String name,
       required String email,
       required bool isVerified,
       required DateTime updatedAt,
@@ -7357,7 +7722,6 @@ typedef $$UsersLocalTableUpdateCompanionBuilder =
     UsersLocalCompanion Function({
       Value<int> localId,
       Value<String?> serverId,
-      Value<String> name,
       Value<String> email,
       Value<bool> isVerified,
       Value<DateTime> updatedAt,
@@ -7467,11 +7831,6 @@ class $$UsersLocalTableFilterComposer
 
   ColumnFilters<String> get serverId => $composableBuilder(
     column: $table.serverId,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<String> get name => $composableBuilder(
-    column: $table.name,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -7592,11 +7951,6 @@ class $$UsersLocalTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get name => $composableBuilder(
-    column: $table.name,
-    builder: (column) => ColumnOrderings(column),
-  );
-
   ColumnOrderings<String> get email => $composableBuilder(
     column: $table.email,
     builder: (column) => ColumnOrderings(column),
@@ -7632,9 +7986,6 @@ class $$UsersLocalTableAnnotationComposer
 
   GeneratedColumn<String> get serverId =>
       $composableBuilder(column: $table.serverId, builder: (column) => column);
-
-  GeneratedColumn<String> get name =>
-      $composableBuilder(column: $table.name, builder: (column) => column);
 
   GeneratedColumn<String> get email =>
       $composableBuilder(column: $table.email, builder: (column) => column);
@@ -7765,7 +8116,6 @@ class $$UsersLocalTableTableManager
               ({
                 Value<int> localId = const Value.absent(),
                 Value<String?> serverId = const Value.absent(),
-                Value<String> name = const Value.absent(),
                 Value<String> email = const Value.absent(),
                 Value<bool> isVerified = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
@@ -7773,7 +8123,6 @@ class $$UsersLocalTableTableManager
               }) => UsersLocalCompanion(
                 localId: localId,
                 serverId: serverId,
-                name: name,
                 email: email,
                 isVerified: isVerified,
                 updatedAt: updatedAt,
@@ -7783,7 +8132,6 @@ class $$UsersLocalTableTableManager
               ({
                 Value<int> localId = const Value.absent(),
                 Value<String?> serverId = const Value.absent(),
-                required String name,
                 required String email,
                 required bool isVerified,
                 required DateTime updatedAt,
@@ -7791,7 +8139,6 @@ class $$UsersLocalTableTableManager
               }) => UsersLocalCompanion.insert(
                 localId: localId,
                 serverId: serverId,
-                name: name,
                 email: email,
                 isVerified: isVerified,
                 updatedAt: updatedAt,
@@ -7919,6 +8266,7 @@ typedef $$UserProfilesLocalTableCreateCompanionBuilder =
       Value<int> localId,
       Value<String?> serverId,
       required int userLocalId,
+      required String name,
       Value<String?> profilePhotoUrl,
       Value<String?> coverPhotoUrl,
       Value<String?> profileLocalFilePath,
@@ -7933,6 +8281,7 @@ typedef $$UserProfilesLocalTableUpdateCompanionBuilder =
       Value<int> localId,
       Value<String?> serverId,
       Value<int> userLocalId,
+      Value<String> name,
       Value<String?> profilePhotoUrl,
       Value<String?> coverPhotoUrl,
       Value<String?> profileLocalFilePath,
@@ -8017,6 +8366,11 @@ class $$UserProfilesLocalTableFilterComposer
 
   ColumnFilters<String> get serverId => $composableBuilder(
     column: $table.serverId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get name => $composableBuilder(
+    column: $table.name,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -8121,6 +8475,11 @@ class $$UserProfilesLocalTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get profilePhotoUrl => $composableBuilder(
     column: $table.profilePhotoUrl,
     builder: (column) => ColumnOrderings(column),
@@ -8217,6 +8576,9 @@ class $$UserProfilesLocalTableAnnotationComposer
 
   GeneratedColumn<String> get serverId =>
       $composableBuilder(column: $table.serverId, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
 
   GeneratedColumn<String> get profilePhotoUrl => $composableBuilder(
     column: $table.profilePhotoUrl,
@@ -8338,6 +8700,7 @@ class $$UserProfilesLocalTableTableManager
                 Value<int> localId = const Value.absent(),
                 Value<String?> serverId = const Value.absent(),
                 Value<int> userLocalId = const Value.absent(),
+                Value<String> name = const Value.absent(),
                 Value<String?> profilePhotoUrl = const Value.absent(),
                 Value<String?> coverPhotoUrl = const Value.absent(),
                 Value<String?> profileLocalFilePath = const Value.absent(),
@@ -8350,6 +8713,7 @@ class $$UserProfilesLocalTableTableManager
                 localId: localId,
                 serverId: serverId,
                 userLocalId: userLocalId,
+                name: name,
                 profilePhotoUrl: profilePhotoUrl,
                 coverPhotoUrl: coverPhotoUrl,
                 profileLocalFilePath: profileLocalFilePath,
@@ -8364,6 +8728,7 @@ class $$UserProfilesLocalTableTableManager
                 Value<int> localId = const Value.absent(),
                 Value<String?> serverId = const Value.absent(),
                 required int userLocalId,
+                required String name,
                 Value<String?> profilePhotoUrl = const Value.absent(),
                 Value<String?> coverPhotoUrl = const Value.absent(),
                 Value<String?> profileLocalFilePath = const Value.absent(),
@@ -8376,6 +8741,7 @@ class $$UserProfilesLocalTableTableManager
                 localId: localId,
                 serverId: serverId,
                 userLocalId: userLocalId,
+                name: name,
                 profilePhotoUrl: profilePhotoUrl,
                 coverPhotoUrl: coverPhotoUrl,
                 profileLocalFilePath: profileLocalFilePath,
@@ -11086,6 +11452,212 @@ typedef $$MomentMediaLocalTableProcessedTableManager =
       MomentMediaLocalData,
       PrefetchHooks Function({bool momentLocalId})
     >;
+typedef $$SyncHistoryTableCreateCompanionBuilder =
+    SyncHistoryCompanion Function({
+      Value<int> localId,
+      required String syncStatus,
+      Value<String?> syncType,
+      required DateTime syncTime,
+      Value<String?> syncMessage,
+    });
+typedef $$SyncHistoryTableUpdateCompanionBuilder =
+    SyncHistoryCompanion Function({
+      Value<int> localId,
+      Value<String> syncStatus,
+      Value<String?> syncType,
+      Value<DateTime> syncTime,
+      Value<String?> syncMessage,
+    });
+
+class $$SyncHistoryTableFilterComposer
+    extends Composer<_$AppDatabase, $SyncHistoryTable> {
+  $$SyncHistoryTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get localId => $composableBuilder(
+    column: $table.localId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get syncStatus => $composableBuilder(
+    column: $table.syncStatus,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get syncType => $composableBuilder(
+    column: $table.syncType,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get syncTime => $composableBuilder(
+    column: $table.syncTime,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get syncMessage => $composableBuilder(
+    column: $table.syncMessage,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$SyncHistoryTableOrderingComposer
+    extends Composer<_$AppDatabase, $SyncHistoryTable> {
+  $$SyncHistoryTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get localId => $composableBuilder(
+    column: $table.localId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get syncStatus => $composableBuilder(
+    column: $table.syncStatus,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get syncType => $composableBuilder(
+    column: $table.syncType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get syncTime => $composableBuilder(
+    column: $table.syncTime,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get syncMessage => $composableBuilder(
+    column: $table.syncMessage,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$SyncHistoryTableAnnotationComposer
+    extends Composer<_$AppDatabase, $SyncHistoryTable> {
+  $$SyncHistoryTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get localId =>
+      $composableBuilder(column: $table.localId, builder: (column) => column);
+
+  GeneratedColumn<String> get syncStatus => $composableBuilder(
+    column: $table.syncStatus,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get syncType =>
+      $composableBuilder(column: $table.syncType, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get syncTime =>
+      $composableBuilder(column: $table.syncTime, builder: (column) => column);
+
+  GeneratedColumn<String> get syncMessage => $composableBuilder(
+    column: $table.syncMessage,
+    builder: (column) => column,
+  );
+}
+
+class $$SyncHistoryTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $SyncHistoryTable,
+          SyncHistoryData,
+          $$SyncHistoryTableFilterComposer,
+          $$SyncHistoryTableOrderingComposer,
+          $$SyncHistoryTableAnnotationComposer,
+          $$SyncHistoryTableCreateCompanionBuilder,
+          $$SyncHistoryTableUpdateCompanionBuilder,
+          (
+            SyncHistoryData,
+            BaseReferences<_$AppDatabase, $SyncHistoryTable, SyncHistoryData>,
+          ),
+          SyncHistoryData,
+          PrefetchHooks Function()
+        > {
+  $$SyncHistoryTableTableManager(_$AppDatabase db, $SyncHistoryTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer:
+              () => $$SyncHistoryTableFilterComposer($db: db, $table: table),
+          createOrderingComposer:
+              () => $$SyncHistoryTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer:
+              () =>
+                  $$SyncHistoryTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> localId = const Value.absent(),
+                Value<String> syncStatus = const Value.absent(),
+                Value<String?> syncType = const Value.absent(),
+                Value<DateTime> syncTime = const Value.absent(),
+                Value<String?> syncMessage = const Value.absent(),
+              }) => SyncHistoryCompanion(
+                localId: localId,
+                syncStatus: syncStatus,
+                syncType: syncType,
+                syncTime: syncTime,
+                syncMessage: syncMessage,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> localId = const Value.absent(),
+                required String syncStatus,
+                Value<String?> syncType = const Value.absent(),
+                required DateTime syncTime,
+                Value<String?> syncMessage = const Value.absent(),
+              }) => SyncHistoryCompanion.insert(
+                localId: localId,
+                syncStatus: syncStatus,
+                syncType: syncType,
+                syncTime: syncTime,
+                syncMessage: syncMessage,
+              ),
+          withReferenceMapper:
+              (p0) =>
+                  p0
+                      .map(
+                        (e) => (
+                          e.readTable(table),
+                          BaseReferences(db, table, e),
+                        ),
+                      )
+                      .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$SyncHistoryTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $SyncHistoryTable,
+      SyncHistoryData,
+      $$SyncHistoryTableFilterComposer,
+      $$SyncHistoryTableOrderingComposer,
+      $$SyncHistoryTableAnnotationComposer,
+      $$SyncHistoryTableCreateCompanionBuilder,
+      $$SyncHistoryTableUpdateCompanionBuilder,
+      (
+        SyncHistoryData,
+        BaseReferences<_$AppDatabase, $SyncHistoryTable, SyncHistoryData>,
+      ),
+      SyncHistoryData,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -11113,4 +11685,6 @@ class $AppDatabaseManager {
       $$MomentsLocalTableTableManager(_db, _db.momentsLocal);
   $$MomentMediaLocalTableTableManager get momentMediaLocal =>
       $$MomentMediaLocalTableTableManager(_db, _db.momentMediaLocal);
+  $$SyncHistoryTableTableManager get syncHistory =>
+      $$SyncHistoryTableTableManager(_db, _db.syncHistory);
 }

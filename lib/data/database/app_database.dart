@@ -17,7 +17,7 @@ class ContinentsLocal extends Table {
 
   late final updatedAt = dateTime()();
   late final syncStatus =
-      text().withDefault(const Constant(SyncStatus.pending))();
+      text().withDefault(const Constant(SyncStatus.pendingAdd))();
 }
 
 class CountriesLocal extends Table {
@@ -32,7 +32,7 @@ class CountriesLocal extends Table {
 
   late final updatedAt = dateTime()();
   late final syncStatus =
-      text().withDefault(const Constant(SyncStatus.pending))();
+      text().withDefault(const Constant(SyncStatus.pendingAdd))();
 }
 
 class LocationsLocal extends Table {
@@ -52,20 +52,19 @@ class LocationsLocal extends Table {
 
   late final updatedAt = dateTime()();
   late final syncStatus =
-      text().withDefault(const Constant(SyncStatus.pending))();
+      text().withDefault(const Constant(SyncStatus.pendingAdd))();
 }
 
 class UsersLocal extends Table {
   late final localId = integer().autoIncrement()();
   late final serverId = text().nullable()();
 
-  late final name = text()();
   late final email = text()();
   late final isVerified = boolean()();
 
   late final updatedAt = dateTime()();
   late final syncStatus =
-      text().withDefault(const Constant(SyncStatus.pending))();
+      text().withDefault(const Constant(SyncStatus.pendingAdd))();
 }
 
 class UserProfilesLocal extends Table {
@@ -73,6 +72,8 @@ class UserProfilesLocal extends Table {
   late final serverId = text().nullable()();
 
   late final userLocalId = integer().references(UsersLocal, #localId)();
+
+  late final name = text()();
 
   late final profilePhotoUrl = text().nullable()();
   late final coverPhotoUrl = text().nullable()();
@@ -85,7 +86,7 @@ class UserProfilesLocal extends Table {
 
   late final updatedAt = dateTime()();
   late final syncStatus =
-      text().withDefault(const Constant(SyncStatus.pending))();
+      text().withDefault(const Constant(SyncStatus.pendingAdd))();
 }
 
 class UserVisitedCountriesLocal extends Table {
@@ -99,7 +100,7 @@ class UserVisitedCountriesLocal extends Table {
 
   late final updatedAt = dateTime()();
   late final syncStatus =
-      text().withDefault(const Constant(SyncStatus.pending))();
+      text().withDefault(const Constant(SyncStatus.pendingAdd))();
 }
 
 class JournalsLocal extends Table {
@@ -123,7 +124,7 @@ class JournalsLocal extends Table {
 
   late final updatedAt = dateTime()();
   late final syncStatus =
-      text().withDefault(const Constant(SyncStatus.pending))();
+      text().withDefault(const Constant(SyncStatus.pendingAdd))();
 }
 
 class CategoriesLocal extends Table {
@@ -134,7 +135,7 @@ class CategoriesLocal extends Table {
 
   late final updatedAt = dateTime()();
   late final syncStatus =
-      text().withDefault(const Constant(SyncStatus.pending))();
+      text().withDefault(const Constant(SyncStatus.pendingAdd))();
 }
 
 class MomentsLocal extends Table {
@@ -154,7 +155,7 @@ class MomentsLocal extends Table {
 
   late final updatedAt = dateTime()();
   late final syncStatus =
-      text().withDefault(const Constant(SyncStatus.pending))();
+      text().withDefault(const Constant(SyncStatus.pendingAdd))();
 }
 
 class MomentMediaLocal extends Table {
@@ -170,7 +171,15 @@ class MomentMediaLocal extends Table {
 
   late final updatedAt = dateTime()();
   late final syncStatus =
-      text().withDefault(const Constant(SyncStatus.pending))();
+      text().withDefault(const Constant(SyncStatus.pendingAdd))();
+}
+
+class SyncHistory extends Table {
+  late final localId = integer().autoIncrement()();
+  late final syncStatus = text()();
+  late final syncType = text().nullable()();
+  late final syncTime = dateTime()();
+  late final syncMessage = text().nullable()();
 }
 
 @DriftDatabase(
@@ -185,6 +194,7 @@ class MomentMediaLocal extends Table {
     MomentsLocal,
     MomentMediaLocal,
     CategoriesLocal,
+    SyncHistory,
   ],
 )
 class AppDatabase extends _$AppDatabase {
