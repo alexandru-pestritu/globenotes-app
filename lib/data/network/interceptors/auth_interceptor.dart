@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:globenotes/data/data_source/secure_storage_local_data_source.dart';
+import 'package:globenotes/data/data_source/local/secure_storage_local_data_source.dart';
 
 class AuthInterceptor extends Interceptor {
   final SecureStorageLocalDataSource _secureStorageLocalDataSource;

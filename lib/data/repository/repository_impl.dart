@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:globenotes/data/data_source/remote_data_source.dart';
-import 'package:globenotes/data/data_source/secure_storage_local_data_source.dart';
-import 'package:globenotes/data/data_source/social_auth_local_data_source.dart';
+import 'package:globenotes/data/data_source/local/secure_storage_local_data_source.dart';
+import 'package:globenotes/data/data_source/local/social_auth_local_data_source.dart';
 import 'package:globenotes/data/network/error_handler.dart';
 import 'package:globenotes/data/network/failure.dart';
 import 'package:globenotes/data/network/network_info.dart';

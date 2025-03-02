@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:globenotes/app/app_preferences.dart';
 import 'package:globenotes/app/constants.dart';
-import 'package:globenotes/data/data_source/secure_storage_local_data_source.dart';
+import 'package:globenotes/data/data_source/local/secure_storage_local_data_source.dart';
 import 'package:globenotes/data/network/interceptors/auth_interceptor.dart';
 import 'package:globenotes/data/network/interceptors/refresh_interceptor.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
