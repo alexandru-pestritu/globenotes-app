@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:globenotes/data/network/failure.dart';
 import 'package:globenotes/domain/model/model.dart';
-import 'package:globenotes/domain/repository/repository.dart';
+import 'package:globenotes/domain/repository/auth_repository.dart';
 import 'package:globenotes/domain/usecase/base_usecase.dart';
 
 class GoogleLoginUseCase implements BaseUseCase<NoParams, Authentication> {
-  final Repository _repository;
+  final AuthRepository _repository;
 
   GoogleLoginUseCase(this._repository);
 
@@ -16,7 +16,7 @@ class GoogleLoginUseCase implements BaseUseCase<NoParams, Authentication> {
 }
 
 class FacebookLoginUseCase implements BaseUseCase<NoParams, Authentication> {
-  final Repository _repository;
+  final AuthRepository _repository;
 
   FacebookLoginUseCase(this._repository);
 

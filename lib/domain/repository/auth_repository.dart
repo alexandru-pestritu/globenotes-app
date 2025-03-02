@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:globenotes/data/network/failure.dart';
-import 'package:globenotes/data/request/requests.dart';
+import 'package:globenotes/data/dto/request/requests.dart';
 import 'package:globenotes/domain/model/model.dart';
 
-abstract class Repository {
+abstract class AuthRepository {
   Future<Either<Failure, Authentication>> login(LoginRequest loginRequest);
   Future<Either<Failure, Authentication>> loginWithGoogle();
   Future<Either<Failure, Authentication>> loginWithFacebook();

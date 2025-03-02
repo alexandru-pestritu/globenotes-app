@@ -1,24 +1,28 @@
 import 'package:dartz/dartz.dart';
+import 'package:globenotes/data/data_source/local/user_local_data_source.dart';
 import 'package:globenotes/data/data_source/remote_data_source.dart';
 import 'package:globenotes/data/data_source/local/secure_storage_local_data_source.dart';
 import 'package:globenotes/data/data_source/local/social_auth_local_data_source.dart';
+import 'package:globenotes/data/mapper/user_mapper.dart';
 import 'package:globenotes/data/network/error_handler.dart';
 import 'package:globenotes/data/network/failure.dart';
 import 'package:globenotes/data/network/network_info.dart';
-import 'package:globenotes/data/request/requests.dart';
+import 'package:globenotes/data/dto/request/requests.dart';
 import 'package:globenotes/domain/model/model.dart';
-import 'package:globenotes/domain/repository/repository.dart';
-import 'package:globenotes/data/mapper/mapper.dart';
+import 'package:globenotes/domain/repository/auth_repository.dart';
+import 'package:globenotes/data/mapper/auth_mapper.dart';
 
-class RepositoryImpl extends Repository {
+class AuthRepositoryImpl extends AuthRepository {
   final RemoteDataSource _remoteDataSource;
   final SocialAuthLocalDataSource _socialAuthLocalDataSource;
   final SecureStorageLocalDataSource _secureStorageLocalDataSource;
+  final UsersLocalDataSource _usersLocalDataSource;
   final NetworkInfo _networkInfo;
-  RepositoryImpl(
+  AuthRepositoryImpl(
     this._remoteDataSource,
     this._socialAuthLocalDataSource,
     this._secureStorageLocalDataSource,
+    this._usersLocalDataSource,
     this._networkInfo,
   );
 
@@ -36,6 +40,12 @@ class RepositoryImpl extends Repository {
             auth.accessToken,
             auth.refreshToken,
           );
+
+          final userDTO = response.data?.user; 
+          if (userDTO != null) {
+            final userCompanion = userDTO.toCompanion();
+            await _usersLocalDataSource.insertUser(userCompanion);
+        }
           return Right(auth);
         } else {
           return Left(
@@ -240,6 +250,12 @@ class RepositoryImpl extends Repository {
             auth.accessToken,
             auth.refreshToken,
           );
+
+          final userDTO = response.data?.user; 
+          if (userDTO != null) {
+            final userCompanion = userDTO.toCompanion();
+            await _usersLocalDataSource.insertUser(userCompanion);
+          }
           return Right(auth);
         } else {
           return Left(
@@ -278,6 +294,11 @@ class RepositoryImpl extends Repository {
             auth.accessToken,
             auth.refreshToken,
           );
+          final userDTO = response.data?.user; 
+          if (userDTO != null) {
+            final userCompanion = userDTO.toCompanion();
+            await _usersLocalDataSource.insertUser(userCompanion);
+          }
           return Right(auth);
         } else {
           return Left(

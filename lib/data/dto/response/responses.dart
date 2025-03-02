@@ -1,4 +1,5 @@
-import 'package:globenotes/data/response/base_response.dart';
+import 'package:globenotes/data/dto/response/base_response.dart';
+import 'package:globenotes/data/dto/user/user_dtos.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'responses.g.dart';
 
@@ -10,7 +11,10 @@ class AuthData {
   @JsonKey(name: "refresh_token")
   String? refreshToken;
 
-  AuthData({this.accessToken, this.refreshToken});
+  @JsonKey(name: "user")
+  UserDTO? user;
+
+  AuthData({this.accessToken, this.refreshToken, this.user});
 
   factory AuthData.fromJson(Map<String, dynamic> json) =>
       _$AuthDataFromJson(json);

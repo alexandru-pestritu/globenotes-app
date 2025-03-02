@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:globenotes/app/app_preferences.dart';
+import 'package:globenotes/data/data_source/local/user_local_data_source.dart';
 import 'package:globenotes/data/data_source/remote_data_source.dart';
 import 'package:globenotes/data/data_source/local/secure_storage_local_data_source.dart';
 import 'package:globenotes/data/data_source/local/social_auth_local_data_source.dart';
@@ -9,8 +10,8 @@ import 'package:globenotes/data/database/app_database.dart';
 import 'package:globenotes/data/network/app_api.dart';
 import 'package:globenotes/data/network/dio_factory.dart';
 import 'package:globenotes/data/network/network_info.dart';
-import 'package:globenotes/data/repository/repository_impl.dart';
-import 'package:globenotes/domain/repository/repository.dart';
+import 'package:globenotes/data/repository/auth_repository_impl.dart';
+import 'package:globenotes/domain/repository/auth_repository.dart';
 import 'package:globenotes/domain/usecase/forgot_password_usecase.dart';
 import 'package:globenotes/domain/usecase/login_usecase.dart';
 import 'package:globenotes/domain/usecase/register_usecase.dart';
@@ -76,9 +77,20 @@ Future<void> initAppModule() async {
     () => SocialAuthLocalDataSourceImpl(),
   );
 
+  // users local data source
+  instance.registerLazySingleton<UsersLocalDataSource>(
+    () => UsersLocalDataSourceImpl(instance()),
+  );
+
   // repository
-  instance.registerLazySingleton<Repository>(
-    () => RepositoryImpl(instance(), instance(), instance(), instance()),
+  instance.registerLazySingleton<AuthRepository>(
+    () => AuthRepositoryImpl(
+      instance(),
+      instance(),
+      instance(),
+      instance(),
+      instance(),
+    ),
   );
 }
 

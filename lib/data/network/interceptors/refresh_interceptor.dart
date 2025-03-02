@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:globenotes/data/data_source/local/secure_storage_local_data_source.dart';
 import 'package:globenotes/data/network/error_handler.dart';
-import 'package:globenotes/data/response/responses.dart';
+import 'package:globenotes/data/dto/response/responses.dart';
 
 class RefreshTokenInterceptor extends Interceptor {
   final Dio _dio;

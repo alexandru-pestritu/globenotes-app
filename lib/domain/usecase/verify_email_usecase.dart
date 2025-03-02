@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:globenotes/data/network/failure.dart';
-import 'package:globenotes/data/request/requests.dart';
-import 'package:globenotes/domain/repository/repository.dart';
+import 'package:globenotes/data/dto/request/requests.dart';
+import 'package:globenotes/domain/repository/auth_repository.dart';
 import 'package:globenotes/domain/usecase/base_usecase.dart';
 
 class VerifyEmailUseCase implements BaseUseCase<VerifyEmailUseCaseInput, bool> {
-  final Repository _repository;
+  final AuthRepository _repository;
 
   VerifyEmailUseCase(this._repository);
 

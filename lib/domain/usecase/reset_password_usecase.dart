@@ -1,11 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:globenotes/data/network/failure.dart';
-import 'package:globenotes/data/request/requests.dart';
-import 'package:globenotes/domain/repository/repository.dart';
+import 'package:globenotes/data/dto/request/requests.dart';
+import 'package:globenotes/domain/repository/auth_repository.dart';
 import 'package:globenotes/domain/usecase/base_usecase.dart';
 
-class ResetPasswordUseCase implements BaseUseCase<ResetPasswordUseCaseInput, bool> {
-  final Repository _repository;
+class ResetPasswordUseCase
+    implements BaseUseCase<ResetPasswordUseCaseInput, bool> {
+  final AuthRepository _repository;
 
   ResetPasswordUseCase(this._repository);
 

@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:globenotes/data/network/failure.dart';
-import 'package:globenotes/data/request/requests.dart';
+import 'package:globenotes/data/dto/request/requests.dart';
 import 'package:globenotes/domain/model/model.dart';
-import 'package:globenotes/domain/repository/repository.dart';
+import 'package:globenotes/domain/repository/auth_repository.dart';
 import 'package:globenotes/domain/usecase/base_usecase.dart';
 
 class LoginUseCase implements BaseUseCase<LoginUseCaseInput, Authentication> {
-  final Repository _repository;
+  final AuthRepository _repository;
 
   LoginUseCase(this._repository);
 

@@ -9,11 +9,16 @@ part of 'responses.dart';
 AuthData _$AuthDataFromJson(Map<String, dynamic> json) => AuthData(
   accessToken: json['access_token'] as String?,
   refreshToken: json['refresh_token'] as String?,
+  user:
+      json['user'] == null
+          ? null
+          : UserDTO.fromJson(json['user'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$AuthDataToJson(AuthData instance) => <String, dynamic>{
   'access_token': instance.accessToken,
   'refresh_token': instance.refreshToken,
+  'user': instance.user,
 };
 
 LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) =>

@@ -53,17 +53,6 @@ class $ContinentsLocalTable extends ContinentsLocal
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
-    'updatedAt',
-  );
-  @override
-  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
-    'updated_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.dateTime,
-    requiredDuringInsert: true,
-  );
   static const VerificationMeta _syncStatusMeta = const VerificationMeta(
     'syncStatus',
   );
@@ -82,7 +71,6 @@ class $ContinentsLocalTable extends ContinentsLocal
     serverId,
     name,
     code,
-    updatedAt,
     syncStatus,
   ];
   @override
@@ -123,14 +111,6 @@ class $ContinentsLocalTable extends ContinentsLocal
         code.isAcceptableOrUnknown(data['code']!, _codeMeta),
       );
     }
-    if (data.containsKey('updated_at')) {
-      context.handle(
-        _updatedAtMeta,
-        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_updatedAtMeta);
-    }
     if (data.containsKey('sync_status')) {
       context.handle(
         _syncStatusMeta,
@@ -164,11 +144,6 @@ class $ContinentsLocalTable extends ContinentsLocal
         DriftSqlType.string,
         data['${effectivePrefix}code'],
       ),
-      updatedAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}updated_at'],
-          )!,
       syncStatus:
           attachedDatabase.typeMapping.read(
             DriftSqlType.string,
@@ -189,14 +164,12 @@ class ContinentsLocalData extends DataClass
   final String? serverId;
   final String name;
   final String? code;
-  final DateTime updatedAt;
   final String syncStatus;
   const ContinentsLocalData({
     required this.localId,
     this.serverId,
     required this.name,
     this.code,
-    required this.updatedAt,
     required this.syncStatus,
   });
   @override
@@ -210,7 +183,6 @@ class ContinentsLocalData extends DataClass
     if (!nullToAbsent || code != null) {
       map['code'] = Variable<String>(code);
     }
-    map['updated_at'] = Variable<DateTime>(updatedAt);
     map['sync_status'] = Variable<String>(syncStatus);
     return map;
   }
@@ -224,7 +196,6 @@ class ContinentsLocalData extends DataClass
               : Value(serverId),
       name: Value(name),
       code: code == null && nullToAbsent ? const Value.absent() : Value(code),
-      updatedAt: Value(updatedAt),
       syncStatus: Value(syncStatus),
     );
   }
@@ -239,7 +210,6 @@ class ContinentsLocalData extends DataClass
       serverId: serializer.fromJson<String?>(json['serverId']),
       name: serializer.fromJson<String>(json['name']),
       code: serializer.fromJson<String?>(json['code']),
-      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
       syncStatus: serializer.fromJson<String>(json['syncStatus']),
     );
   }
@@ -251,7 +221,6 @@ class ContinentsLocalData extends DataClass
       'serverId': serializer.toJson<String?>(serverId),
       'name': serializer.toJson<String>(name),
       'code': serializer.toJson<String?>(code),
-      'updatedAt': serializer.toJson<DateTime>(updatedAt),
       'syncStatus': serializer.toJson<String>(syncStatus),
     };
   }
@@ -261,14 +230,12 @@ class ContinentsLocalData extends DataClass
     Value<String?> serverId = const Value.absent(),
     String? name,
     Value<String?> code = const Value.absent(),
-    DateTime? updatedAt,
     String? syncStatus,
   }) => ContinentsLocalData(
     localId: localId ?? this.localId,
     serverId: serverId.present ? serverId.value : this.serverId,
     name: name ?? this.name,
     code: code.present ? code.value : this.code,
-    updatedAt: updatedAt ?? this.updatedAt,
     syncStatus: syncStatus ?? this.syncStatus,
   );
   ContinentsLocalData copyWithCompanion(ContinentsLocalCompanion data) {
@@ -277,7 +244,6 @@ class ContinentsLocalData extends DataClass
       serverId: data.serverId.present ? data.serverId.value : this.serverId,
       name: data.name.present ? data.name.value : this.name,
       code: data.code.present ? data.code.value : this.code,
-      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
       syncStatus:
           data.syncStatus.present ? data.syncStatus.value : this.syncStatus,
     );
@@ -290,15 +256,13 @@ class ContinentsLocalData extends DataClass
           ..write('serverId: $serverId, ')
           ..write('name: $name, ')
           ..write('code: $code, ')
-          ..write('updatedAt: $updatedAt, ')
           ..write('syncStatus: $syncStatus')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode =>
-      Object.hash(localId, serverId, name, code, updatedAt, syncStatus);
+  int get hashCode => Object.hash(localId, serverId, name, code, syncStatus);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -307,7 +271,6 @@ class ContinentsLocalData extends DataClass
           other.serverId == this.serverId &&
           other.name == this.name &&
           other.code == this.code &&
-          other.updatedAt == this.updatedAt &&
           other.syncStatus == this.syncStatus);
 }
 
@@ -316,14 +279,12 @@ class ContinentsLocalCompanion extends UpdateCompanion<ContinentsLocalData> {
   final Value<String?> serverId;
   final Value<String> name;
   final Value<String?> code;
-  final Value<DateTime> updatedAt;
   final Value<String> syncStatus;
   const ContinentsLocalCompanion({
     this.localId = const Value.absent(),
     this.serverId = const Value.absent(),
     this.name = const Value.absent(),
     this.code = const Value.absent(),
-    this.updatedAt = const Value.absent(),
     this.syncStatus = const Value.absent(),
   });
   ContinentsLocalCompanion.insert({
@@ -331,16 +292,13 @@ class ContinentsLocalCompanion extends UpdateCompanion<ContinentsLocalData> {
     this.serverId = const Value.absent(),
     required String name,
     this.code = const Value.absent(),
-    required DateTime updatedAt,
     this.syncStatus = const Value.absent(),
-  }) : name = Value(name),
-       updatedAt = Value(updatedAt);
+  }) : name = Value(name);
   static Insertable<ContinentsLocalData> custom({
     Expression<int>? localId,
     Expression<String>? serverId,
     Expression<String>? name,
     Expression<String>? code,
-    Expression<DateTime>? updatedAt,
     Expression<String>? syncStatus,
   }) {
     return RawValuesInsertable({
@@ -348,7 +306,6 @@ class ContinentsLocalCompanion extends UpdateCompanion<ContinentsLocalData> {
       if (serverId != null) 'server_id': serverId,
       if (name != null) 'name': name,
       if (code != null) 'code': code,
-      if (updatedAt != null) 'updated_at': updatedAt,
       if (syncStatus != null) 'sync_status': syncStatus,
     });
   }
@@ -358,7 +315,6 @@ class ContinentsLocalCompanion extends UpdateCompanion<ContinentsLocalData> {
     Value<String?>? serverId,
     Value<String>? name,
     Value<String?>? code,
-    Value<DateTime>? updatedAt,
     Value<String>? syncStatus,
   }) {
     return ContinentsLocalCompanion(
@@ -366,7 +322,6 @@ class ContinentsLocalCompanion extends UpdateCompanion<ContinentsLocalData> {
       serverId: serverId ?? this.serverId,
       name: name ?? this.name,
       code: code ?? this.code,
-      updatedAt: updatedAt ?? this.updatedAt,
       syncStatus: syncStatus ?? this.syncStatus,
     );
   }
@@ -386,9 +341,6 @@ class ContinentsLocalCompanion extends UpdateCompanion<ContinentsLocalData> {
     if (code.present) {
       map['code'] = Variable<String>(code.value);
     }
-    if (updatedAt.present) {
-      map['updated_at'] = Variable<DateTime>(updatedAt.value);
-    }
     if (syncStatus.present) {
       map['sync_status'] = Variable<String>(syncStatus.value);
     }
@@ -402,7 +354,6 @@ class ContinentsLocalCompanion extends UpdateCompanion<ContinentsLocalData> {
           ..write('serverId: $serverId, ')
           ..write('name: $name, ')
           ..write('code: $code, ')
-          ..write('updatedAt: $updatedAt, ')
           ..write('syncStatus: $syncStatus')
           ..write(')'))
         .toString();
@@ -475,17 +426,6 @@ class $CountriesLocalTable extends CountriesLocal
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
-    'updatedAt',
-  );
-  @override
-  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
-    'updated_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.dateTime,
-    requiredDuringInsert: true,
-  );
   static const VerificationMeta _syncStatusMeta = const VerificationMeta(
     'syncStatus',
   );
@@ -505,7 +445,6 @@ class $CountriesLocalTable extends CountriesLocal
     continentLocalId,
     name,
     isoCode,
-    updatedAt,
     syncStatus,
   ];
   @override
@@ -557,14 +496,6 @@ class $CountriesLocalTable extends CountriesLocal
         isoCode.isAcceptableOrUnknown(data['iso_code']!, _isoCodeMeta),
       );
     }
-    if (data.containsKey('updated_at')) {
-      context.handle(
-        _updatedAtMeta,
-        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_updatedAtMeta);
-    }
     if (data.containsKey('sync_status')) {
       context.handle(
         _syncStatusMeta,
@@ -603,11 +534,6 @@ class $CountriesLocalTable extends CountriesLocal
         DriftSqlType.string,
         data['${effectivePrefix}iso_code'],
       ),
-      updatedAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}updated_at'],
-          )!,
       syncStatus:
           attachedDatabase.typeMapping.read(
             DriftSqlType.string,
@@ -629,7 +555,6 @@ class CountriesLocalData extends DataClass
   final int continentLocalId;
   final String name;
   final String? isoCode;
-  final DateTime updatedAt;
   final String syncStatus;
   const CountriesLocalData({
     required this.localId,
@@ -637,7 +562,6 @@ class CountriesLocalData extends DataClass
     required this.continentLocalId,
     required this.name,
     this.isoCode,
-    required this.updatedAt,
     required this.syncStatus,
   });
   @override
@@ -652,7 +576,6 @@ class CountriesLocalData extends DataClass
     if (!nullToAbsent || isoCode != null) {
       map['iso_code'] = Variable<String>(isoCode);
     }
-    map['updated_at'] = Variable<DateTime>(updatedAt);
     map['sync_status'] = Variable<String>(syncStatus);
     return map;
   }
@@ -670,7 +593,6 @@ class CountriesLocalData extends DataClass
           isoCode == null && nullToAbsent
               ? const Value.absent()
               : Value(isoCode),
-      updatedAt: Value(updatedAt),
       syncStatus: Value(syncStatus),
     );
   }
@@ -686,7 +608,6 @@ class CountriesLocalData extends DataClass
       continentLocalId: serializer.fromJson<int>(json['continentLocalId']),
       name: serializer.fromJson<String>(json['name']),
       isoCode: serializer.fromJson<String?>(json['isoCode']),
-      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
       syncStatus: serializer.fromJson<String>(json['syncStatus']),
     );
   }
@@ -699,7 +620,6 @@ class CountriesLocalData extends DataClass
       'continentLocalId': serializer.toJson<int>(continentLocalId),
       'name': serializer.toJson<String>(name),
       'isoCode': serializer.toJson<String?>(isoCode),
-      'updatedAt': serializer.toJson<DateTime>(updatedAt),
       'syncStatus': serializer.toJson<String>(syncStatus),
     };
   }
@@ -710,7 +630,6 @@ class CountriesLocalData extends DataClass
     int? continentLocalId,
     String? name,
     Value<String?> isoCode = const Value.absent(),
-    DateTime? updatedAt,
     String? syncStatus,
   }) => CountriesLocalData(
     localId: localId ?? this.localId,
@@ -718,7 +637,6 @@ class CountriesLocalData extends DataClass
     continentLocalId: continentLocalId ?? this.continentLocalId,
     name: name ?? this.name,
     isoCode: isoCode.present ? isoCode.value : this.isoCode,
-    updatedAt: updatedAt ?? this.updatedAt,
     syncStatus: syncStatus ?? this.syncStatus,
   );
   CountriesLocalData copyWithCompanion(CountriesLocalCompanion data) {
@@ -731,7 +649,6 @@ class CountriesLocalData extends DataClass
               : this.continentLocalId,
       name: data.name.present ? data.name.value : this.name,
       isoCode: data.isoCode.present ? data.isoCode.value : this.isoCode,
-      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
       syncStatus:
           data.syncStatus.present ? data.syncStatus.value : this.syncStatus,
     );
@@ -745,7 +662,6 @@ class CountriesLocalData extends DataClass
           ..write('continentLocalId: $continentLocalId, ')
           ..write('name: $name, ')
           ..write('isoCode: $isoCode, ')
-          ..write('updatedAt: $updatedAt, ')
           ..write('syncStatus: $syncStatus')
           ..write(')'))
         .toString();
@@ -758,7 +674,6 @@ class CountriesLocalData extends DataClass
     continentLocalId,
     name,
     isoCode,
-    updatedAt,
     syncStatus,
   );
   @override
@@ -770,7 +685,6 @@ class CountriesLocalData extends DataClass
           other.continentLocalId == this.continentLocalId &&
           other.name == this.name &&
           other.isoCode == this.isoCode &&
-          other.updatedAt == this.updatedAt &&
           other.syncStatus == this.syncStatus);
 }
 
@@ -780,7 +694,6 @@ class CountriesLocalCompanion extends UpdateCompanion<CountriesLocalData> {
   final Value<int> continentLocalId;
   final Value<String> name;
   final Value<String?> isoCode;
-  final Value<DateTime> updatedAt;
   final Value<String> syncStatus;
   const CountriesLocalCompanion({
     this.localId = const Value.absent(),
@@ -788,7 +701,6 @@ class CountriesLocalCompanion extends UpdateCompanion<CountriesLocalData> {
     this.continentLocalId = const Value.absent(),
     this.name = const Value.absent(),
     this.isoCode = const Value.absent(),
-    this.updatedAt = const Value.absent(),
     this.syncStatus = const Value.absent(),
   });
   CountriesLocalCompanion.insert({
@@ -797,18 +709,15 @@ class CountriesLocalCompanion extends UpdateCompanion<CountriesLocalData> {
     required int continentLocalId,
     required String name,
     this.isoCode = const Value.absent(),
-    required DateTime updatedAt,
     this.syncStatus = const Value.absent(),
   }) : continentLocalId = Value(continentLocalId),
-       name = Value(name),
-       updatedAt = Value(updatedAt);
+       name = Value(name);
   static Insertable<CountriesLocalData> custom({
     Expression<int>? localId,
     Expression<String>? serverId,
     Expression<int>? continentLocalId,
     Expression<String>? name,
     Expression<String>? isoCode,
-    Expression<DateTime>? updatedAt,
     Expression<String>? syncStatus,
   }) {
     return RawValuesInsertable({
@@ -817,7 +726,6 @@ class CountriesLocalCompanion extends UpdateCompanion<CountriesLocalData> {
       if (continentLocalId != null) 'continent_local_id': continentLocalId,
       if (name != null) 'name': name,
       if (isoCode != null) 'iso_code': isoCode,
-      if (updatedAt != null) 'updated_at': updatedAt,
       if (syncStatus != null) 'sync_status': syncStatus,
     });
   }
@@ -828,7 +736,6 @@ class CountriesLocalCompanion extends UpdateCompanion<CountriesLocalData> {
     Value<int>? continentLocalId,
     Value<String>? name,
     Value<String?>? isoCode,
-    Value<DateTime>? updatedAt,
     Value<String>? syncStatus,
   }) {
     return CountriesLocalCompanion(
@@ -837,7 +744,6 @@ class CountriesLocalCompanion extends UpdateCompanion<CountriesLocalData> {
       continentLocalId: continentLocalId ?? this.continentLocalId,
       name: name ?? this.name,
       isoCode: isoCode ?? this.isoCode,
-      updatedAt: updatedAt ?? this.updatedAt,
       syncStatus: syncStatus ?? this.syncStatus,
     );
   }
@@ -860,9 +766,6 @@ class CountriesLocalCompanion extends UpdateCompanion<CountriesLocalData> {
     if (isoCode.present) {
       map['iso_code'] = Variable<String>(isoCode.value);
     }
-    if (updatedAt.present) {
-      map['updated_at'] = Variable<DateTime>(updatedAt.value);
-    }
     if (syncStatus.present) {
       map['sync_status'] = Variable<String>(syncStatus.value);
     }
@@ -877,7 +780,6 @@ class CountriesLocalCompanion extends UpdateCompanion<CountriesLocalData> {
           ..write('continentLocalId: $continentLocalId, ')
           ..write('name: $name, ')
           ..write('isoCode: $isoCode, ')
-          ..write('updatedAt: $updatedAt, ')
           ..write('syncStatus: $syncStatus')
           ..write(')'))
         .toString();
@@ -996,13 +898,14 @@ class $LocationsLocalTable extends LocationsLocal
     'updatedAt',
   );
   @override
-  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
-    'updated_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.dateTime,
-    requiredDuringInsert: true,
-  );
+  late final GeneratedColumnWithTypeConverter<DateTime, String> updatedAt =
+      GeneratedColumn<String>(
+        'updated_at',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<DateTime>($LocationsLocalTable.$converterupdatedAt);
   static const VerificationMeta _syncStatusMeta = const VerificationMeta(
     'syncStatus',
   );
@@ -1110,14 +1013,7 @@ class $LocationsLocalTable extends LocationsLocal
     } else if (isInserting) {
       context.missing(_countryLocalIdMeta);
     }
-    if (data.containsKey('updated_at')) {
-      context.handle(
-        _updatedAtMeta,
-        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_updatedAtMeta);
-    }
+    context.handle(_updatedAtMeta, const VerificationResult.success());
     if (data.containsKey('sync_status')) {
       context.handle(
         _syncStatusMeta,
@@ -1173,11 +1069,12 @@ class $LocationsLocalTable extends LocationsLocal
             DriftSqlType.int,
             data['${effectivePrefix}country_local_id'],
           )!,
-      updatedAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}updated_at'],
-          )!,
+      updatedAt: $LocationsLocalTable.$converterupdatedAt.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}updated_at'],
+        )!,
+      ),
       syncStatus:
           attachedDatabase.typeMapping.read(
             DriftSqlType.string,
@@ -1190,6 +1087,9 @@ class $LocationsLocalTable extends LocationsLocal
   $LocationsLocalTable createAlias(String alias) {
     return $LocationsLocalTable(attachedDatabase, alias);
   }
+
+  static TypeConverter<DateTime, String> $converterupdatedAt =
+      const DateTimeConverter();
 }
 
 class LocationsLocalData extends DataClass
@@ -1240,7 +1140,11 @@ class LocationsLocalData extends DataClass
       map['google_place_id'] = Variable<String>(googlePlaceId);
     }
     map['country_local_id'] = Variable<int>(countryLocalId);
-    map['updated_at'] = Variable<DateTime>(updatedAt);
+    {
+      map['updated_at'] = Variable<String>(
+        $LocationsLocalTable.$converterupdatedAt.toSql(updatedAt),
+      );
+    }
     map['sync_status'] = Variable<String>(syncStatus);
     return map;
   }
@@ -1463,7 +1367,7 @@ class LocationsLocalCompanion extends UpdateCompanion<LocationsLocalData> {
     Expression<String>? state,
     Expression<String>? googlePlaceId,
     Expression<int>? countryLocalId,
-    Expression<DateTime>? updatedAt,
+    Expression<String>? updatedAt,
     Expression<String>? syncStatus,
   }) {
     return RawValuesInsertable({
@@ -1540,7 +1444,9 @@ class LocationsLocalCompanion extends UpdateCompanion<LocationsLocalData> {
       map['country_local_id'] = Variable<int>(countryLocalId.value);
     }
     if (updatedAt.present) {
-      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+      map['updated_at'] = Variable<String>(
+        $LocationsLocalTable.$converterupdatedAt.toSql(updatedAt.value),
+      );
     }
     if (syncStatus.present) {
       map['sync_status'] = Variable<String>(syncStatus.value);
@@ -1626,13 +1532,14 @@ class $UsersLocalTable extends UsersLocal
     'updatedAt',
   );
   @override
-  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
-    'updated_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.dateTime,
-    requiredDuringInsert: true,
-  );
+  late final GeneratedColumnWithTypeConverter<DateTime, String> updatedAt =
+      GeneratedColumn<String>(
+        'updated_at',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<DateTime>($UsersLocalTable.$converterupdatedAt);
   static const VerificationMeta _syncStatusMeta = const VerificationMeta(
     'syncStatus',
   );
@@ -1694,14 +1601,7 @@ class $UsersLocalTable extends UsersLocal
     } else if (isInserting) {
       context.missing(_isVerifiedMeta);
     }
-    if (data.containsKey('updated_at')) {
-      context.handle(
-        _updatedAtMeta,
-        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_updatedAtMeta);
-    }
+    context.handle(_updatedAtMeta, const VerificationResult.success());
     if (data.containsKey('sync_status')) {
       context.handle(
         _syncStatusMeta,
@@ -1736,11 +1636,12 @@ class $UsersLocalTable extends UsersLocal
             DriftSqlType.bool,
             data['${effectivePrefix}is_verified'],
           )!,
-      updatedAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}updated_at'],
-          )!,
+      updatedAt: $UsersLocalTable.$converterupdatedAt.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}updated_at'],
+        )!,
+      ),
       syncStatus:
           attachedDatabase.typeMapping.read(
             DriftSqlType.string,
@@ -1753,6 +1654,9 @@ class $UsersLocalTable extends UsersLocal
   $UsersLocalTable createAlias(String alias) {
     return $UsersLocalTable(attachedDatabase, alias);
   }
+
+  static TypeConverter<DateTime, String> $converterupdatedAt =
+      const DateTimeConverter();
 }
 
 class UsersLocalData extends DataClass implements Insertable<UsersLocalData> {
@@ -1779,7 +1683,11 @@ class UsersLocalData extends DataClass implements Insertable<UsersLocalData> {
     }
     map['email'] = Variable<String>(email);
     map['is_verified'] = Variable<bool>(isVerified);
-    map['updated_at'] = Variable<DateTime>(updatedAt);
+    {
+      map['updated_at'] = Variable<String>(
+        $UsersLocalTable.$converterupdatedAt.toSql(updatedAt),
+      );
+    }
     map['sync_status'] = Variable<String>(syncStatus);
     return map;
   }
@@ -1911,7 +1819,7 @@ class UsersLocalCompanion extends UpdateCompanion<UsersLocalData> {
     Expression<String>? serverId,
     Expression<String>? email,
     Expression<bool>? isVerified,
-    Expression<DateTime>? updatedAt,
+    Expression<String>? updatedAt,
     Expression<String>? syncStatus,
   }) {
     return RawValuesInsertable({
@@ -1958,7 +1866,9 @@ class UsersLocalCompanion extends UpdateCompanion<UsersLocalData> {
       map['is_verified'] = Variable<bool>(isVerified.value);
     }
     if (updatedAt.present) {
-      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+      map['updated_at'] = Variable<String>(
+        $UsersLocalTable.$converterupdatedAt.toSql(updatedAt.value),
+      );
     }
     if (syncStatus.present) {
       map['sync_status'] = Variable<String>(syncStatus.value);
@@ -2106,13 +2016,14 @@ class $UserProfilesLocalTable extends UserProfilesLocal
     'updatedAt',
   );
   @override
-  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
-    'updated_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.dateTime,
-    requiredDuringInsert: true,
-  );
+  late final GeneratedColumnWithTypeConverter<DateTime, String> updatedAt =
+      GeneratedColumn<String>(
+        'updated_at',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<DateTime>($UserProfilesLocalTable.$converterupdatedAt);
   static const VerificationMeta _syncStatusMeta = const VerificationMeta(
     'syncStatus',
   );
@@ -2236,14 +2147,7 @@ class $UserProfilesLocalTable extends UserProfilesLocal
     } else if (isInserting) {
       context.missing(_locationLocalIdMeta);
     }
-    if (data.containsKey('updated_at')) {
-      context.handle(
-        _updatedAtMeta,
-        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_updatedAtMeta);
-    }
+    context.handle(_updatedAtMeta, const VerificationResult.success());
     if (data.containsKey('sync_status')) {
       context.handle(
         _syncStatusMeta,
@@ -2303,11 +2207,12 @@ class $UserProfilesLocalTable extends UserProfilesLocal
             DriftSqlType.int,
             data['${effectivePrefix}location_local_id'],
           )!,
-      updatedAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}updated_at'],
-          )!,
+      updatedAt: $UserProfilesLocalTable.$converterupdatedAt.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}updated_at'],
+        )!,
+      ),
       syncStatus:
           attachedDatabase.typeMapping.read(
             DriftSqlType.string,
@@ -2320,6 +2225,9 @@ class $UserProfilesLocalTable extends UserProfilesLocal
   $UserProfilesLocalTable createAlias(String alias) {
     return $UserProfilesLocalTable(attachedDatabase, alias);
   }
+
+  static TypeConverter<DateTime, String> $converterupdatedAt =
+      const DateTimeConverter();
 }
 
 class UserProfilesLocalData extends DataClass
@@ -2375,7 +2283,11 @@ class UserProfilesLocalData extends DataClass
       map['bio'] = Variable<String>(bio);
     }
     map['location_local_id'] = Variable<int>(locationLocalId);
-    map['updated_at'] = Variable<DateTime>(updatedAt);
+    {
+      map['updated_at'] = Variable<String>(
+        $UserProfilesLocalTable.$converterupdatedAt.toSql(updatedAt),
+      );
+    }
     map['sync_status'] = Variable<String>(syncStatus);
     return map;
   }
@@ -2632,7 +2544,7 @@ class UserProfilesLocalCompanion
     Expression<String>? coverLocalFilePath,
     Expression<String>? bio,
     Expression<int>? locationLocalId,
-    Expression<DateTime>? updatedAt,
+    Expression<String>? updatedAt,
     Expression<String>? syncStatus,
   }) {
     return RawValuesInsertable({
@@ -2719,7 +2631,9 @@ class UserProfilesLocalCompanion
       map['location_local_id'] = Variable<int>(locationLocalId.value);
     }
     if (updatedAt.present) {
-      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+      map['updated_at'] = Variable<String>(
+        $UserProfilesLocalTable.$converterupdatedAt.toSql(updatedAt.value),
+      );
     }
     if (syncStatus.present) {
       map['sync_status'] = Variable<String>(syncStatus.value);
@@ -2815,24 +2729,16 @@ class $UserVisitedCountriesLocalTable extends UserVisitedCountriesLocal
     'visitedAt',
   );
   @override
-  late final GeneratedColumn<DateTime> visitedAt = GeneratedColumn<DateTime>(
-    'visited_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.dateTime,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
-    'updatedAt',
-  );
-  @override
-  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
-    'updated_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.dateTime,
-    requiredDuringInsert: true,
-  );
+  late final GeneratedColumnWithTypeConverter<DateTime, String> visitedAt =
+      GeneratedColumn<String>(
+        'visited_at',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<DateTime>(
+        $UserVisitedCountriesLocalTable.$convertervisitedAt,
+      );
   static const VerificationMeta _syncStatusMeta = const VerificationMeta(
     'syncStatus',
   );
@@ -2852,7 +2758,6 @@ class $UserVisitedCountriesLocalTable extends UserVisitedCountriesLocal
     userLocalId,
     countryLocalId,
     visitedAt,
-    updatedAt,
     syncStatus,
   ];
   @override
@@ -2901,22 +2806,7 @@ class $UserVisitedCountriesLocalTable extends UserVisitedCountriesLocal
     } else if (isInserting) {
       context.missing(_countryLocalIdMeta);
     }
-    if (data.containsKey('visited_at')) {
-      context.handle(
-        _visitedAtMeta,
-        visitedAt.isAcceptableOrUnknown(data['visited_at']!, _visitedAtMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_visitedAtMeta);
-    }
-    if (data.containsKey('updated_at')) {
-      context.handle(
-        _updatedAtMeta,
-        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_updatedAtMeta);
-    }
+    context.handle(_visitedAtMeta, const VerificationResult.success());
     if (data.containsKey('sync_status')) {
       context.handle(
         _syncStatusMeta,
@@ -2954,16 +2844,12 @@ class $UserVisitedCountriesLocalTable extends UserVisitedCountriesLocal
             DriftSqlType.int,
             data['${effectivePrefix}country_local_id'],
           )!,
-      visitedAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}visited_at'],
-          )!,
-      updatedAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}updated_at'],
-          )!,
+      visitedAt: $UserVisitedCountriesLocalTable.$convertervisitedAt.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}visited_at'],
+        )!,
+      ),
       syncStatus:
           attachedDatabase.typeMapping.read(
             DriftSqlType.string,
@@ -2976,6 +2862,9 @@ class $UserVisitedCountriesLocalTable extends UserVisitedCountriesLocal
   $UserVisitedCountriesLocalTable createAlias(String alias) {
     return $UserVisitedCountriesLocalTable(attachedDatabase, alias);
   }
+
+  static TypeConverter<DateTime, String> $convertervisitedAt =
+      const DateTimeConverter();
 }
 
 class UserVisitedCountriesLocalData extends DataClass
@@ -2985,7 +2874,6 @@ class UserVisitedCountriesLocalData extends DataClass
   final int userLocalId;
   final int countryLocalId;
   final DateTime visitedAt;
-  final DateTime updatedAt;
   final String syncStatus;
   const UserVisitedCountriesLocalData({
     required this.localId,
@@ -2993,7 +2881,6 @@ class UserVisitedCountriesLocalData extends DataClass
     required this.userLocalId,
     required this.countryLocalId,
     required this.visitedAt,
-    required this.updatedAt,
     required this.syncStatus,
   });
   @override
@@ -3005,8 +2892,11 @@ class UserVisitedCountriesLocalData extends DataClass
     }
     map['user_local_id'] = Variable<int>(userLocalId);
     map['country_local_id'] = Variable<int>(countryLocalId);
-    map['visited_at'] = Variable<DateTime>(visitedAt);
-    map['updated_at'] = Variable<DateTime>(updatedAt);
+    {
+      map['visited_at'] = Variable<String>(
+        $UserVisitedCountriesLocalTable.$convertervisitedAt.toSql(visitedAt),
+      );
+    }
     map['sync_status'] = Variable<String>(syncStatus);
     return map;
   }
@@ -3021,7 +2911,6 @@ class UserVisitedCountriesLocalData extends DataClass
       userLocalId: Value(userLocalId),
       countryLocalId: Value(countryLocalId),
       visitedAt: Value(visitedAt),
-      updatedAt: Value(updatedAt),
       syncStatus: Value(syncStatus),
     );
   }
@@ -3037,7 +2926,6 @@ class UserVisitedCountriesLocalData extends DataClass
       userLocalId: serializer.fromJson<int>(json['userLocalId']),
       countryLocalId: serializer.fromJson<int>(json['countryLocalId']),
       visitedAt: serializer.fromJson<DateTime>(json['visitedAt']),
-      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
       syncStatus: serializer.fromJson<String>(json['syncStatus']),
     );
   }
@@ -3050,7 +2938,6 @@ class UserVisitedCountriesLocalData extends DataClass
       'userLocalId': serializer.toJson<int>(userLocalId),
       'countryLocalId': serializer.toJson<int>(countryLocalId),
       'visitedAt': serializer.toJson<DateTime>(visitedAt),
-      'updatedAt': serializer.toJson<DateTime>(updatedAt),
       'syncStatus': serializer.toJson<String>(syncStatus),
     };
   }
@@ -3061,7 +2948,6 @@ class UserVisitedCountriesLocalData extends DataClass
     int? userLocalId,
     int? countryLocalId,
     DateTime? visitedAt,
-    DateTime? updatedAt,
     String? syncStatus,
   }) => UserVisitedCountriesLocalData(
     localId: localId ?? this.localId,
@@ -3069,7 +2955,6 @@ class UserVisitedCountriesLocalData extends DataClass
     userLocalId: userLocalId ?? this.userLocalId,
     countryLocalId: countryLocalId ?? this.countryLocalId,
     visitedAt: visitedAt ?? this.visitedAt,
-    updatedAt: updatedAt ?? this.updatedAt,
     syncStatus: syncStatus ?? this.syncStatus,
   );
   UserVisitedCountriesLocalData copyWithCompanion(
@@ -3085,7 +2970,6 @@ class UserVisitedCountriesLocalData extends DataClass
               ? data.countryLocalId.value
               : this.countryLocalId,
       visitedAt: data.visitedAt.present ? data.visitedAt.value : this.visitedAt,
-      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
       syncStatus:
           data.syncStatus.present ? data.syncStatus.value : this.syncStatus,
     );
@@ -3099,7 +2983,6 @@ class UserVisitedCountriesLocalData extends DataClass
           ..write('userLocalId: $userLocalId, ')
           ..write('countryLocalId: $countryLocalId, ')
           ..write('visitedAt: $visitedAt, ')
-          ..write('updatedAt: $updatedAt, ')
           ..write('syncStatus: $syncStatus')
           ..write(')'))
         .toString();
@@ -3112,7 +2995,6 @@ class UserVisitedCountriesLocalData extends DataClass
     userLocalId,
     countryLocalId,
     visitedAt,
-    updatedAt,
     syncStatus,
   );
   @override
@@ -3124,7 +3006,6 @@ class UserVisitedCountriesLocalData extends DataClass
           other.userLocalId == this.userLocalId &&
           other.countryLocalId == this.countryLocalId &&
           other.visitedAt == this.visitedAt &&
-          other.updatedAt == this.updatedAt &&
           other.syncStatus == this.syncStatus);
 }
 
@@ -3135,7 +3016,6 @@ class UserVisitedCountriesLocalCompanion
   final Value<int> userLocalId;
   final Value<int> countryLocalId;
   final Value<DateTime> visitedAt;
-  final Value<DateTime> updatedAt;
   final Value<String> syncStatus;
   const UserVisitedCountriesLocalCompanion({
     this.localId = const Value.absent(),
@@ -3143,7 +3023,6 @@ class UserVisitedCountriesLocalCompanion
     this.userLocalId = const Value.absent(),
     this.countryLocalId = const Value.absent(),
     this.visitedAt = const Value.absent(),
-    this.updatedAt = const Value.absent(),
     this.syncStatus = const Value.absent(),
   });
   UserVisitedCountriesLocalCompanion.insert({
@@ -3152,19 +3031,16 @@ class UserVisitedCountriesLocalCompanion
     required int userLocalId,
     required int countryLocalId,
     required DateTime visitedAt,
-    required DateTime updatedAt,
     this.syncStatus = const Value.absent(),
   }) : userLocalId = Value(userLocalId),
        countryLocalId = Value(countryLocalId),
-       visitedAt = Value(visitedAt),
-       updatedAt = Value(updatedAt);
+       visitedAt = Value(visitedAt);
   static Insertable<UserVisitedCountriesLocalData> custom({
     Expression<int>? localId,
     Expression<String>? serverId,
     Expression<int>? userLocalId,
     Expression<int>? countryLocalId,
-    Expression<DateTime>? visitedAt,
-    Expression<DateTime>? updatedAt,
+    Expression<String>? visitedAt,
     Expression<String>? syncStatus,
   }) {
     return RawValuesInsertable({
@@ -3173,7 +3049,6 @@ class UserVisitedCountriesLocalCompanion
       if (userLocalId != null) 'user_local_id': userLocalId,
       if (countryLocalId != null) 'country_local_id': countryLocalId,
       if (visitedAt != null) 'visited_at': visitedAt,
-      if (updatedAt != null) 'updated_at': updatedAt,
       if (syncStatus != null) 'sync_status': syncStatus,
     });
   }
@@ -3184,7 +3059,6 @@ class UserVisitedCountriesLocalCompanion
     Value<int>? userLocalId,
     Value<int>? countryLocalId,
     Value<DateTime>? visitedAt,
-    Value<DateTime>? updatedAt,
     Value<String>? syncStatus,
   }) {
     return UserVisitedCountriesLocalCompanion(
@@ -3193,7 +3067,6 @@ class UserVisitedCountriesLocalCompanion
       userLocalId: userLocalId ?? this.userLocalId,
       countryLocalId: countryLocalId ?? this.countryLocalId,
       visitedAt: visitedAt ?? this.visitedAt,
-      updatedAt: updatedAt ?? this.updatedAt,
       syncStatus: syncStatus ?? this.syncStatus,
     );
   }
@@ -3214,10 +3087,11 @@ class UserVisitedCountriesLocalCompanion
       map['country_local_id'] = Variable<int>(countryLocalId.value);
     }
     if (visitedAt.present) {
-      map['visited_at'] = Variable<DateTime>(visitedAt.value);
-    }
-    if (updatedAt.present) {
-      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+      map['visited_at'] = Variable<String>(
+        $UserVisitedCountriesLocalTable.$convertervisitedAt.toSql(
+          visitedAt.value,
+        ),
+      );
     }
     if (syncStatus.present) {
       map['sync_status'] = Variable<String>(syncStatus.value);
@@ -3233,7 +3107,6 @@ class UserVisitedCountriesLocalCompanion
           ..write('userLocalId: $userLocalId, ')
           ..write('countryLocalId: $countryLocalId, ')
           ..write('visitedAt: $visitedAt, ')
-          ..write('updatedAt: $updatedAt, ')
           ..write('syncStatus: $syncStatus')
           ..write(')'))
         .toString();
@@ -3324,24 +3197,26 @@ class $JournalsLocalTable extends JournalsLocal
     'startDate',
   );
   @override
-  late final GeneratedColumn<DateTime> startDate = GeneratedColumn<DateTime>(
-    'start_date',
-    aliasedName,
-    false,
-    type: DriftSqlType.dateTime,
-    requiredDuringInsert: true,
-  );
+  late final GeneratedColumnWithTypeConverter<DateTime, String> startDate =
+      GeneratedColumn<String>(
+        'start_date',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<DateTime>($JournalsLocalTable.$converterstartDate);
   static const VerificationMeta _endDateMeta = const VerificationMeta(
     'endDate',
   );
   @override
-  late final GeneratedColumn<DateTime> endDate = GeneratedColumn<DateTime>(
-    'end_date',
-    aliasedName,
-    true,
-    type: DriftSqlType.dateTime,
-    requiredDuringInsert: false,
-  );
+  late final GeneratedColumnWithTypeConverter<DateTime?, String> endDate =
+      GeneratedColumn<String>(
+        'end_date',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      ).withConverter<DateTime?>($JournalsLocalTable.$converterendDaten);
   static const VerificationMeta _coverPhotoUrlMeta = const VerificationMeta(
     'coverPhotoUrl',
   );
@@ -3382,13 +3257,14 @@ class $JournalsLocalTable extends JournalsLocal
     'updatedAt',
   );
   @override
-  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
-    'updated_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.dateTime,
-    requiredDuringInsert: true,
-  );
+  late final GeneratedColumnWithTypeConverter<DateTime, String> updatedAt =
+      GeneratedColumn<String>(
+        'updated_at',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<DateTime>($JournalsLocalTable.$converterupdatedAt);
   static const VerificationMeta _syncStatusMeta = const VerificationMeta(
     'syncStatus',
   );
@@ -3480,20 +3356,8 @@ class $JournalsLocalTable extends JournalsLocal
     } else if (isInserting) {
       context.missing(_locationLocalIdMeta);
     }
-    if (data.containsKey('start_date')) {
-      context.handle(
-        _startDateMeta,
-        startDate.isAcceptableOrUnknown(data['start_date']!, _startDateMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_startDateMeta);
-    }
-    if (data.containsKey('end_date')) {
-      context.handle(
-        _endDateMeta,
-        endDate.isAcceptableOrUnknown(data['end_date']!, _endDateMeta),
-      );
-    }
+    context.handle(_startDateMeta, const VerificationResult.success());
+    context.handle(_endDateMeta, const VerificationResult.success());
     if (data.containsKey('cover_photo_url')) {
       context.handle(
         _coverPhotoUrlMeta,
@@ -3523,14 +3387,7 @@ class $JournalsLocalTable extends JournalsLocal
     } else if (isInserting) {
       context.missing(_remindersEnabledMeta);
     }
-    if (data.containsKey('updated_at')) {
-      context.handle(
-        _updatedAtMeta,
-        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_updatedAtMeta);
-    }
+    context.handle(_updatedAtMeta, const VerificationResult.success());
     if (data.containsKey('sync_status')) {
       context.handle(
         _syncStatusMeta,
@@ -3574,14 +3431,17 @@ class $JournalsLocalTable extends JournalsLocal
             DriftSqlType.int,
             data['${effectivePrefix}location_local_id'],
           )!,
-      startDate:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}start_date'],
-          )!,
-      endDate: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}end_date'],
+      startDate: $JournalsLocalTable.$converterstartDate.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}start_date'],
+        )!,
+      ),
+      endDate: $JournalsLocalTable.$converterendDaten.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}end_date'],
+        ),
       ),
       coverPhotoUrl: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
@@ -3596,11 +3456,12 @@ class $JournalsLocalTable extends JournalsLocal
             DriftSqlType.bool,
             data['${effectivePrefix}reminders_enabled'],
           )!,
-      updatedAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}updated_at'],
-          )!,
+      updatedAt: $JournalsLocalTable.$converterupdatedAt.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}updated_at'],
+        )!,
+      ),
       syncStatus:
           attachedDatabase.typeMapping.read(
             DriftSqlType.string,
@@ -3613,6 +3474,15 @@ class $JournalsLocalTable extends JournalsLocal
   $JournalsLocalTable createAlias(String alias) {
     return $JournalsLocalTable(attachedDatabase, alias);
   }
+
+  static TypeConverter<DateTime, String> $converterstartDate =
+      const DateTimeConverter();
+  static TypeConverter<DateTime, String> $converterendDate =
+      const DateTimeConverter();
+  static TypeConverter<DateTime?, String?> $converterendDaten =
+      NullAwareTypeConverter.wrap($converterendDate);
+  static TypeConverter<DateTime, String> $converterupdatedAt =
+      const DateTimeConverter();
 }
 
 class JournalsLocalData extends DataClass
@@ -3658,9 +3528,15 @@ class JournalsLocalData extends DataClass
       map['short_summary'] = Variable<String>(shortSummary);
     }
     map['location_local_id'] = Variable<int>(locationLocalId);
-    map['start_date'] = Variable<DateTime>(startDate);
+    {
+      map['start_date'] = Variable<String>(
+        $JournalsLocalTable.$converterstartDate.toSql(startDate),
+      );
+    }
     if (!nullToAbsent || endDate != null) {
-      map['end_date'] = Variable<DateTime>(endDate);
+      map['end_date'] = Variable<String>(
+        $JournalsLocalTable.$converterendDaten.toSql(endDate),
+      );
     }
     if (!nullToAbsent || coverPhotoUrl != null) {
       map['cover_photo_url'] = Variable<String>(coverPhotoUrl);
@@ -3669,7 +3545,11 @@ class JournalsLocalData extends DataClass
       map['cover_local_file_path'] = Variable<String>(coverLocalFilePath);
     }
     map['reminders_enabled'] = Variable<bool>(remindersEnabled);
-    map['updated_at'] = Variable<DateTime>(updatedAt);
+    {
+      map['updated_at'] = Variable<String>(
+        $JournalsLocalTable.$converterupdatedAt.toSql(updatedAt),
+      );
+    }
     map['sync_status'] = Variable<String>(syncStatus);
     return map;
   }
@@ -3929,12 +3809,12 @@ class JournalsLocalCompanion extends UpdateCompanion<JournalsLocalData> {
     Expression<String>? name,
     Expression<String>? shortSummary,
     Expression<int>? locationLocalId,
-    Expression<DateTime>? startDate,
-    Expression<DateTime>? endDate,
+    Expression<String>? startDate,
+    Expression<String>? endDate,
     Expression<String>? coverPhotoUrl,
     Expression<String>? coverLocalFilePath,
     Expression<bool>? remindersEnabled,
-    Expression<DateTime>? updatedAt,
+    Expression<String>? updatedAt,
     Expression<String>? syncStatus,
   }) {
     return RawValuesInsertable({
@@ -4009,10 +3889,14 @@ class JournalsLocalCompanion extends UpdateCompanion<JournalsLocalData> {
       map['location_local_id'] = Variable<int>(locationLocalId.value);
     }
     if (startDate.present) {
-      map['start_date'] = Variable<DateTime>(startDate.value);
+      map['start_date'] = Variable<String>(
+        $JournalsLocalTable.$converterstartDate.toSql(startDate.value),
+      );
     }
     if (endDate.present) {
-      map['end_date'] = Variable<DateTime>(endDate.value);
+      map['end_date'] = Variable<String>(
+        $JournalsLocalTable.$converterendDaten.toSql(endDate.value),
+      );
     }
     if (coverPhotoUrl.present) {
       map['cover_photo_url'] = Variable<String>(coverPhotoUrl.value);
@@ -4024,7 +3908,9 @@ class JournalsLocalCompanion extends UpdateCompanion<JournalsLocalData> {
       map['reminders_enabled'] = Variable<bool>(remindersEnabled.value);
     }
     if (updatedAt.present) {
-      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+      map['updated_at'] = Variable<String>(
+        $JournalsLocalTable.$converterupdatedAt.toSql(updatedAt.value),
+      );
     }
     if (syncStatus.present) {
       map['sync_status'] = Variable<String>(syncStatus.value);
@@ -4094,17 +3980,6 @@ class $CategoriesLocalTable extends CategoriesLocal
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
-    'updatedAt',
-  );
-  @override
-  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
-    'updated_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.dateTime,
-    requiredDuringInsert: true,
-  );
   static const VerificationMeta _syncStatusMeta = const VerificationMeta(
     'syncStatus',
   );
@@ -4118,13 +3993,7 @@ class $CategoriesLocalTable extends CategoriesLocal
     defaultValue: const Constant(SyncStatus.pendingAdd),
   );
   @override
-  List<GeneratedColumn> get $columns => [
-    localId,
-    serverId,
-    name,
-    updatedAt,
-    syncStatus,
-  ];
+  List<GeneratedColumn> get $columns => [localId, serverId, name, syncStatus];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -4157,14 +4026,6 @@ class $CategoriesLocalTable extends CategoriesLocal
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
-    if (data.containsKey('updated_at')) {
-      context.handle(
-        _updatedAtMeta,
-        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_updatedAtMeta);
-    }
     if (data.containsKey('sync_status')) {
       context.handle(
         _syncStatusMeta,
@@ -4194,11 +4055,6 @@ class $CategoriesLocalTable extends CategoriesLocal
             DriftSqlType.string,
             data['${effectivePrefix}name'],
           )!,
-      updatedAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}updated_at'],
-          )!,
       syncStatus:
           attachedDatabase.typeMapping.read(
             DriftSqlType.string,
@@ -4218,13 +4074,11 @@ class CategoriesLocalData extends DataClass
   final int localId;
   final String? serverId;
   final String name;
-  final DateTime updatedAt;
   final String syncStatus;
   const CategoriesLocalData({
     required this.localId,
     this.serverId,
     required this.name,
-    required this.updatedAt,
     required this.syncStatus,
   });
   @override
@@ -4235,7 +4089,6 @@ class CategoriesLocalData extends DataClass
       map['server_id'] = Variable<String>(serverId);
     }
     map['name'] = Variable<String>(name);
-    map['updated_at'] = Variable<DateTime>(updatedAt);
     map['sync_status'] = Variable<String>(syncStatus);
     return map;
   }
@@ -4248,7 +4101,6 @@ class CategoriesLocalData extends DataClass
               ? const Value.absent()
               : Value(serverId),
       name: Value(name),
-      updatedAt: Value(updatedAt),
       syncStatus: Value(syncStatus),
     );
   }
@@ -4262,7 +4114,6 @@ class CategoriesLocalData extends DataClass
       localId: serializer.fromJson<int>(json['localId']),
       serverId: serializer.fromJson<String?>(json['serverId']),
       name: serializer.fromJson<String>(json['name']),
-      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
       syncStatus: serializer.fromJson<String>(json['syncStatus']),
     );
   }
@@ -4273,7 +4124,6 @@ class CategoriesLocalData extends DataClass
       'localId': serializer.toJson<int>(localId),
       'serverId': serializer.toJson<String?>(serverId),
       'name': serializer.toJson<String>(name),
-      'updatedAt': serializer.toJson<DateTime>(updatedAt),
       'syncStatus': serializer.toJson<String>(syncStatus),
     };
   }
@@ -4282,13 +4132,11 @@ class CategoriesLocalData extends DataClass
     int? localId,
     Value<String?> serverId = const Value.absent(),
     String? name,
-    DateTime? updatedAt,
     String? syncStatus,
   }) => CategoriesLocalData(
     localId: localId ?? this.localId,
     serverId: serverId.present ? serverId.value : this.serverId,
     name: name ?? this.name,
-    updatedAt: updatedAt ?? this.updatedAt,
     syncStatus: syncStatus ?? this.syncStatus,
   );
   CategoriesLocalData copyWithCompanion(CategoriesLocalCompanion data) {
@@ -4296,7 +4144,6 @@ class CategoriesLocalData extends DataClass
       localId: data.localId.present ? data.localId.value : this.localId,
       serverId: data.serverId.present ? data.serverId.value : this.serverId,
       name: data.name.present ? data.name.value : this.name,
-      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
       syncStatus:
           data.syncStatus.present ? data.syncStatus.value : this.syncStatus,
     );
@@ -4308,15 +4155,13 @@ class CategoriesLocalData extends DataClass
           ..write('localId: $localId, ')
           ..write('serverId: $serverId, ')
           ..write('name: $name, ')
-          ..write('updatedAt: $updatedAt, ')
           ..write('syncStatus: $syncStatus')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode =>
-      Object.hash(localId, serverId, name, updatedAt, syncStatus);
+  int get hashCode => Object.hash(localId, serverId, name, syncStatus);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -4324,7 +4169,6 @@ class CategoriesLocalData extends DataClass
           other.localId == this.localId &&
           other.serverId == this.serverId &&
           other.name == this.name &&
-          other.updatedAt == this.updatedAt &&
           other.syncStatus == this.syncStatus);
 }
 
@@ -4332,35 +4176,29 @@ class CategoriesLocalCompanion extends UpdateCompanion<CategoriesLocalData> {
   final Value<int> localId;
   final Value<String?> serverId;
   final Value<String> name;
-  final Value<DateTime> updatedAt;
   final Value<String> syncStatus;
   const CategoriesLocalCompanion({
     this.localId = const Value.absent(),
     this.serverId = const Value.absent(),
     this.name = const Value.absent(),
-    this.updatedAt = const Value.absent(),
     this.syncStatus = const Value.absent(),
   });
   CategoriesLocalCompanion.insert({
     this.localId = const Value.absent(),
     this.serverId = const Value.absent(),
     required String name,
-    required DateTime updatedAt,
     this.syncStatus = const Value.absent(),
-  }) : name = Value(name),
-       updatedAt = Value(updatedAt);
+  }) : name = Value(name);
   static Insertable<CategoriesLocalData> custom({
     Expression<int>? localId,
     Expression<String>? serverId,
     Expression<String>? name,
-    Expression<DateTime>? updatedAt,
     Expression<String>? syncStatus,
   }) {
     return RawValuesInsertable({
       if (localId != null) 'local_id': localId,
       if (serverId != null) 'server_id': serverId,
       if (name != null) 'name': name,
-      if (updatedAt != null) 'updated_at': updatedAt,
       if (syncStatus != null) 'sync_status': syncStatus,
     });
   }
@@ -4369,14 +4207,12 @@ class CategoriesLocalCompanion extends UpdateCompanion<CategoriesLocalData> {
     Value<int>? localId,
     Value<String?>? serverId,
     Value<String>? name,
-    Value<DateTime>? updatedAt,
     Value<String>? syncStatus,
   }) {
     return CategoriesLocalCompanion(
       localId: localId ?? this.localId,
       serverId: serverId ?? this.serverId,
       name: name ?? this.name,
-      updatedAt: updatedAt ?? this.updatedAt,
       syncStatus: syncStatus ?? this.syncStatus,
     );
   }
@@ -4393,9 +4229,6 @@ class CategoriesLocalCompanion extends UpdateCompanion<CategoriesLocalData> {
     if (name.present) {
       map['name'] = Variable<String>(name.value);
     }
-    if (updatedAt.present) {
-      map['updated_at'] = Variable<DateTime>(updatedAt.value);
-    }
     if (syncStatus.present) {
       map['sync_status'] = Variable<String>(syncStatus.value);
     }
@@ -4408,7 +4241,6 @@ class CategoriesLocalCompanion extends UpdateCompanion<CategoriesLocalData> {
           ..write('localId: $localId, ')
           ..write('serverId: $serverId, ')
           ..write('name: $name, ')
-          ..write('updatedAt: $updatedAt, ')
           ..write('syncStatus: $syncStatus')
           ..write(')'))
         .toString();
@@ -4513,24 +4345,26 @@ class $MomentsLocalTable extends MomentsLocal
     'timestamp',
   );
   @override
-  late final GeneratedColumn<DateTime> timestamp = GeneratedColumn<DateTime>(
-    'timestamp',
-    aliasedName,
-    false,
-    type: DriftSqlType.dateTime,
-    requiredDuringInsert: true,
-  );
+  late final GeneratedColumnWithTypeConverter<DateTime, String> timestamp =
+      GeneratedColumn<String>(
+        'timestamp',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<DateTime>($MomentsLocalTable.$convertertimestamp);
   static const VerificationMeta _updatedAtMeta = const VerificationMeta(
     'updatedAt',
   );
   @override
-  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
-    'updated_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.dateTime,
-    requiredDuringInsert: true,
-  );
+  late final GeneratedColumnWithTypeConverter<DateTime, String> updatedAt =
+      GeneratedColumn<String>(
+        'updated_at',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<DateTime>($MomentsLocalTable.$converterupdatedAt);
   static const VerificationMeta _syncStatusMeta = const VerificationMeta(
     'syncStatus',
   );
@@ -4630,22 +4464,8 @@ class $MomentsLocalTable extends MomentsLocal
     } else if (isInserting) {
       context.missing(_categoryLocalIdMeta);
     }
-    if (data.containsKey('timestamp')) {
-      context.handle(
-        _timestampMeta,
-        timestamp.isAcceptableOrUnknown(data['timestamp']!, _timestampMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_timestampMeta);
-    }
-    if (data.containsKey('updated_at')) {
-      context.handle(
-        _updatedAtMeta,
-        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_updatedAtMeta);
-    }
+    context.handle(_timestampMeta, const VerificationResult.success());
+    context.handle(_updatedAtMeta, const VerificationResult.success());
     if (data.containsKey('sync_status')) {
       context.handle(
         _syncStatusMeta,
@@ -4694,16 +4514,18 @@ class $MomentsLocalTable extends MomentsLocal
             DriftSqlType.int,
             data['${effectivePrefix}category_local_id'],
           )!,
-      timestamp:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}timestamp'],
-          )!,
-      updatedAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}updated_at'],
-          )!,
+      timestamp: $MomentsLocalTable.$convertertimestamp.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}timestamp'],
+        )!,
+      ),
+      updatedAt: $MomentsLocalTable.$converterupdatedAt.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}updated_at'],
+        )!,
+      ),
       syncStatus:
           attachedDatabase.typeMapping.read(
             DriftSqlType.string,
@@ -4716,6 +4538,11 @@ class $MomentsLocalTable extends MomentsLocal
   $MomentsLocalTable createAlias(String alias) {
     return $MomentsLocalTable(attachedDatabase, alias);
   }
+
+  static TypeConverter<DateTime, String> $convertertimestamp =
+      const DateTimeConverter();
+  static TypeConverter<DateTime, String> $converterupdatedAt =
+      const DateTimeConverter();
 }
 
 class MomentsLocalData extends DataClass
@@ -4756,8 +4583,16 @@ class MomentsLocalData extends DataClass
       map['description'] = Variable<String>(description);
     }
     map['category_local_id'] = Variable<int>(categoryLocalId);
-    map['timestamp'] = Variable<DateTime>(timestamp);
-    map['updated_at'] = Variable<DateTime>(updatedAt);
+    {
+      map['timestamp'] = Variable<String>(
+        $MomentsLocalTable.$convertertimestamp.toSql(timestamp),
+      );
+    }
+    {
+      map['updated_at'] = Variable<String>(
+        $MomentsLocalTable.$converterupdatedAt.toSql(updatedAt),
+      );
+    }
     map['sync_status'] = Variable<String>(syncStatus);
     return map;
   }
@@ -4961,8 +4796,8 @@ class MomentsLocalCompanion extends UpdateCompanion<MomentsLocalData> {
     Expression<String>? name,
     Expression<String>? description,
     Expression<int>? categoryLocalId,
-    Expression<DateTime>? timestamp,
-    Expression<DateTime>? updatedAt,
+    Expression<String>? timestamp,
+    Expression<String>? updatedAt,
     Expression<String>? syncStatus,
   }) {
     return RawValuesInsertable({
@@ -5030,10 +4865,14 @@ class MomentsLocalCompanion extends UpdateCompanion<MomentsLocalData> {
       map['category_local_id'] = Variable<int>(categoryLocalId.value);
     }
     if (timestamp.present) {
-      map['timestamp'] = Variable<DateTime>(timestamp.value);
+      map['timestamp'] = Variable<String>(
+        $MomentsLocalTable.$convertertimestamp.toSql(timestamp.value),
+      );
     }
     if (updatedAt.present) {
-      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+      map['updated_at'] = Variable<String>(
+        $MomentsLocalTable.$converterupdatedAt.toSql(updatedAt.value),
+      );
     }
     if (syncStatus.present) {
       map['sync_status'] = Variable<String>(syncStatus.value);
@@ -5142,13 +4981,14 @@ class $MomentMediaLocalTable extends MomentMediaLocal
     'updatedAt',
   );
   @override
-  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
-    'updated_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.dateTime,
-    requiredDuringInsert: true,
-  );
+  late final GeneratedColumnWithTypeConverter<DateTime, String> updatedAt =
+      GeneratedColumn<String>(
+        'updated_at',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<DateTime>($MomentMediaLocalTable.$converterupdatedAt);
   static const VerificationMeta _syncStatusMeta = const VerificationMeta(
     'syncStatus',
   );
@@ -5230,14 +5070,7 @@ class $MomentMediaLocalTable extends MomentMediaLocal
         ),
       );
     }
-    if (data.containsKey('updated_at')) {
-      context.handle(
-        _updatedAtMeta,
-        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_updatedAtMeta);
-    }
+    context.handle(_updatedAtMeta, const VerificationResult.success());
     if (data.containsKey('sync_status')) {
       context.handle(
         _syncStatusMeta,
@@ -5280,11 +5113,12 @@ class $MomentMediaLocalTable extends MomentMediaLocal
         DriftSqlType.string,
         data['${effectivePrefix}local_file_path'],
       ),
-      updatedAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}updated_at'],
-          )!,
+      updatedAt: $MomentMediaLocalTable.$converterupdatedAt.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}updated_at'],
+        )!,
+      ),
       syncStatus:
           attachedDatabase.typeMapping.read(
             DriftSqlType.string,
@@ -5297,6 +5131,9 @@ class $MomentMediaLocalTable extends MomentMediaLocal
   $MomentMediaLocalTable createAlias(String alias) {
     return $MomentMediaLocalTable(attachedDatabase, alias);
   }
+
+  static TypeConverter<DateTime, String> $converterupdatedAt =
+      const DateTimeConverter();
 }
 
 class MomentMediaLocalData extends DataClass
@@ -5334,7 +5171,11 @@ class MomentMediaLocalData extends DataClass
     if (!nullToAbsent || localFilePath != null) {
       map['local_file_path'] = Variable<String>(localFilePath);
     }
-    map['updated_at'] = Variable<DateTime>(updatedAt);
+    {
+      map['updated_at'] = Variable<String>(
+        $MomentMediaLocalTable.$converterupdatedAt.toSql(updatedAt),
+      );
+    }
     map['sync_status'] = Variable<String>(syncStatus);
     return map;
   }
@@ -5510,7 +5351,7 @@ class MomentMediaLocalCompanion extends UpdateCompanion<MomentMediaLocalData> {
     Expression<String>? mediaUrl,
     Expression<String>? mediaType,
     Expression<String>? localFilePath,
-    Expression<DateTime>? updatedAt,
+    Expression<String>? updatedAt,
     Expression<String>? syncStatus,
   }) {
     return RawValuesInsertable({
@@ -5569,7 +5410,9 @@ class MomentMediaLocalCompanion extends UpdateCompanion<MomentMediaLocalData> {
       map['local_file_path'] = Variable<String>(localFilePath.value);
     }
     if (updatedAt.present) {
-      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+      map['updated_at'] = Variable<String>(
+        $MomentMediaLocalTable.$converterupdatedAt.toSql(updatedAt.value),
+      );
     }
     if (syncStatus.present) {
       map['sync_status'] = Variable<String>(syncStatus.value);
@@ -5640,13 +5483,14 @@ class $SyncHistoryTable extends SyncHistory
     'syncTime',
   );
   @override
-  late final GeneratedColumn<DateTime> syncTime = GeneratedColumn<DateTime>(
-    'sync_time',
-    aliasedName,
-    false,
-    type: DriftSqlType.dateTime,
-    requiredDuringInsert: true,
-  );
+  late final GeneratedColumnWithTypeConverter<DateTime, String> syncTime =
+      GeneratedColumn<String>(
+        'sync_time',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<DateTime>($SyncHistoryTable.$convertersyncTime);
   static const VerificationMeta _syncMessageMeta = const VerificationMeta(
     'syncMessage',
   );
@@ -5698,14 +5542,7 @@ class $SyncHistoryTable extends SyncHistory
         syncType.isAcceptableOrUnknown(data['sync_type']!, _syncTypeMeta),
       );
     }
-    if (data.containsKey('sync_time')) {
-      context.handle(
-        _syncTimeMeta,
-        syncTime.isAcceptableOrUnknown(data['sync_time']!, _syncTimeMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_syncTimeMeta);
-    }
+    context.handle(_syncTimeMeta, const VerificationResult.success());
     if (data.containsKey('sync_message')) {
       context.handle(
         _syncMessageMeta,
@@ -5738,11 +5575,12 @@ class $SyncHistoryTable extends SyncHistory
         DriftSqlType.string,
         data['${effectivePrefix}sync_type'],
       ),
-      syncTime:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}sync_time'],
-          )!,
+      syncTime: $SyncHistoryTable.$convertersyncTime.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}sync_time'],
+        )!,
+      ),
       syncMessage: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}sync_message'],
@@ -5754,6 +5592,9 @@ class $SyncHistoryTable extends SyncHistory
   $SyncHistoryTable createAlias(String alias) {
     return $SyncHistoryTable(attachedDatabase, alias);
   }
+
+  static TypeConverter<DateTime, String> $convertersyncTime =
+      const DateTimeConverter();
 }
 
 class SyncHistoryData extends DataClass implements Insertable<SyncHistoryData> {
@@ -5777,7 +5618,11 @@ class SyncHistoryData extends DataClass implements Insertable<SyncHistoryData> {
     if (!nullToAbsent || syncType != null) {
       map['sync_type'] = Variable<String>(syncType);
     }
-    map['sync_time'] = Variable<DateTime>(syncTime);
+    {
+      map['sync_time'] = Variable<String>(
+        $SyncHistoryTable.$convertersyncTime.toSql(syncTime),
+      );
+    }
     if (!nullToAbsent || syncMessage != null) {
       map['sync_message'] = Variable<String>(syncMessage);
     }
@@ -5901,7 +5746,7 @@ class SyncHistoryCompanion extends UpdateCompanion<SyncHistoryData> {
     Expression<int>? localId,
     Expression<String>? syncStatus,
     Expression<String>? syncType,
-    Expression<DateTime>? syncTime,
+    Expression<String>? syncTime,
     Expression<String>? syncMessage,
   }) {
     return RawValuesInsertable({
@@ -5942,7 +5787,9 @@ class SyncHistoryCompanion extends UpdateCompanion<SyncHistoryData> {
       map['sync_type'] = Variable<String>(syncType.value);
     }
     if (syncTime.present) {
-      map['sync_time'] = Variable<DateTime>(syncTime.value);
+      map['sync_time'] = Variable<String>(
+        $SyncHistoryTable.$convertersyncTime.toSql(syncTime.value),
+      );
     }
     if (syncMessage.present) {
       map['sync_message'] = Variable<String>(syncMessage.value);
@@ -6010,7 +5857,6 @@ typedef $$ContinentsLocalTableCreateCompanionBuilder =
       Value<String?> serverId,
       required String name,
       Value<String?> code,
-      required DateTime updatedAt,
       Value<String> syncStatus,
     });
 typedef $$ContinentsLocalTableUpdateCompanionBuilder =
@@ -6019,7 +5865,6 @@ typedef $$ContinentsLocalTableUpdateCompanionBuilder =
       Value<String?> serverId,
       Value<String> name,
       Value<String?> code,
-      Value<DateTime> updatedAt,
       Value<String> syncStatus,
     });
 
@@ -6090,11 +5935,6 @@ class $$ContinentsLocalTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnFilters(column),
-  );
-
   ColumnFilters<String> get syncStatus => $composableBuilder(
     column: $table.syncStatus,
     builder: (column) => ColumnFilters(column),
@@ -6155,11 +5995,6 @@ class $$ContinentsLocalTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnOrderings(column),
-  );
-
   ColumnOrderings<String> get syncStatus => $composableBuilder(
     column: $table.syncStatus,
     builder: (column) => ColumnOrderings(column),
@@ -6186,9 +6021,6 @@ class $$ContinentsLocalTableAnnotationComposer
 
   GeneratedColumn<String> get code =>
       $composableBuilder(column: $table.code, builder: (column) => column);
-
-  GeneratedColumn<DateTime> get updatedAt =>
-      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 
   GeneratedColumn<String> get syncStatus => $composableBuilder(
     column: $table.syncStatus,
@@ -6262,14 +6094,12 @@ class $$ContinentsLocalTableTableManager
                 Value<String?> serverId = const Value.absent(),
                 Value<String> name = const Value.absent(),
                 Value<String?> code = const Value.absent(),
-                Value<DateTime> updatedAt = const Value.absent(),
                 Value<String> syncStatus = const Value.absent(),
               }) => ContinentsLocalCompanion(
                 localId: localId,
                 serverId: serverId,
                 name: name,
                 code: code,
-                updatedAt: updatedAt,
                 syncStatus: syncStatus,
               ),
           createCompanionCallback:
@@ -6278,14 +6108,12 @@ class $$ContinentsLocalTableTableManager
                 Value<String?> serverId = const Value.absent(),
                 required String name,
                 Value<String?> code = const Value.absent(),
-                required DateTime updatedAt,
                 Value<String> syncStatus = const Value.absent(),
               }) => ContinentsLocalCompanion.insert(
                 localId: localId,
                 serverId: serverId,
                 name: name,
                 code: code,
-                updatedAt: updatedAt,
                 syncStatus: syncStatus,
               ),
           withReferenceMapper:
@@ -6358,7 +6186,6 @@ typedef $$CountriesLocalTableCreateCompanionBuilder =
       required int continentLocalId,
       required String name,
       Value<String?> isoCode,
-      required DateTime updatedAt,
       Value<String> syncStatus,
     });
 typedef $$CountriesLocalTableUpdateCompanionBuilder =
@@ -6368,7 +6195,6 @@ typedef $$CountriesLocalTableUpdateCompanionBuilder =
       Value<int> continentLocalId,
       Value<String> name,
       Value<String?> isoCode,
-      Value<DateTime> updatedAt,
       Value<String> syncStatus,
     });
 
@@ -6490,11 +6316,6 @@ class $$CountriesLocalTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnFilters(column),
-  );
-
   ColumnFilters<String> get syncStatus => $composableBuilder(
     column: $table.syncStatus,
     builder: (column) => ColumnFilters(column),
@@ -6605,11 +6426,6 @@ class $$CountriesLocalTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnOrderings(column),
-  );
-
   ColumnOrderings<String> get syncStatus => $composableBuilder(
     column: $table.syncStatus,
     builder: (column) => ColumnOrderings(column),
@@ -6659,9 +6475,6 @@ class $$CountriesLocalTableAnnotationComposer
 
   GeneratedColumn<String> get isoCode =>
       $composableBuilder(column: $table.isoCode, builder: (column) => column);
-
-  GeneratedColumn<DateTime> get updatedAt =>
-      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 
   GeneratedColumn<String> get syncStatus => $composableBuilder(
     column: $table.syncStatus,
@@ -6787,7 +6600,6 @@ class $$CountriesLocalTableTableManager
                 Value<int> continentLocalId = const Value.absent(),
                 Value<String> name = const Value.absent(),
                 Value<String?> isoCode = const Value.absent(),
-                Value<DateTime> updatedAt = const Value.absent(),
                 Value<String> syncStatus = const Value.absent(),
               }) => CountriesLocalCompanion(
                 localId: localId,
@@ -6795,7 +6607,6 @@ class $$CountriesLocalTableTableManager
                 continentLocalId: continentLocalId,
                 name: name,
                 isoCode: isoCode,
-                updatedAt: updatedAt,
                 syncStatus: syncStatus,
               ),
           createCompanionCallback:
@@ -6805,7 +6616,6 @@ class $$CountriesLocalTableTableManager
                 required int continentLocalId,
                 required String name,
                 Value<String?> isoCode = const Value.absent(),
-                required DateTime updatedAt,
                 Value<String> syncStatus = const Value.absent(),
               }) => CountriesLocalCompanion.insert(
                 localId: localId,
@@ -6813,7 +6623,6 @@ class $$CountriesLocalTableTableManager
                 continentLocalId: continentLocalId,
                 name: name,
                 isoCode: isoCode,
-                updatedAt: updatedAt,
                 syncStatus: syncStatus,
               ),
           withReferenceMapper:
@@ -7133,10 +6942,11 @@ class $$LocationsLocalTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnWithTypeConverterFilters<DateTime, DateTime, String> get updatedAt =>
+      $composableBuilder(
+        column: $table.updatedAt,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
 
   ColumnFilters<String> get syncStatus => $composableBuilder(
     column: $table.syncStatus,
@@ -7291,7 +7101,7 @@ class $$LocationsLocalTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+  ColumnOrderings<String> get updatedAt => $composableBuilder(
     column: $table.updatedAt,
     builder: (column) => ColumnOrderings(column),
   );
@@ -7362,7 +7172,7 @@ class $$LocationsLocalTableAnnotationComposer
     builder: (column) => column,
   );
 
-  GeneratedColumn<DateTime> get updatedAt =>
+  GeneratedColumnWithTypeConverter<DateTime, String> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 
   GeneratedColumn<String> get syncStatus => $composableBuilder(
@@ -7844,10 +7654,11 @@ class $$UsersLocalTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnWithTypeConverterFilters<DateTime, DateTime, String> get updatedAt =>
+      $composableBuilder(
+        column: $table.updatedAt,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
 
   ColumnFilters<String> get syncStatus => $composableBuilder(
     column: $table.syncStatus,
@@ -7961,7 +7772,7 @@ class $$UsersLocalTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+  ColumnOrderings<String> get updatedAt => $composableBuilder(
     column: $table.updatedAt,
     builder: (column) => ColumnOrderings(column),
   );
@@ -7995,7 +7806,7 @@ class $$UsersLocalTableAnnotationComposer
     builder: (column) => column,
   );
 
-  GeneratedColumn<DateTime> get updatedAt =>
+  GeneratedColumnWithTypeConverter<DateTime, String> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 
   GeneratedColumn<String> get syncStatus => $composableBuilder(
@@ -8399,10 +8210,11 @@ class $$UserProfilesLocalTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnWithTypeConverterFilters<DateTime, DateTime, String> get updatedAt =>
+      $composableBuilder(
+        column: $table.updatedAt,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
 
   ColumnFilters<String> get syncStatus => $composableBuilder(
     column: $table.syncStatus,
@@ -8505,7 +8317,7 @@ class $$UserProfilesLocalTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+  ColumnOrderings<String> get updatedAt => $composableBuilder(
     column: $table.updatedAt,
     builder: (column) => ColumnOrderings(column),
   );
@@ -8603,7 +8415,7 @@ class $$UserProfilesLocalTableAnnotationComposer
   GeneratedColumn<String> get bio =>
       $composableBuilder(column: $table.bio, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get updatedAt =>
+  GeneratedColumnWithTypeConverter<DateTime, String> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 
   GeneratedColumn<String> get syncStatus => $composableBuilder(
@@ -8844,7 +8656,6 @@ typedef $$UserVisitedCountriesLocalTableCreateCompanionBuilder =
       required int userLocalId,
       required int countryLocalId,
       required DateTime visitedAt,
-      required DateTime updatedAt,
       Value<String> syncStatus,
     });
 typedef $$UserVisitedCountriesLocalTableUpdateCompanionBuilder =
@@ -8854,7 +8665,6 @@ typedef $$UserVisitedCountriesLocalTableUpdateCompanionBuilder =
       Value<int> userLocalId,
       Value<int> countryLocalId,
       Value<DateTime> visitedAt,
-      Value<DateTime> updatedAt,
       Value<String> syncStatus,
     });
 
@@ -8935,15 +8745,11 @@ class $$UserVisitedCountriesLocalTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<DateTime> get visitedAt => $composableBuilder(
-    column: $table.visitedAt,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnWithTypeConverterFilters<DateTime, DateTime, String> get visitedAt =>
+      $composableBuilder(
+        column: $table.visitedAt,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
 
   ColumnFilters<String> get syncStatus => $composableBuilder(
     column: $table.syncStatus,
@@ -9016,13 +8822,8 @@ class $$UserVisitedCountriesLocalTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<DateTime> get visitedAt => $composableBuilder(
+  ColumnOrderings<String> get visitedAt => $composableBuilder(
     column: $table.visitedAt,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -9093,11 +8894,8 @@ class $$UserVisitedCountriesLocalTableAnnotationComposer
   GeneratedColumn<String> get serverId =>
       $composableBuilder(column: $table.serverId, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get visitedAt =>
+  GeneratedColumnWithTypeConverter<DateTime, String> get visitedAt =>
       $composableBuilder(column: $table.visitedAt, builder: (column) => column);
-
-  GeneratedColumn<DateTime> get updatedAt =>
-      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 
   GeneratedColumn<String> get syncStatus => $composableBuilder(
     column: $table.syncStatus,
@@ -9198,7 +8996,6 @@ class $$UserVisitedCountriesLocalTableTableManager
                 Value<int> userLocalId = const Value.absent(),
                 Value<int> countryLocalId = const Value.absent(),
                 Value<DateTime> visitedAt = const Value.absent(),
-                Value<DateTime> updatedAt = const Value.absent(),
                 Value<String> syncStatus = const Value.absent(),
               }) => UserVisitedCountriesLocalCompanion(
                 localId: localId,
@@ -9206,7 +9003,6 @@ class $$UserVisitedCountriesLocalTableTableManager
                 userLocalId: userLocalId,
                 countryLocalId: countryLocalId,
                 visitedAt: visitedAt,
-                updatedAt: updatedAt,
                 syncStatus: syncStatus,
               ),
           createCompanionCallback:
@@ -9216,7 +9012,6 @@ class $$UserVisitedCountriesLocalTableTableManager
                 required int userLocalId,
                 required int countryLocalId,
                 required DateTime visitedAt,
-                required DateTime updatedAt,
                 Value<String> syncStatus = const Value.absent(),
               }) => UserVisitedCountriesLocalCompanion.insert(
                 localId: localId,
@@ -9224,7 +9019,6 @@ class $$UserVisitedCountriesLocalTableTableManager
                 userLocalId: userLocalId,
                 countryLocalId: countryLocalId,
                 visitedAt: visitedAt,
-                updatedAt: updatedAt,
                 syncStatus: syncStatus,
               ),
           withReferenceMapper:
@@ -9461,15 +9255,17 @@ class $$JournalsLocalTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<DateTime> get startDate => $composableBuilder(
-    column: $table.startDate,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnWithTypeConverterFilters<DateTime, DateTime, String> get startDate =>
+      $composableBuilder(
+        column: $table.startDate,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
 
-  ColumnFilters<DateTime> get endDate => $composableBuilder(
-    column: $table.endDate,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnWithTypeConverterFilters<DateTime?, DateTime, String> get endDate =>
+      $composableBuilder(
+        column: $table.endDate,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
 
   ColumnFilters<String> get coverPhotoUrl => $composableBuilder(
     column: $table.coverPhotoUrl,
@@ -9486,10 +9282,11 @@ class $$JournalsLocalTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnWithTypeConverterFilters<DateTime, DateTime, String> get updatedAt =>
+      $composableBuilder(
+        column: $table.updatedAt,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
 
   ColumnFilters<String> get syncStatus => $composableBuilder(
     column: $table.syncStatus,
@@ -9597,12 +9394,12 @@ class $$JournalsLocalTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<DateTime> get startDate => $composableBuilder(
+  ColumnOrderings<String> get startDate => $composableBuilder(
     column: $table.startDate,
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<DateTime> get endDate => $composableBuilder(
+  ColumnOrderings<String> get endDate => $composableBuilder(
     column: $table.endDate,
     builder: (column) => ColumnOrderings(column),
   );
@@ -9622,7 +9419,7 @@ class $$JournalsLocalTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+  ColumnOrderings<String> get updatedAt => $composableBuilder(
     column: $table.updatedAt,
     builder: (column) => ColumnOrderings(column),
   );
@@ -9702,10 +9499,10 @@ class $$JournalsLocalTableAnnotationComposer
     builder: (column) => column,
   );
 
-  GeneratedColumn<DateTime> get startDate =>
+  GeneratedColumnWithTypeConverter<DateTime, String> get startDate =>
       $composableBuilder(column: $table.startDate, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get endDate =>
+  GeneratedColumnWithTypeConverter<DateTime?, String> get endDate =>
       $composableBuilder(column: $table.endDate, builder: (column) => column);
 
   GeneratedColumn<String> get coverPhotoUrl => $composableBuilder(
@@ -9723,7 +9520,7 @@ class $$JournalsLocalTableAnnotationComposer
     builder: (column) => column,
   );
 
-  GeneratedColumn<DateTime> get updatedAt =>
+  GeneratedColumnWithTypeConverter<DateTime, String> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 
   GeneratedColumn<String> get syncStatus => $composableBuilder(
@@ -10016,7 +9813,6 @@ typedef $$CategoriesLocalTableCreateCompanionBuilder =
       Value<int> localId,
       Value<String?> serverId,
       required String name,
-      required DateTime updatedAt,
       Value<String> syncStatus,
     });
 typedef $$CategoriesLocalTableUpdateCompanionBuilder =
@@ -10024,7 +9820,6 @@ typedef $$CategoriesLocalTableUpdateCompanionBuilder =
       Value<int> localId,
       Value<String?> serverId,
       Value<String> name,
-      Value<DateTime> updatedAt,
       Value<String> syncStatus,
     });
 
@@ -10090,11 +9885,6 @@ class $$CategoriesLocalTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnFilters(column),
-  );
-
   ColumnFilters<String> get syncStatus => $composableBuilder(
     column: $table.syncStatus,
     builder: (column) => ColumnFilters(column),
@@ -10150,11 +9940,6 @@ class $$CategoriesLocalTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnOrderings(column),
-  );
-
   ColumnOrderings<String> get syncStatus => $composableBuilder(
     column: $table.syncStatus,
     builder: (column) => ColumnOrderings(column),
@@ -10178,9 +9963,6 @@ class $$CategoriesLocalTableAnnotationComposer
 
   GeneratedColumn<String> get name =>
       $composableBuilder(column: $table.name, builder: (column) => column);
-
-  GeneratedColumn<DateTime> get updatedAt =>
-      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 
   GeneratedColumn<String> get syncStatus => $composableBuilder(
     column: $table.syncStatus,
@@ -10253,13 +10035,11 @@ class $$CategoriesLocalTableTableManager
                 Value<int> localId = const Value.absent(),
                 Value<String?> serverId = const Value.absent(),
                 Value<String> name = const Value.absent(),
-                Value<DateTime> updatedAt = const Value.absent(),
                 Value<String> syncStatus = const Value.absent(),
               }) => CategoriesLocalCompanion(
                 localId: localId,
                 serverId: serverId,
                 name: name,
-                updatedAt: updatedAt,
                 syncStatus: syncStatus,
               ),
           createCompanionCallback:
@@ -10267,13 +10047,11 @@ class $$CategoriesLocalTableTableManager
                 Value<int> localId = const Value.absent(),
                 Value<String?> serverId = const Value.absent(),
                 required String name,
-                required DateTime updatedAt,
                 Value<String> syncStatus = const Value.absent(),
               }) => CategoriesLocalCompanion.insert(
                 localId: localId,
                 serverId: serverId,
                 name: name,
-                updatedAt: updatedAt,
                 syncStatus: syncStatus,
               ),
           withReferenceMapper:
@@ -10490,15 +10268,17 @@ class $$MomentsLocalTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<DateTime> get timestamp => $composableBuilder(
-    column: $table.timestamp,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnWithTypeConverterFilters<DateTime, DateTime, String> get timestamp =>
+      $composableBuilder(
+        column: $table.timestamp,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
 
-  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnWithTypeConverterFilters<DateTime, DateTime, String> get updatedAt =>
+      $composableBuilder(
+        column: $table.updatedAt,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
 
   ColumnFilters<String> get syncStatus => $composableBuilder(
     column: $table.syncStatus,
@@ -10629,12 +10409,12 @@ class $$MomentsLocalTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<DateTime> get timestamp => $composableBuilder(
+  ColumnOrderings<String> get timestamp => $composableBuilder(
     column: $table.timestamp,
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+  ColumnOrderings<String> get updatedAt => $composableBuilder(
     column: $table.updatedAt,
     builder: (column) => ColumnOrderings(column),
   );
@@ -10737,10 +10517,10 @@ class $$MomentsLocalTableAnnotationComposer
     builder: (column) => column,
   );
 
-  GeneratedColumn<DateTime> get timestamp =>
+  GeneratedColumnWithTypeConverter<DateTime, String> get timestamp =>
       $composableBuilder(column: $table.timestamp, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get updatedAt =>
+  GeneratedColumnWithTypeConverter<DateTime, String> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 
   GeneratedColumn<String> get syncStatus => $composableBuilder(
@@ -11148,10 +10928,11 @@ class $$MomentMediaLocalTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnWithTypeConverterFilters<DateTime, DateTime, String> get updatedAt =>
+      $composableBuilder(
+        column: $table.updatedAt,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
 
   ColumnFilters<String> get syncStatus => $composableBuilder(
     column: $table.syncStatus,
@@ -11216,7 +10997,7 @@ class $$MomentMediaLocalTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+  ColumnOrderings<String> get updatedAt => $composableBuilder(
     column: $table.updatedAt,
     builder: (column) => ColumnOrderings(column),
   );
@@ -11276,7 +11057,7 @@ class $$MomentMediaLocalTableAnnotationComposer
     builder: (column) => column,
   );
 
-  GeneratedColumn<DateTime> get updatedAt =>
+  GeneratedColumnWithTypeConverter<DateTime, String> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 
   GeneratedColumn<String> get syncStatus => $composableBuilder(
@@ -11493,10 +11274,11 @@ class $$SyncHistoryTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<DateTime> get syncTime => $composableBuilder(
-    column: $table.syncTime,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnWithTypeConverterFilters<DateTime, DateTime, String> get syncTime =>
+      $composableBuilder(
+        column: $table.syncTime,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
 
   ColumnFilters<String> get syncMessage => $composableBuilder(
     column: $table.syncMessage,
@@ -11528,7 +11310,7 @@ class $$SyncHistoryTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<DateTime> get syncTime => $composableBuilder(
+  ColumnOrderings<String> get syncTime => $composableBuilder(
     column: $table.syncTime,
     builder: (column) => ColumnOrderings(column),
   );
@@ -11559,7 +11341,7 @@ class $$SyncHistoryTableAnnotationComposer
   GeneratedColumn<String> get syncType =>
       $composableBuilder(column: $table.syncType, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get syncTime =>
+  GeneratedColumnWithTypeConverter<DateTime, String> get syncTime =>
       $composableBuilder(column: $table.syncTime, builder: (column) => column);
 
   GeneratedColumn<String> get syncMessage => $composableBuilder(
