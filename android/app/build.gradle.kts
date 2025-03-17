@@ -1,3 +1,5 @@
+import java.util.Base64
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -19,6 +21,19 @@ android {
         jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
+    val dartDefines: Map<String, String> = if (project.hasProperty("dart-defines")) {
+        val dartDefinesEncoded = project.property("dart-defines") as String
+        dartDefinesEncoded
+            .split(",")
+            .associate { encoded ->
+                val decoded = String(Base64.getDecoder().decode(encoded))
+                val (key, value) = decoded.split("=", limit = 2)
+                key to value
+            }
+    } else {
+        emptyMap()
+    }
+
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.globenotes"
@@ -28,6 +43,9 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        resValue("string", "facebook_app_id", dartDefines["FACEBOOK_APP_ID"] ?: "")
+        resValue("string", "fb_login_protocol_scheme", dartDefines["FB_LOGIN_PROTOCOL_SCHEME"] ?: "")
+        resValue("string", "facebook_client_token", dartDefines["FB_CLIENT_TOKEN"] ?: "")
     }
 
     signingConfigs {

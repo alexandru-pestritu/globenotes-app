@@ -17,15 +17,15 @@
 		<string>Editor</string>
 		<key>CFBundleURLSchemes</key>
 		<array>
-			<string>fb616168024461488</string>
-			<string>com.googleusercontent.apps.1006453621944-0f16d00taedlv0h6a4ejeu4dvtuqmn4s</string>
+			<string>$(FB_LOGIN_PROTOCOL_SCHEME)</string>
+			<string>$(IOS_GOOGLE_URL_SCHEME)</string>
 		</array>
 		</dict>
 		</array>
 		<key>FacebookAppID</key>
-		<string>616168024461488</string>
+		<string>$(FACEBOOK_APP_ID)</string>
 		<key>FacebookClientToken</key>
-		<string>2c510c0b4c9e48f19109cce22ac2814c</string>
+		<string>$(FB_CLIENT_TOKEN)</string>
 		<key>FacebookDisplayName</key>
 		<string>Globenotes</string>
 		<key>NSAppTransportSecurity</key>
