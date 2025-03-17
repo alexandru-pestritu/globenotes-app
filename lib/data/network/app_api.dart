@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:globenotes/app/constants.dart';
-import 'package:globenotes/data/dto/response/responses.dart';
+import 'package:globenotes/data/dto/auth/auth_dtos.dart';
+import 'package:globenotes/data/dto/continent/continent_dtos.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 
@@ -55,4 +56,7 @@ abstract class AppServiceClient {
     @Field("otpCode") String code,
     @Field("newPassword") String password,
   );
+
+  @GET("/location/continents/countries")
+  Future<GetAllContinentsWithCountriesResponse> getAllContinentsWithCountries();
 }

@@ -1,7 +1,7 @@
 import 'package:globenotes/data/dto/response/base_response.dart';
 import 'package:globenotes/data/dto/user/user_dtos.dart';
 import 'package:json_annotation/json_annotation.dart';
-part 'responses.g.dart';
+part 'auth_dtos.g.dart';
 
 @JsonSerializable()
 class AuthData {

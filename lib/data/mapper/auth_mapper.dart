@@ -1,5 +1,5 @@
 import 'package:globenotes/app/extensions.dart';
-import 'package:globenotes/data/dto/response/responses.dart';
+import 'package:globenotes/data/dto/auth/auth_dtos.dart';
 import 'package:globenotes/domain/model/model.dart';
 
 extension LoginDataMapper on AuthData? {
