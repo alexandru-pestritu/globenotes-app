@@ -79,3 +79,69 @@ Map<String, dynamic> _$JournalDetailsDTOToJson(JournalDetailsDTO instance) =>
       'isDeleted': instance.isDeleted,
       'moments': instance.moments,
     };
+
+JournalListData _$JournalListDataFromJson(Map<String, dynamic> json) =>
+    JournalListData(
+      journals:
+          (json['journals'] as List<dynamic>?)
+              ?.map((e) => JournalDTO.fromJson(e as Map<String, dynamic>))
+              .toList(),
+    );
+
+Map<String, dynamic> _$JournalListDataToJson(JournalListData instance) =>
+    <String, dynamic>{'journals': instance.journals};
+
+GetJournalsResponse _$GetJournalsResponseFromJson(Map<String, dynamic> json) =>
+    GetJournalsResponse(
+      timeStamp: json['timeStamp'] as String?,
+      statusCode: (json['statusCode'] as num?)?.toInt(),
+      status: json['status'] as String?,
+      message: json['message'] as String?,
+      data:
+          json['data'] == null
+              ? null
+              : JournalListData.fromJson(json['data'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$GetJournalsResponseToJson(
+  GetJournalsResponse instance,
+) => <String, dynamic>{
+  'timeStamp': instance.timeStamp,
+  'statusCode': instance.statusCode,
+  'status': instance.status,
+  'message': instance.message,
+  'data': instance.data,
+};
+
+JournalData _$JournalDataFromJson(Map<String, dynamic> json) => JournalData(
+  journal:
+      json['journal'] == null
+          ? null
+          : JournalDetailsDTO.fromJson(json['journal'] as Map<String, dynamic>),
+);
+
+Map<String, dynamic> _$JournalDataToJson(JournalData instance) =>
+    <String, dynamic>{'journal': instance.journal};
+
+CreateOrUpdateJournalResponse _$CreateOrUpdateJournalResponseFromJson(
+  Map<String, dynamic> json,
+) => CreateOrUpdateJournalResponse(
+  timeStamp: json['timeStamp'] as String?,
+  statusCode: (json['statusCode'] as num?)?.toInt(),
+  status: json['status'] as String?,
+  message: json['message'] as String?,
+  data:
+      json['data'] == null
+          ? null
+          : JournalData.fromJson(json['data'] as Map<String, dynamic>),
+);
+
+Map<String, dynamic> _$CreateOrUpdateJournalResponseToJson(
+  CreateOrUpdateJournalResponse instance,
+) => <String, dynamic>{
+  'timeStamp': instance.timeStamp,
+  'statusCode': instance.statusCode,
+  'status': instance.status,
+  'message': instance.message,
+  'data': instance.data,
+};

@@ -68,3 +68,69 @@ Map<String, dynamic> _$MomentDetailsDTOToJson(MomentDetailsDTO instance) =>
       'isDeleted': instance.isDeleted,
       'momentMediaList': instance.momentMediaList,
     };
+
+MomentData _$MomentDataFromJson(Map<String, dynamic> json) => MomentData(
+  moment:
+      json['moment'] == null
+          ? null
+          : MomentDetailsDTO.fromJson(json['moment'] as Map<String, dynamic>),
+);
+
+Map<String, dynamic> _$MomentDataToJson(MomentData instance) =>
+    <String, dynamic>{'moment': instance.moment};
+
+CreateOrUpdateMomentResponse _$CreateOrUpdateMomentResponseFromJson(
+  Map<String, dynamic> json,
+) => CreateOrUpdateMomentResponse(
+  timeStamp: json['timeStamp'] as String?,
+  statusCode: (json['statusCode'] as num?)?.toInt(),
+  status: json['status'] as String?,
+  message: json['message'] as String?,
+  data:
+      json['data'] == null
+          ? null
+          : MomentData.fromJson(json['data'] as Map<String, dynamic>),
+);
+
+Map<String, dynamic> _$CreateOrUpdateMomentResponseToJson(
+  CreateOrUpdateMomentResponse instance,
+) => <String, dynamic>{
+  'timeStamp': instance.timeStamp,
+  'statusCode': instance.statusCode,
+  'status': instance.status,
+  'message': instance.message,
+  'data': instance.data,
+};
+
+MomentsData _$MomentsDataFromJson(Map<String, dynamic> json) => MomentsData(
+  moments:
+      (json['moments'] as List<dynamic>?)
+          ?.map((e) => MomentDetailsDTO.fromJson(e as Map<String, dynamic>))
+          .toList(),
+);
+
+Map<String, dynamic> _$MomentsDataToJson(MomentsData instance) =>
+    <String, dynamic>{'moments': instance.moments};
+
+GetMomentsByJournalResponse _$GetMomentsByJournalResponseFromJson(
+  Map<String, dynamic> json,
+) => GetMomentsByJournalResponse(
+  timeStamp: json['timeStamp'] as String?,
+  statusCode: (json['statusCode'] as num?)?.toInt(),
+  status: json['status'] as String?,
+  message: json['message'] as String?,
+  data:
+      json['data'] == null
+          ? null
+          : MomentsData.fromJson(json['data'] as Map<String, dynamic>),
+);
+
+Map<String, dynamic> _$GetMomentsByJournalResponseToJson(
+  GetMomentsByJournalResponse instance,
+) => <String, dynamic>{
+  'timeStamp': instance.timeStamp,
+  'statusCode': instance.statusCode,
+  'status': instance.status,
+  'message': instance.message,
+  'data': instance.data,
+};

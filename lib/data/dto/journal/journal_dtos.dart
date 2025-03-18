@@ -1,3 +1,4 @@
+import 'package:globenotes/data/dto/response/base_response.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:globenotes/data/dto/location/location_dtos.dart';
 import 'package:globenotes/data/dto/moment/moment_dtos.dart';
@@ -116,4 +117,70 @@ class JournalDetailsDTO {
       _$JournalDetailsDTOFromJson(json);
 
   Map<String, dynamic> toJson() => _$JournalDetailsDTOToJson(this);
+}
+
+@JsonSerializable()
+class JournalListData {
+  @JsonKey(name: "journals")
+  List<JournalDTO>? journals;
+
+  JournalListData({this.journals});
+
+  factory JournalListData.fromJson(Map<String, dynamic> json) =>
+      _$JournalListDataFromJson(json);
+
+  Map<String, dynamic> toJson() => _$JournalListDataToJson(this);
+}
+
+@JsonSerializable()
+class GetJournalsResponse extends BaseResponse {
+  @JsonKey(name: "data")
+  JournalListData? data;
+
+  GetJournalsResponse({
+    super.timeStamp,
+    super.statusCode,
+    super.status,
+    super.message,
+    this.data,
+  });
+
+  factory GetJournalsResponse.fromJson(Map<String, dynamic> json) =>
+      _$GetJournalsResponseFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$GetJournalsResponseToJson(this);
+}
+
+@JsonSerializable()
+class JournalData {
+  @JsonKey(name: "journal")
+  JournalDetailsDTO? journal;
+
+  JournalData({this.journal});
+
+  factory JournalData.fromJson(Map<String, dynamic> json) =>
+      _$JournalDataFromJson(json);
+
+  Map<String, dynamic> toJson() => _$JournalDataToJson(this);
+}
+
+@JsonSerializable()
+class CreateOrUpdateJournalResponse extends BaseResponse {
+  @JsonKey(name: "data")
+  JournalData? data;
+
+  CreateOrUpdateJournalResponse({
+    super.timeStamp,
+    super.statusCode,
+    super.status,
+    super.message,
+    this.data,
+  });
+
+  factory CreateOrUpdateJournalResponse.fromJson(Map<String, dynamic> json) =>
+      _$CreateOrUpdateJournalResponseFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$CreateOrUpdateJournalResponseToJson(this);
 }

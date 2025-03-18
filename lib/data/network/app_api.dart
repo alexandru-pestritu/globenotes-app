@@ -1,7 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:globenotes/app/constants.dart';
 import 'package:globenotes/data/dto/auth/auth_dtos.dart';
+import 'package:globenotes/data/dto/category/category_dtos.dart';
 import 'package:globenotes/data/dto/continent/continent_dtos.dart';
+import 'package:globenotes/data/dto/journal/journal_dtos.dart';
+import 'package:globenotes/data/dto/moment/moment_dtos.dart';
 import 'package:globenotes/data/dto/response/base_response.dart';
 import 'package:globenotes/data/dto/user/user_dtos.dart';
 import 'package:globenotes/data/dto/user_profile/user_profile_dtos.dart';
@@ -79,14 +82,10 @@ abstract class AppServiceClient {
   Future<BaseResponse> deleteUser();
 
   @POST("/user/password")
-  Future<BaseResponse> updatePassword(
-    @Body() UpdatePasswordRequest request,
-  );
+  Future<BaseResponse> updatePassword(@Body() UpdatePasswordRequest request);
 
   @POST("/user/email")
-  Future<BaseResponse> updateEmail(
-    @Body() UpdateEmailRequest request,
-  );
+  Future<BaseResponse> updateEmail(@Body() UpdateEmailRequest request);
 
   @POST("/user/visited-countries")
   Future<AddVisitedCountryResponse> addUserVisitedCountry(
@@ -96,11 +95,55 @@ abstract class AppServiceClient {
   @GET("/user/visited-countries")
   Future<GetVisitedCountriesResponse> getVisitedCountries();
 
-
   @DELETE("/user/visited-countries/{userVisitedCountryId}")
   Future<BaseResponse> deleteUserVisitedCountry(
     @Path("userVisitedCountryId") int userVisitedCountryId,
   );
+
+  @GET("/journal")
+  Future<GetJournalsResponse> getJournals();
+
+  @POST("/journal")
+  Future<CreateOrUpdateJournalResponse> createJournal(
+    @Body() JournalDTO request,
+  );
+
+  @PUT("/journal")
+  Future<CreateOrUpdateJournalResponse> updateJournal(
+    @Body() JournalDTO request,
+  );
+
+  @GET("/journal/{journalId}")
+  Future<CreateOrUpdateJournalResponse> getJournalDetails(
+    @Path("journalId") int journalId,
+  );
+
+  @DELETE("/journal/{journalId}")
+  Future<BaseResponse> deleteJournal(@Path("journalId") int journalId);
+
+  @POST("/moment")
+  Future<CreateOrUpdateMomentResponse> createMoment(
+    @Body() MomentDetailsDTO request,
+  );
+
+  @PUT("/moment")
+  Future<CreateOrUpdateMomentResponse> updateMoment(
+    @Body() MomentDetailsDTO request,
+  );
+
+  @GET("/moment/{momentId}")
+  Future<CreateOrUpdateMomentResponse> getMoment(
+    @Path("momentId") int momentId,
+  );
+
+  @DELETE("/moment/{momentId}")
+  Future<BaseResponse> deleteMoment(@Path("momentId") int momentId);
+
+  @GET("/moment/journal/{journalId}")
+  Future<GetMomentsByJournalResponse> getMomentsByJournal(
+    @Path("journalId") int journalId,
+  );
+
+  @GET("/moment/categories")
+  Future<GetMomentCategoriesResponse> getAllCategories();
 }
-
-
