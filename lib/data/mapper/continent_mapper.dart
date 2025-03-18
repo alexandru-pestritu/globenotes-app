@@ -17,6 +17,19 @@ extension ContinentDTOToCompanion on ContinentDTO {
   }
 }
 
+extension ContinentDetailsDTOToCompanion on ContinentDetailsDTO {
+  ContinentsLocalCompanion toCompanion({
+    String syncStatus = SyncStatus.synced,
+  }) {
+    return ContinentsLocalCompanion(
+      serverId: Value(id?.toString()),
+      name: Value(name ?? ''),
+      code: Value(code),
+      syncStatus: Value(syncStatus),
+    );
+  }
+}
+
 extension ContinentLocalDataToDomain on ContinentsLocalData {
   Continent toDomain() {
     return Continent(
