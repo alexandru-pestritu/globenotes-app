@@ -1,3 +1,4 @@
+import 'package:globenotes/data/dto/response/base_response.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:globenotes/data/dto/country/country_dtos.dart';
 
@@ -63,4 +64,68 @@ class UserVisitedCountryDetailsDTO {
       _$UserVisitedCountryDetailsDTOFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserVisitedCountryDetailsDTOToJson(this);
+}
+
+@JsonSerializable()
+class UserVisitedCountryData {
+  @JsonKey(name: "visitedCountry")
+  UserVisitedCountryDetailsDTO? visitedCountry;
+
+  UserVisitedCountryData({this.visitedCountry});
+
+  factory UserVisitedCountryData.fromJson(Map<String, dynamic> json) =>
+      _$UserVisitedCountryDataFromJson(json);
+  Map<String, dynamic> toJson() => _$UserVisitedCountryDataToJson(this);
+}
+
+@JsonSerializable()
+class AddVisitedCountryResponse extends BaseResponse {
+  @JsonKey(name: "data")
+  UserVisitedCountryData? data;
+
+  AddVisitedCountryResponse({
+    super.timeStamp,
+    super.statusCode,
+    super.status,
+    super.message,
+    this.data,
+  });
+
+  factory AddVisitedCountryResponse.fromJson(Map<String, dynamic> json) =>
+      _$AddVisitedCountryResponseFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$AddVisitedCountryResponseToJson(this);
+}
+
+@JsonSerializable()
+class VisitedCountriesData {
+  @JsonKey(name: "visitedCountries")
+  List<UserVisitedCountryDetailsDTO>? visitedCountries;
+
+  VisitedCountriesData({this.visitedCountries});
+
+  factory VisitedCountriesData.fromJson(Map<String, dynamic> json) =>
+      _$VisitedCountriesDataFromJson(json);
+  Map<String, dynamic> toJson() => _$VisitedCountriesDataToJson(this);
+}
+
+@JsonSerializable()
+class GetVisitedCountriesResponse extends BaseResponse {
+  @JsonKey(name: "data")
+  VisitedCountriesData? data;
+
+  GetVisitedCountriesResponse({
+    super.timeStamp,
+    super.statusCode,
+    super.status,
+    super.message,
+    this.data,
+  });
+
+  factory GetVisitedCountriesResponse.fromJson(Map<String, dynamic> json) =>
+      _$GetVisitedCountriesResponseFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$GetVisitedCountriesResponseToJson(this);
 }

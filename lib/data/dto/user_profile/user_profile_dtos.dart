@@ -1,3 +1,4 @@
+import 'package:globenotes/data/dto/response/base_response.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:globenotes/data/dto/location/location_dtos.dart';
 
@@ -83,4 +84,36 @@ class UserProfileDetailsDTO {
       _$UserProfileDetailsDTOFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserProfileDetailsDTOToJson(this);
+}
+
+@JsonSerializable()
+class ProfileData {
+  @JsonKey(name: "profile")
+  UserProfileDetailsDTO? profile;
+
+  ProfileData({this.profile});
+
+  factory ProfileData.fromJson(Map<String, dynamic> json) =>
+      _$ProfileDataFromJson(json);
+  Map<String, dynamic> toJson() => _$ProfileDataToJson(this);
+}
+
+@JsonSerializable()
+class GetOrUpdateProfileResponse extends BaseResponse {
+  @JsonKey(name: "data")
+  ProfileData? data;
+
+  GetOrUpdateProfileResponse({
+    super.timeStamp,
+    super.statusCode,
+    super.status,
+    super.message,
+    this.data,
+  });
+
+  factory GetOrUpdateProfileResponse.fromJson(Map<String, dynamic> json) =>
+      _$GetOrUpdateProfileResponseFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$GetOrUpdateProfileResponseToJson(this);
 }

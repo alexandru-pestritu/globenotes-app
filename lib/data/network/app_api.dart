@@ -2,6 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:globenotes/app/constants.dart';
 import 'package:globenotes/data/dto/auth/auth_dtos.dart';
 import 'package:globenotes/data/dto/continent/continent_dtos.dart';
+import 'package:globenotes/data/dto/response/base_response.dart';
+import 'package:globenotes/data/dto/user/user_dtos.dart';
+import 'package:globenotes/data/dto/user_profile/user_profile_dtos.dart';
+import 'package:globenotes/data/dto/user_visited_country/user_visited_country_dtos.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 
@@ -59,4 +63,44 @@ abstract class AppServiceClient {
 
   @GET("/location/continents/countries")
   Future<GetAllContinentsWithCountriesResponse> getAllContinentsWithCountries();
+
+  @GET("/user/profile")
+  Future<GetOrUpdateProfileResponse> getUserProfile();
+
+  @PUT("/user/profile")
+  Future<GetOrUpdateProfileResponse> updateUserProfile(
+    @Body() UserProfileDetailsDTO request,
+  );
+
+  @GET("/user/")
+  Future<GetUserResponse> getUser();
+
+  @DELETE("/user/")
+  Future<BaseResponse> deleteUser();
+
+  @POST("/user/password")
+  Future<BaseResponse> updatePassword(
+    @Body() UpdatePasswordRequest request,
+  );
+
+  @POST("/user/email")
+  Future<BaseResponse> updateEmail(
+    @Body() UpdateEmailRequest request,
+  );
+
+  @POST("/user/visited-countries")
+  Future<AddVisitedCountryResponse> addUserVisitedCountry(
+    @Body() UserVisitedCountryDTO request,
+  );
+
+  @GET("/user/visited-countries")
+  Future<GetVisitedCountriesResponse> getVisitedCountries();
+
+
+  @DELETE("/user/visited-countries/{userVisitedCountryId}")
+  Future<BaseResponse> deleteUserVisitedCountry(
+    @Path("userVisitedCountryId") int userVisitedCountryId,
+  );
 }
+
+

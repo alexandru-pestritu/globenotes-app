@@ -58,3 +58,38 @@ Map<String, dynamic> _$UserProfileDetailsDTOToJson(
   'location': instance.location,
   'updatedAt': instance.updatedAt,
 };
+
+ProfileData _$ProfileDataFromJson(Map<String, dynamic> json) => ProfileData(
+  profile:
+      json['profile'] == null
+          ? null
+          : UserProfileDetailsDTO.fromJson(
+            json['profile'] as Map<String, dynamic>,
+          ),
+);
+
+Map<String, dynamic> _$ProfileDataToJson(ProfileData instance) =>
+    <String, dynamic>{'profile': instance.profile};
+
+GetOrUpdateProfileResponse _$GetOrUpdateProfileResponseFromJson(
+  Map<String, dynamic> json,
+) => GetOrUpdateProfileResponse(
+  timeStamp: json['timeStamp'] as String?,
+  statusCode: (json['statusCode'] as num?)?.toInt(),
+  status: json['status'] as String?,
+  message: json['message'] as String?,
+  data:
+      json['data'] == null
+          ? null
+          : ProfileData.fromJson(json['data'] as Map<String, dynamic>),
+);
+
+Map<String, dynamic> _$GetOrUpdateProfileResponseToJson(
+  GetOrUpdateProfileResponse instance,
+) => <String, dynamic>{
+  'timeStamp': instance.timeStamp,
+  'statusCode': instance.statusCode,
+  'status': instance.status,
+  'message': instance.message,
+  'data': instance.data,
+};
