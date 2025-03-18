@@ -7,6 +7,7 @@ import 'package:globenotes/data/dto/journal/journal_dtos.dart';
 import 'package:globenotes/data/dto/moment/moment_dtos.dart';
 import 'package:globenotes/data/dto/response/base_response.dart';
 import 'package:globenotes/data/dto/s3/s3_dtos.dart';
+import 'package:globenotes/data/dto/sync/sync_dtos.dart';
 import 'package:globenotes/data/dto/user/user_dtos.dart';
 import 'package:globenotes/data/dto/user_profile/user_profile_dtos.dart';
 import 'package:globenotes/data/dto/user_visited_country/user_visited_country_dtos.dart';
@@ -157,4 +158,7 @@ abstract class AppServiceClient {
   Future<GetPresignedUrlResponse> getPresignedUrlsForDownload(
     @Body() GetKeysRequest request,
   );
+
+  @GET("/sync")
+  Future<SyncDataResponse> sync(@Query("lastSync") String lastSync);
 }
