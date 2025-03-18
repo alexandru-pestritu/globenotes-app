@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:globenotes/data/data_source/local/user_local_data_source.dart';
-import 'package:globenotes/data/data_source/remote_data_source.dart';
+import 'package:globenotes/data/data_source/remote/auth_remote_data_source.dart';
 import 'package:globenotes/data/data_source/local/secure_storage_local_data_source.dart';
 import 'package:globenotes/data/data_source/local/social_auth_local_data_source.dart';
 import 'package:globenotes/data/mapper/user_mapper.dart';
@@ -13,7 +13,7 @@ import 'package:globenotes/domain/repository/auth_repository.dart';
 import 'package:globenotes/data/mapper/auth_mapper.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
-  final RemoteDataSource _remoteDataSource;
+  final AuthRemoteDataSource _remoteDataSource;
   final SocialAuthLocalDataSource _socialAuthLocalDataSource;
   final SecureStorageLocalDataSource _secureStorageLocalDataSource;
   final UsersLocalDataSource _usersLocalDataSource;
@@ -41,11 +41,11 @@ class AuthRepositoryImpl extends AuthRepository {
             auth.refreshToken,
           );
 
-          final userDTO = response.data?.user; 
+          final userDTO = response.data?.user;
           if (userDTO != null) {
             final userCompanion = userDTO.toCompanion();
             await _usersLocalDataSource.insertUser(userCompanion);
-        }
+          }
           return Right(auth);
         } else {
           return Left(
@@ -251,7 +251,7 @@ class AuthRepositoryImpl extends AuthRepository {
             auth.refreshToken,
           );
 
-          final userDTO = response.data?.user; 
+          final userDTO = response.data?.user;
           if (userDTO != null) {
             final userCompanion = userDTO.toCompanion();
             await _usersLocalDataSource.insertUser(userCompanion);
@@ -294,7 +294,7 @@ class AuthRepositoryImpl extends AuthRepository {
             auth.accessToken,
             auth.refreshToken,
           );
-          final userDTO = response.data?.user; 
+          final userDTO = response.data?.user;
           if (userDTO != null) {
             final userCompanion = userDTO.toCompanion();
             await _usersLocalDataSource.insertUser(userCompanion);

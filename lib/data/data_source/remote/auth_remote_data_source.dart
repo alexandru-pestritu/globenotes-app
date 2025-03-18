@@ -2,7 +2,7 @@ import 'package:globenotes/data/network/app_api.dart';
 import 'package:globenotes/data/dto/request/requests.dart';
 import 'package:globenotes/data/dto/auth/auth_dtos.dart';
 
-abstract class RemoteDataSource {
+abstract class AuthRemoteDataSource {
   Future<LoginResponse> login(LoginRequest loginRequest);
   Future<LoginResponse> loginWithGoogle(SocialLoginRequest socialLoginRequest);
   Future<LoginResponse> loginWithFacebook(
@@ -26,7 +26,7 @@ abstract class RemoteDataSource {
   );
 }
 
-class RemoteDataSourceImplementer implements RemoteDataSource {
+class RemoteDataSourceImplementer implements AuthRemoteDataSource {
   final AppServiceClient _appServiceClient;
   RemoteDataSourceImplementer(this._appServiceClient);
   @override

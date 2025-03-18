@@ -61,6 +61,7 @@ dependencies:
   sqlite3_flutter_libs: ^0.5.30
   sqlite3: ^2.7.4
   drift_db_viewer: ^2.1.0
+  mime: ^2.0.0
 
 
 dev_dependencies:

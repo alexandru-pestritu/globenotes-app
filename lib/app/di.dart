@@ -3,7 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:globenotes/app/app_preferences.dart';
 import 'package:globenotes/data/data_source/local/user_local_data_source.dart';
-import 'package:globenotes/data/data_source/remote_data_source.dart';
+import 'package:globenotes/data/data_source/remote/auth_remote_data_source.dart';
 import 'package:globenotes/data/data_source/local/secure_storage_local_data_source.dart';
 import 'package:globenotes/data/data_source/local/social_auth_local_data_source.dart';
 import 'package:globenotes/data/database/app_database.dart';
@@ -68,7 +68,7 @@ Future<void> initAppModule() async {
   instance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
 
   // remote data source
-  instance.registerLazySingleton<RemoteDataSource>(
+  instance.registerLazySingleton<AuthRemoteDataSource>(
     () => RemoteDataSourceImplementer(instance()),
   );
 
