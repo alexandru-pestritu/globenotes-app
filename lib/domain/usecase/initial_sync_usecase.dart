@@ -7,7 +7,8 @@ import 'package:globenotes/domain/repository/user_repository.dart';
 import 'package:globenotes/domain/repository/sync_repository.dart';
 import 'package:globenotes/domain/usecase/base_usecase.dart';
 
-class InitialSyncUseCase implements BaseUseCase<NoParams, bool> {
+class InitialSyncUseCase
+    implements BaseUseCaseWithProgress<NoParams, double> {
   final LocationRepository _locationRepository;
   final MomentRepository _momentRepository;
   final UserRepository _userRepository;
@@ -21,30 +22,40 @@ class InitialSyncUseCase implements BaseUseCase<NoParams, bool> {
   );
 
   @override
-  Future<Either<Failure, bool>> execute(NoParams input) async {
+  Stream<Either<Failure, double>> execute(NoParams input) async* {
+    yield const Right(0.0);
+
     final locationResult =
         await _locationRepository.fetchContinentsAndCountriesFromServerAndSaveToLocal();
     if (locationResult.isLeft()) {
-      return locationResult;
+      yield locationResult.map((r) => 0.0);
+      return;
     }
+    yield const Right(0.25);
 
     final momentResult =
         await _momentRepository.fetchCategoriesFromServerAndSaveToLocal();
     if (momentResult.isLeft()) {
-      return momentResult; 
+      yield momentResult.map((r) => 0.25);
+      return;
     }
+    yield const Right(0.5);
 
     final userProfileResult =
         await _userRepository.fetchUserProfileFromServerAndSaveToLocal();
     if (userProfileResult.isLeft()) {
-      return userProfileResult;
+      yield userProfileResult.map((r) => 0.5);
+      return;
     }
+    yield const Right(0.75);
 
     final visitedResult =
         await _userRepository.fetchUserVisitedCountriesFromServerAndSaveToLocal();
     if (visitedResult.isLeft()) {
-      return visitedResult;
+      yield visitedResult.map((r) => 0.75);
+      return;
     }
+    yield const Right(0.9);
 
     final syncEntry = SyncHistoryEntry(
       localId: 0,
@@ -55,8 +66,10 @@ class InitialSyncUseCase implements BaseUseCase<NoParams, bool> {
     );
     final syncHistoryResult = await _syncRepository.addSyncHistory(syncEntry);
     if (syncHistoryResult.isLeft()) {
-      return syncHistoryResult.map((_) => false); 
+      yield syncHistoryResult.map((_) => 0.9);
+      return;
     }
-    return const Right(true);
+
+    yield const Right(1.0);
   }
 }

@@ -8,3 +8,7 @@ abstract class BaseUseCase<In, Out> {
 class NoParams {
   const NoParams();
 }
+
+abstract class BaseUseCaseWithProgress<In, ProgressData> {
+  Stream<Either<Failure, ProgressData>> execute(In input);
+}
