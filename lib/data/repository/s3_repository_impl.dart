@@ -98,7 +98,7 @@ class S3RepositoryImpl implements S3Repository {
 
     try {
       final getResp = await _remoteDataSource.getPresignedUrlsForDownload(
-        GetKeysRequest(keys: [s3Key]),
+        List<String>.from([s3Key]),
       );
 
       if (getResp.statusCode == ResponseCode.success) {

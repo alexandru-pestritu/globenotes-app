@@ -156,7 +156,7 @@ abstract class AppServiceClient {
 
   @POST("/s3/presigned/get")
   Future<GetPresignedUrlResponse> getPresignedUrlsForDownload(
-    @Body() GetKeysRequest request,
+    @Body() List<String> keys,
   );
 
   @GET("/sync")

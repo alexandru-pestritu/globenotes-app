@@ -7,7 +7,7 @@ abstract class S3RemoteDataSource {
   );
 
   Future<GetPresignedUrlResponse> getPresignedUrlsForDownload(
-    GetKeysRequest request,
+    List<String> keys,
   );
 }
 
@@ -25,8 +25,8 @@ class S3RemoteDataSourceImpl implements S3RemoteDataSource {
 
   @override
   Future<GetPresignedUrlResponse> getPresignedUrlsForDownload(
-    GetKeysRequest request,
+    List<String> keys,
   ) {
-    return _appServiceClient.getPresignedUrlsForDownload(request);
+    return _appServiceClient.getPresignedUrlsForDownload(keys);
   }
 }

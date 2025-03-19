@@ -894,13 +894,12 @@ class _AppServiceClient implements AppServiceClient {
 
   @override
   Future<GetPresignedUrlResponse> getPresignedUrlsForDownload(
-    GetKeysRequest request,
+    List<String> keys,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(request.toJson());
+    final _data = keys;
     final _options = _setStreamType<GetPresignedUrlResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
