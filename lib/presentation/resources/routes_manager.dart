@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:globenotes/app/di.dart';
 import 'package:globenotes/app/extensions.dart';
 import 'package:globenotes/presentation/forgot_password/forgot_password_view.dart';
+import 'package:globenotes/presentation/initial_sync/initial_sync_view.dart';
 import 'package:globenotes/presentation/main/main_view.dart';
 import 'package:globenotes/presentation/login/login_view.dart';
 import 'package:globenotes/presentation/onboarding/onboarding_view.dart';
@@ -22,6 +23,7 @@ class Routes {
   static const String verifyEmailRoute = "/verifyEmail";
   static const String forgotPasswordRoute = "/forgotPassword";
   static const String resetPasswordRoute = "/resetPassword";
+  static const String initialSyncRoute = "/initialSync";
   static const String mainRoute = "/main";
   static const String languageSelectionRoute = "/languageSelection";
 }
@@ -66,6 +68,9 @@ class RouteGenerator {
         } else {
           return unDefinedRoute();
         }
+      case Routes.initialSyncRoute:
+        initInitialSyncModule();
+        return MaterialPageRoute(builder: (_) => InitialSyncView());
       case Routes.mainRoute:
         return MaterialPageRoute(builder: (_) => MainView());
       case Routes.languageSelectionRoute:

@@ -66,4 +66,6 @@ class AppStrings {
   static const String sendTimeout = "send_timeout";
   static const String cacheError = "cache_error";
   static const String noInternetConnection = "no_internet_connection";
+  static const String initialSyncTitle = "initial_sync_title";
+  static const String initialSyncDescription = "initial_sync_description";
 }

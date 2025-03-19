@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 const String prefKeyLang = 'pref_key_lang';
 const String prefKeyOnboardingScreen = 'pref_key_onboarding_screen';
 const String prefKeyIsUserLoggedIn = 'pref_key_is_user_logged_in';
+const String prefKeyIsInitialSyncDone = 'pref_key_is_initial_sync_done';
 
 class AppPreferences {
   final SharedPreferences _sharedPreferences;
@@ -41,5 +42,13 @@ class AppPreferences {
 
   Future<bool> isUserLoggedIn() async {
     return _sharedPreferences.getBool(prefKeyIsUserLoggedIn) ?? false;
+  }
+
+  Future<void> setIsInitialSyncDone() async {
+    _sharedPreferences.setBool(prefKeyIsInitialSyncDone, true);
+  }
+
+  Future<bool> isInitialSyncDone() async {
+    return _sharedPreferences.getBool(prefKeyIsInitialSyncDone) ?? false;
   }
 }

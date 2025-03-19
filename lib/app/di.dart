@@ -173,7 +173,7 @@ Future<void> initAppModule() async {
   );
 
   instance.registerLazySingleton<S3Repository>(
-    () => S3RepositoryImpl(instance(), instance(), instance()),
+    () => S3RepositoryImpl(instance(), dio, instance()),
   );
   instance.registerLazySingleton<S3FileManager>(
     () => S3FileManager(instance()),
@@ -296,13 +296,13 @@ initLanguageSelectionModule() {
   }
 }
 
-initInitalSyncModule() {
+initInitialSyncModule() {
   if (!GetIt.I.isRegistered<InitialSyncUseCase>()) {
     instance.registerFactory<InitialSyncUseCase>(
       () => InitialSyncUseCase(instance(), instance(), instance(), instance()),
     );
     instance.registerFactory<InitialSyncViewModel>(
-      () => InitialSyncViewModel(instance()),
+      () => InitialSyncViewModel(instance(), instance()),
     );
   }
 }
