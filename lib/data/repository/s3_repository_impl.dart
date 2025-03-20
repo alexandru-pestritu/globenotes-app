@@ -113,6 +113,7 @@ class S3RepositoryImpl implements S3Repository {
         final downloadResp = await _dio.download(
           url,
           localSavePath,
+          options: Options(headers: {"content-type": null, "accept": "*/*"}),
           onReceiveProgress: (received, total) {},
         );
 

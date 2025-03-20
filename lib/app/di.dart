@@ -172,8 +172,9 @@ Future<void> initAppModule() async {
     () => SyncRepositoryImpl(instance()),
   );
 
+  final s3Dio = await instance<DioFactory>().getS3Dio();
   instance.registerLazySingleton<S3Repository>(
-    () => S3RepositoryImpl(instance(), dio, instance()),
+    () => S3RepositoryImpl(instance(), s3Dio, instance()),
   );
   instance.registerLazySingleton<S3FileManager>(
     () => S3FileManager(instance()),

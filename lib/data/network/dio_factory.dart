@@ -56,4 +56,35 @@ class DioFactory {
 
     return dio;
   }
+
+  Future<Dio> getS3Dio() async {
+    Dio s3Dio = Dio();
+    Duration timeout = const Duration(seconds: 60);
+
+    Locale appLocale = await _appPreferences.getAppLanguage();
+    String language = appLocale.languageCode;
+
+    Map<String, String> headers = {
+      defaultLanguage: language, 
+      accept: "*/*", 
+    };
+
+    s3Dio.options = BaseOptions(
+      connectTimeout: timeout,
+      receiveTimeout: timeout,
+      headers: headers,
+    );
+
+    if (!kReleaseMode) {
+      s3Dio.interceptors.add(
+        PrettyDioLogger(
+          requestHeader: true,
+          requestBody: true,
+          responseHeader: true,
+        ),
+      );
+    }
+
+    return s3Dio;
+  }
 }
