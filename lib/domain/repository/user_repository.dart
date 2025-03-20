@@ -7,7 +7,7 @@ abstract class UserRepository {
 
   Future<Either<Failure, bool>> fetchUserVisitedCountriesFromServerAndSaveToLocal();
 
-  Future<Either<Failure, UserProfile?>> getUserProfileLocal();
+  Future<Either<Failure, UserProfile>> getUserProfileLocal();
 
   Future<Either<Failure, List<UserVisitedCountry>>> getUserVisitedCountriesLocal();
 }

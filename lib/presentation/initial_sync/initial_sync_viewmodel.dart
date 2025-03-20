@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:globenotes/domain/usecase/base_usecase.dart';
-import 'package:globenotes/domain/usecase/initial_sync_usecase.dart';
+import 'package:globenotes/domain/usecase/sync/initial_sync_usecase.dart';
 import 'package:globenotes/presentation/base/base_viewmodel.dart';
 import 'package:globenotes/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:globenotes/app/app_preferences.dart';

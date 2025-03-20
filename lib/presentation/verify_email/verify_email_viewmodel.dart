@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:globenotes/domain/usecase/forgot_password_usecase.dart';
-import 'package:globenotes/domain/usecase/resend_verify_email_usecase.dart';
-import 'package:globenotes/domain/usecase/verify_email_usecase.dart';
-import 'package:globenotes/domain/usecase/verify_forgot_password_usecase.dart';
+import 'package:globenotes/domain/usecase/auth/forgot_password_usecase.dart';
+import 'package:globenotes/domain/usecase/auth/resend_verify_email_usecase.dart';
+import 'package:globenotes/domain/usecase/auth/verify_email_usecase.dart';
+import 'package:globenotes/domain/usecase/auth/verify_forgot_password_usecase.dart';
 import 'package:globenotes/presentation/base/base_viewmodel.dart';
 import 'package:globenotes/presentation/common/freezed_data_classes.dart';
 import 'package:globenotes/presentation/common/state_renderer/state_renderer.dart';

@@ -153,11 +153,13 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<Either<Failure, UserProfile?>> getUserProfileLocal() async {
+  Future<Either<Failure, UserProfile>> getUserProfileLocal() async {
     try {
       final profiles = await _userProfilesLocalDataSource.getAllUserProfiles();
       if (profiles.isEmpty) {
-        return const Right(null);
+        return Left(
+          Failure(ResponseCode.defaultError, ResponseMessage.defaultError),
+        );
       }
       final p = profiles.first;
 
