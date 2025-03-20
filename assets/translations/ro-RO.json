@@ -70,6 +70,12 @@
     "receive_timeout": "Eroare de timp de așteptare, încearcă din nou mai târziu",
     "send_timeout": "Eroare de timp de așteptare, încearcă din nou mai târziu",
     "cache_error": "Eroare de cache, încearcă din nou mai târziu",
-    "no_internet_connection": "Te rugăm să verifici conexiunea la internet"
+    "no_internet_connection": "Te rugăm să verifici conexiunea la internet",
+    "initial_sync_title": "Se sincronizează",
+    "initial_sync_description": "Datele tale sunt descărcate de pe serverele noastre. Te rugăm să nu închizi aplicația până la finalizarea sincronizării!",
+    "initial_sync_failed_title": "Sincronizarea a eșuat",
+    "initial_sync_failed_description": "Nu am putut descărca datele tale de pe serverele noastre. Te rugăm să verifici conexiunea la internet și să încerci din nou!",
+    "you_re_all_set": "Totul este pregătit!",
+    "lets_begin": "Să începem"
   }
   

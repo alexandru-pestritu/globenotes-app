@@ -68,4 +68,9 @@ class AppStrings {
   static const String noInternetConnection = "no_internet_connection";
   static const String initialSyncTitle = "initial_sync_title";
   static const String initialSyncDescription = "initial_sync_description";
+  static const String initialSyncFailedTitle = "initial_sync_failed_title";
+  static const String initialSyncFailedDescription =
+      "initial_sync_failed_description";
+  static const String youReAllSet = "you_re_all_set";
+  static const String letsBegin = "lets_begin";
 }

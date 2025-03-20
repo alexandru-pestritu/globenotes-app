@@ -70,6 +70,12 @@
     "receive_timeout": "Zeitüberschreitung, bitte später erneut versuchen",
     "send_timeout": "Zeitüberschreitung, bitte später erneut versuchen",
     "cache_error": "Cache-Fehler, bitte später erneut versuchen",
-    "no_internet_connection": "Bitte überprüfe deine Internetverbindung"
+    "no_internet_connection": "Bitte überprüfe deine Internetverbindung",
+    "initial_sync_title": "Synchronisieren",
+    "initial_sync_description": "Ihre Daten werden von unseren Servern heruntergeladen. Bitte schließen Sie die App nicht, bis die Synchronisierung abgeschlossen ist!",
+    "initial_sync_failed_title": "Synchronisierung fehlgeschlagen",
+    "initial_sync_failed_description": "Wir konnten Ihre Daten nicht von unseren Servern herunterladen. Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut!",
+    "you_re_all_set": "Sie sind bereit!",
+    "lets_begin": "Lass uns anfangen"
   }
   

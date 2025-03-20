@@ -70,6 +70,12 @@
     "receive_timeout": "Timeout error, try again later",
     "send_timeout": "Timeout error, try again later",
     "cache_error": "Cache error, try again later",
-    "no_internet_connection": "Please check your internet connection"
+    "no_internet_connection": "Please check your internet connection",
+    "initial_sync_title": "Synchronizing",
+    "initial_sync_description": "Your data is being downloaded from our servers. Please do not close the app until the sync finishes!",
+    "initial_sync_failed_title": "Sync Failed",
+    "initial_sync_failed_description": "We couldn't download your data from our servers. Please check your internet connection and try again!",
+    "you_re_all_set": "You're all set!",
+    "lets_begin": "Let's Begin"
   }
   

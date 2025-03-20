@@ -70,6 +70,12 @@
     "receive_timeout": "Error de tiempo de espera, inténtalo de nuevo más tarde",
     "send_timeout": "Error de tiempo de espera, inténtalo de nuevo más tarde",
     "cache_error": "Error de caché, inténtalo de nuevo más tarde",
-    "no_internet_connection": "Por favor, revisa tu conexión a internet"
+    "no_internet_connection": "Por favor, revisa tu conexión a internet",
+    "initial_sync_title": "Sincronizando",
+    "initial_sync_description": "Tus datos se están descargando de nuestros servidores. ¡Por favor, no cierres la aplicación hasta que termine la sincronización!",
+    "initial_sync_failed_title": "Falló la sincronización",
+    "initial_sync_failed_description": "No pudimos descargar tus datos de nuestros servidores. ¡Por favor, verifica tu conexión a internet e inténtalo de nuevo!",
+    "you_re_all_set": "¡Estás listo!",
+    "lets_begin": "Empecemos"
   }
   

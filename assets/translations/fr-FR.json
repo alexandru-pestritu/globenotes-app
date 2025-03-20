@@ -63,6 +63,12 @@
     "forbidden": "Requête interdite, veuillez réessayer plus tard",
     "unauthorised": "Utilisateur non autorisé, veuillez réessayer plus tard",
     "not_found": "URL introuvable, veuillez réessayer plus tard",
-    "internal_server_error": "Une erreur s'est produite, veuillez réessayer plus tard"
+    "internal_server_error": "Une erreur s'est produite, veuillez réessayer plus tard",
+    "initial_sync_title": "Synchronisation en cours",
+    "initial_sync_description": "Vos données sont en cours de téléchargement depuis nos serveurs. Veuillez ne pas fermer l'application avant la fin de la synchronisation !",
+    "initial_sync_failed_title": "Échec de la synchronisation",
+    "initial_sync_failed_description": "Nous n'avons pas pu télécharger vos données depuis nos serveurs. Veuillez vérifier votre connexion Internet et réessayer !",
+    "you_re_all_set": "Vous êtes prêt !",
+    "lets_begin": "Commençons"
   }
   
