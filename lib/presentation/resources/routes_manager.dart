@@ -12,6 +12,7 @@ import 'package:globenotes/presentation/reset_password/reset_password_view.dart'
 import 'package:globenotes/presentation/resources/strings_manager.dart';
 import 'package:globenotes/presentation/resources/values_manager.dart';
 import 'package:globenotes/presentation/settings/language_selection/language_selection_view.dart';
+import 'package:globenotes/presentation/setup_completed/setup_completed_view.dart';
 import 'package:globenotes/presentation/splash/splash_view.dart';
 import 'package:globenotes/presentation/verify_email/verify_email_view.dart';
 
@@ -24,6 +25,7 @@ class Routes {
   static const String forgotPasswordRoute = "/forgotPassword";
   static const String resetPasswordRoute = "/resetPassword";
   static const String initialSyncRoute = "/initialSync";
+  static const String setupCompletedRoute = "/setupCompleted";
   static const String mainRoute = "/main";
   static const String languageSelectionRoute = "/languageSelection";
 }
@@ -73,6 +75,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => InitialSyncView());
       case Routes.mainRoute:
         return MaterialPageRoute(builder: (_) => MainView());
+      case Routes.setupCompletedRoute:
+        return MaterialPageRoute(builder: (_) => SetupCompletedView());
       case Routes.languageSelectionRoute:
         initLanguageSelectionModule();
         return MaterialPageRoute(builder: (_) => LanguageSelectionView());
