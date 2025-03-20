@@ -114,6 +114,8 @@ flutter:
     - assets/icons/notifications.svg
     - assets/icons/profile.svg
     - assets/translations/
+    - assets/images/initial_sync_illustration.svg
+    - assets/images/setup_completed_illustration.svg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

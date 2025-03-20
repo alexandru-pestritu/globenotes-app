@@ -176,6 +176,11 @@ ThemeData getApplicationLightTheme() {
       type: BottomNavigationBarType.fixed,
       enableFeedback: false,
     ),
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+      color: ColorManager.primary,
+      linearTrackColor: ColorManager.primaryOpacity10,
+      borderRadius: BorderRadius.all(Radius.circular(AppSize.s15)),
+    ),
   );
 }
 
@@ -331,6 +336,11 @@ ThemeData getApplicationDarkTheme() {
       ),
       type: BottomNavigationBarType.fixed,
       enableFeedback: false,
+    ),
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+      color: ColorManager.primary,
+      linearTrackColor: ColorManager.darkGrey,
+      borderRadius: BorderRadius.all(Radius.circular(AppSize.s15)),
     ),
   );
 }

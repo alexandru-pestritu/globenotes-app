@@ -21,6 +21,10 @@ class ImageAssets {
       "$imagePath/forgot_password_illustration.svg";
   static const String resetPasswordIllustration =
       "$imagePath/reset_password_illustration.svg";
+  static const String initialSyncIllustration =
+      "$imagePath/initial_sync_illustration.svg";
+  static const String setupCompletedIllustration =
+      "$imagePath/setup_completed_illustration.svg";
 }
 
 class JsonAssets {

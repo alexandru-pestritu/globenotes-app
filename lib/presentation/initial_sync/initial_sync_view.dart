@@ -1,6 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:globenotes/app/di.dart';
+import 'package:globenotes/presentation/resources/assets_manager.dart';
 import 'package:globenotes/presentation/resources/values_manager.dart';
 import 'package:globenotes/presentation/resources/strings_manager.dart';
 import 'package:globenotes/presentation/common/state_renderer/state_renderer_impl.dart';
@@ -23,7 +27,7 @@ class _InitialSyncViewState extends State<InitialSyncView> {
     _viewModel.outputIsSyncSuccessful.listen((success) {
       if (success) {
         SchedulerBinding.instance.addPostFrameCallback((_) {
-          Navigator.pushReplacementNamed(context, Routes.mainRoute);
+          Navigator.pushReplacementNamed(context, Routes.setupCompletedRoute);
         });
       }
     });
@@ -37,20 +41,26 @@ class _InitialSyncViewState extends State<InitialSyncView> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<FlowState>(
-      stream: _viewModel.outputState,
-      builder: (context, snapshot) {
-        FlowState? flowState = snapshot.data;
-        return Scaffold(
-          body:
-              (flowState?.getScreenWidget(
-                context,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value:
+          Theme.of(context).brightness == Brightness.dark
+              ? SystemUiOverlayStyle.light
+              : SystemUiOverlayStyle.dark,
+      child: StreamBuilder<FlowState>(
+        stream: _viewModel.outputState,
+        builder: (context, snapshot) {
+          FlowState? flowState = snapshot.data;
+          return Scaffold(
+            body:
+                (flowState?.getScreenWidget(
+                  context,
+                  _getContentWidget(),
+                  _viewModel.retrySync,
+                )) ??
                 _getContentWidget(),
-                _viewModel.retrySync,
-              )) ??
-              _getContentWidget(),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 
@@ -66,19 +76,34 @@ class _InitialSyncViewState extends State<InitialSyncView> {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    child: Center(
+                      child: SvgPicture.asset(
+                        ImageAssets.initialSyncIllustration,
+                        width: AppSize.s300,
+                        height: AppSize.s360,
+                      ),
+                    ),
+                  ),
                   Text(
-                    AppStrings.initialSyncTitle,
+                    AppStrings.initialSyncFailedTitle.tr(),
                     style: Theme.of(context).textTheme.headlineLarge,
                   ),
                   const SizedBox(height: AppSize.s20),
                   Text(
-                    AppStrings.initialSyncTitle,
+                    AppStrings.initialSyncFailedDescription.tr(),
+                    textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   const SizedBox(height: AppSize.s30),
-                  ElevatedButton(
-                    onPressed: () => _viewModel.retrySync(),
-                    child: Text(AppStrings.retry),
+                  SizedBox(
+                    width: double.infinity,
+                    height: AppSize.s45,
+                    child: ElevatedButton(
+                      onPressed: () => _viewModel.retrySync(),
+                      child: Text(AppStrings.retry.tr()),
+                    ),
                   ),
                 ],
               );
@@ -86,16 +111,28 @@ class _InitialSyncViewState extends State<InitialSyncView> {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    child: Center(
+                      child: SvgPicture.asset(
+                        ImageAssets.initialSyncIllustration,
+                        width: AppSize.s300,
+                        height: AppSize.s360,
+                      ),
+                    ),
+                  ),
+
                   Text(
-                    AppStrings.initialSyncTitle,
+                    AppStrings.initialSyncTitle.tr(),
+                    textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headlineLarge,
                   ),
-                  const SizedBox(height: AppSize.s20),
+                  SizedBox(height: AppSize.s15),
                   Text(
-                    AppStrings.initialSyncDescription,
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    AppStrings.initialSyncDescription.tr(),
+                    textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: AppSize.s30),
+                  SizedBox(height: AppSize.s40),
                   StreamBuilder<double>(
                     stream: _viewModel.outputSyncProgress,
                     builder: (context, progressSnapshot) {
@@ -105,9 +142,15 @@ class _InitialSyncViewState extends State<InitialSyncView> {
                       );
                       return Column(
                         children: [
-                          LinearProgressIndicator(value: progress),
+                          LinearProgressIndicator(
+                            value: progress,
+                            minHeight: AppSize.s10,
+                          ),
                           const SizedBox(height: AppSize.s12),
-                          Text("$progressPercent% completed"),
+                          Text(
+                            "$progressPercent% completed",
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
                         ],
                       );
                     },
