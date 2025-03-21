@@ -76,6 +76,13 @@
     "initial_sync_failed_title": "Sync Failed",
     "initial_sync_failed_description": "We couldn't download your data from our servers. Please check your internet connection and try again!",
     "you_re_all_set": "You're all set!",
-    "lets_begin": "Let's Begin"
+    "lets_begin": "Let's Begin",
+    "debug": "Debug",
+    "pick_cover_photo": "Pick a cover photo",
+    "write_about_you": "Write about you",
+    "edit_profile": "Edit Profile",
+    "account": "Account",
+    "app_settings": "App Settings",
+    "log_out": "Log Out"
   }
   

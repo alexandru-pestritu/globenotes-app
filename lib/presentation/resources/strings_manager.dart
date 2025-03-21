@@ -73,4 +73,11 @@ class AppStrings {
       "initial_sync_failed_description";
   static const String youReAllSet = "you_re_all_set";
   static const String letsBegin = "lets_begin";
+  static const String debug = "debug";
+  static const String pickCoverPhoto = "pick_cover_photo";
+  static const String writeAboutYou = "write_about_you";
+  static const String editProfile = "edit_profile";
+  static const String account = "account";
+  static const String appSettings = "app_settings";
+  static const String logOut = "log_out";
 }

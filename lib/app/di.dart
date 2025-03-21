@@ -48,9 +48,11 @@ import 'package:globenotes/domain/usecase/auth/reset_password_usecase.dart';
 import 'package:globenotes/domain/usecase/auth/social_login_usecase.dart';
 import 'package:globenotes/domain/usecase/auth/verify_email_usecase.dart';
 import 'package:globenotes/domain/usecase/auth/verify_forgot_password_usecase.dart';
+import 'package:globenotes/domain/usecase/user/get_user_profile_usecase.dart';
 import 'package:globenotes/presentation/forgot_password/forgot_password_viewmodel.dart';
 import 'package:globenotes/presentation/initial_sync/initial_sync_viewmodel.dart';
 import 'package:globenotes/presentation/login/login_viewmodel.dart';
+import 'package:globenotes/presentation/profile/profile_viewmodel.dart';
 import 'package:globenotes/presentation/register/register_viewmodel.dart';
 import 'package:globenotes/presentation/reset_password/reset_password_viewmodel.dart';
 import 'package:globenotes/presentation/settings/language_selection/language_selection_viewmodel.dart';
@@ -304,6 +306,17 @@ initInitialSyncModule() {
     );
     instance.registerFactory<InitialSyncViewModel>(
       () => InitialSyncViewModel(instance(), instance()),
+    );
+  }
+}
+
+initProfileModule() {
+  if (!GetIt.I.isRegistered<ProfileViewModel>()) {
+    instance.registerFactory<GetUserProfileUseCase>(
+      () => GetUserProfileUseCase(instance()),
+    );
+    instance.registerFactory<ProfileViewModel>(
+      () => ProfileViewModel(instance()),
     );
   }
 }

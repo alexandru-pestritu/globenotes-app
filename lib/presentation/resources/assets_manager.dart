@@ -25,6 +25,7 @@ class ImageAssets {
       "$imagePath/initial_sync_illustration.svg";
   static const String setupCompletedIllustration =
       "$imagePath/setup_completed_illustration.svg";
+  static const String defaultAvatar = "$imagePath/default_avatar.png";
 }
 
 class JsonAssets {
@@ -39,4 +40,9 @@ class IconAssets {
   static const String addCircle = "$iconPath/add_circle.svg";
   static const String notifications = "$iconPath/notifications.svg";
   static const String profile = "$iconPath/profile.svg";
+  static const String camera = "$iconPath/camera.svg";
+  static const String edit = "$iconPath/edit.svg";
+  static const String logout = "$iconPath/logout.svg";
+  static const String user = "$iconPath/user.svg";
+  static const String settings = "$iconPath/settings.svg";
 }

@@ -74,6 +74,7 @@ class RouteGenerator {
         initInitialSyncModule();
         return MaterialPageRoute(builder: (_) => InitialSyncView());
       case Routes.mainRoute:
+        initProfileModule();
         return MaterialPageRoute(builder: (_) => MainView());
       case Routes.setupCompletedRoute:
         return MaterialPageRoute(builder: (_) => SetupCompletedView());

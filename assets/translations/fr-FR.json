@@ -69,6 +69,13 @@
     "initial_sync_failed_title": "Échec de la synchronisation",
     "initial_sync_failed_description": "Nous n'avons pas pu télécharger vos données depuis nos serveurs. Veuillez vérifier votre connexion Internet et réessayer !",
     "you_re_all_set": "Vous êtes prêt !",
-    "lets_begin": "Commençons"
+    "lets_begin": "Commençons",
+    "debug": "Débogage",
+    "pick_cover_photo": "Choisir une photo de couverture",
+    "write_about_you": "Écrivez à propos de vous",
+    "edit_profile": "Modifier le profil",
+    "account": "Compte",
+    "app_settings": "Paramètres de l'application",
+    "log_out": "Se déconnecter"
   }
   

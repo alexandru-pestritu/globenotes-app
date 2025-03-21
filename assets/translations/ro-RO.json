@@ -76,6 +76,13 @@
     "initial_sync_failed_title": "Sincronizarea a eșuat",
     "initial_sync_failed_description": "Nu am putut descărca datele tale de pe serverele noastre. Te rugăm să verifici conexiunea la internet și să încerci din nou!",
     "you_re_all_set": "Totul este pregătit!",
-    "lets_begin": "Să începem"
+    "lets_begin": "Să începem",
+    "debug": "Depanare",
+    "pick_cover_photo": "Alege o fotografie de copertă",
+    "write_about_you": "Scrie despre tine",
+    "edit_profile": "Editează profilul",
+    "account": "Cont",
+    "app_settings": "Setări aplicație",
+    "log_out": "Deconectare"
   }
   

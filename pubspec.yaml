@@ -116,6 +116,12 @@ flutter:
     - assets/translations/
     - assets/images/initial_sync_illustration.svg
     - assets/images/setup_completed_illustration.svg
+    - assets/icons/camera.svg
+    - assets/icons/edit.svg
+    - assets/icons/logout.svg
+    - assets/icons/settings.svg
+    - assets/icons/user.svg
+    - assets/images/default_avatar.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
