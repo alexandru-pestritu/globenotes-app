@@ -1,8 +1,15 @@
 import 'package:dartz/dartz.dart';
 import 'package:drift/drift.dart';
+import 'package:globenotes/app/app_preferences.dart';
+import 'package:globenotes/data/data_source/local/category_local_data_source.dart';
 import 'package:globenotes/data/data_source/local/continent_local_data_source.dart';
 import 'package:globenotes/data/data_source/local/country_local_data_source.dart';
+import 'package:globenotes/data/data_source/local/journal_local_data_source.dart';
 import 'package:globenotes/data/data_source/local/location_local_data_source.dart';
+import 'package:globenotes/data/data_source/local/moment_local_data_source.dart';
+import 'package:globenotes/data/data_source/local/moment_media_local_data_source.dart';
+import 'package:globenotes/data/data_source/local/secure_storage_local_data_source.dart';
+import 'package:globenotes/data/data_source/local/sync_history_local_data_source.dart';
 import 'package:globenotes/data/data_source/local/user_local_data_source.dart';
 import 'package:globenotes/data/data_source/local/user_profile_local_data_source.dart';
 import 'package:globenotes/data/data_source/local/user_visited_country_local_data_source.dart';
@@ -28,6 +35,11 @@ import 'package:globenotes/data/data_source/remote/s3_file_manager.dart';
 class UserRepositoryImpl implements UserRepository {
   final UserRemoteDataSource _userRemoteDataSource;
 
+  final CategoriesLocalDataSource _categoriesLocalDataSource;
+  final JournalsLocalDataSource _journalsLocalDataSource;
+  final MomentsLocalDataSource _momentsLocalDataSource;
+  final MomentMediaLocalDataSource _momentMediaLocalDataSource;
+  final SyncHistoryLocalDataSource _syncHistoryLocalDataSource;
   final UsersLocalDataSource _usersLocalDataSource;
   final UserProfilesLocalDataSource _userProfilesLocalDataSource;
   final UserVisitedCountriesLocalDataSource _visitedCountriesLocalDataSource;
@@ -35,10 +47,18 @@ class UserRepositoryImpl implements UserRepository {
   final CountriesLocalDataSource _countriesLocalDataSource;
   final ContinentsLocalDataSource _continentsLocalDataSource;
 
+  final AppPreferences _appPreferences;
+  final SecureStorageLocalDataSource _secureStorageLocalDataSource;
+
   final S3FileManager _fileManager;
   final NetworkInfo _networkInfo;
 
   UserRepositoryImpl(
+    this._categoriesLocalDataSource,
+    this._journalsLocalDataSource,
+    this._momentsLocalDataSource,
+    this._momentMediaLocalDataSource,
+    this._syncHistoryLocalDataSource,
     this._userRemoteDataSource,
     this._usersLocalDataSource,
     this._userProfilesLocalDataSource,
@@ -46,6 +66,8 @@ class UserRepositoryImpl implements UserRepository {
     this._locationsLocalDataSource,
     this._countriesLocalDataSource,
     this._continentsLocalDataSource,
+    this._appPreferences,
+    this._secureStorageLocalDataSource,
     this._fileManager,
     this._networkInfo,
   );
@@ -272,5 +294,23 @@ class UserRepositoryImpl implements UserRepository {
       syncStatus: SyncStatus.synced,
     );
     await _visitedCountriesLocalDataSource.insertUserVisitedCountry(companion);
+  }
+
+  @override
+  Future<Either<Failure, bool>> logoutUser() async {
+    await _secureStorageLocalDataSource.clearAuthTokens();
+    await _appPreferences.resetPreferences();
+    await _categoriesLocalDataSource.deleteAllCategories();
+    await _journalsLocalDataSource.deleteAllJournals();
+    await _momentsLocalDataSource.deleteAllMoments();
+    await _momentMediaLocalDataSource.deleteAllMomentMedia();
+    await _syncHistoryLocalDataSource.deleteAllSyncHistory();
+    await _usersLocalDataSource.deleteAllUsers();
+    await _userProfilesLocalDataSource.deleteAllUserProfiles();
+    await _visitedCountriesLocalDataSource.deleteAllUserVisitedCountries();
+    await _locationsLocalDataSource.deleteAllLocations();
+    await _countriesLocalDataSource.deleteAllCountries();
+    await _continentsLocalDataSource.deleteAllContinents();
+    return const Right(true);
   }
 }

@@ -10,4 +10,6 @@ abstract class UserRepository {
   Future<Either<Failure, UserProfile>> getUserProfileLocal();
 
   Future<Either<Failure, List<UserVisitedCountry>>> getUserVisitedCountriesLocal();
+
+  Future<Either<Failure, bool>> logoutUser();
 }

@@ -49,6 +49,7 @@ import 'package:globenotes/domain/usecase/auth/social_login_usecase.dart';
 import 'package:globenotes/domain/usecase/auth/verify_email_usecase.dart';
 import 'package:globenotes/domain/usecase/auth/verify_forgot_password_usecase.dart';
 import 'package:globenotes/domain/usecase/user/get_user_profile_usecase.dart';
+import 'package:globenotes/domain/usecase/user/logout_usecase.dart';
 import 'package:globenotes/presentation/forgot_password/forgot_password_viewmodel.dart';
 import 'package:globenotes/presentation/initial_sync/initial_sync_viewmodel.dart';
 import 'package:globenotes/presentation/login/login_viewmodel.dart';
@@ -197,6 +198,13 @@ Future<void> initAppModule() async {
       instance(),
       instance(),
       instance(),
+      instance(),
+      instance(),
+      instance(),
+      instance(),
+      instance(),
+      instance(),
+      instance(),
     ),
   );
 
@@ -315,6 +323,7 @@ initProfileModule() {
     instance.registerFactory<GetUserProfileUseCase>(
       () => GetUserProfileUseCase(instance()),
     );
+    instance.registerFactory<LogoutUseCase>(() => LogoutUseCase(instance()));
     instance.registerFactory<ProfileViewModel>(
       () => ProfileViewModel(instance()),
     );
