@@ -83,6 +83,14 @@
     "edit_profile": "Editar perfil",
     "account": "Cuenta",
     "app_settings": "Configuración de la aplicación",
-    "log_out": "Cerrar sesión"
+    "log_out": "Cerrar sesión",
+    "now": "Ahora",
+    "one_minute": "minuto",
+    "minutes": "minutos",
+    "one_hour": "hora",
+    "hours": "horas",
+    "today": "Hoy",
+    "yesterday": "Ayer",
+    "days_ago": "hace días"
   }
   

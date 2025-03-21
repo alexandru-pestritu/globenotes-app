@@ -83,6 +83,14 @@
     "edit_profile": "Profil bearbeiten",
     "account": "Konto",
     "app_settings": "App-Einstellungen",
-    "log_out": "Abmelden"
+    "log_out": "Abmelden",
+    "now": "Jetzt",
+    "one_minute": "Minute",
+    "minutes": "Minuten",
+    "one_hour": "Stunde",
+    "hours": "Stunden",
+    "today": "Heute",
+    "yesterday": "Gestern",
+    "days_ago": "vor Tagen"
   }
   

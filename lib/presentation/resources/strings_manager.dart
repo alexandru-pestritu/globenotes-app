@@ -80,4 +80,12 @@ class AppStrings {
   static const String account = "account";
   static const String appSettings = "app_settings";
   static const String logOut = "log_out";
+  static const String now = "now";
+  static const String oneMinute = "one_minute";
+  static const String minutes = "minutes";
+  static const String oneHour = "one_hour";
+  static const String hours = "hours";
+  static const String today = "today";
+  static const String yesterday = "yesterday";
+  static const String daysAgo = "days_ago";
 }

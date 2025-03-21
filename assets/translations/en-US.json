@@ -83,6 +83,14 @@
     "edit_profile": "Edit Profile",
     "account": "Account",
     "app_settings": "App Settings",
-    "log_out": "Log Out"
+    "log_out": "Log Out",
+    "now": "Now",
+    "one_minute": "minute",
+    "minutes": "minutes",
+    "one_hour": "hour",
+    "hours": "hours",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "days_ago": "days ago"
   }
   
