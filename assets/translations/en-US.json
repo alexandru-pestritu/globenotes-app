@@ -66,7 +66,7 @@
     "internal_server_error": "Something went wrong, try again later",
     "default_error": "Something went wrong, try again later",
     "connection_timeout": "Timeout error, try again later",
-    "cancel": "Request was cancelled, try again later",
+    "cancel_error": "Request was cancelled, try again later",
     "receive_timeout": "Timeout error, try again later",
     "send_timeout": "Timeout error, try again later",
     "cache_error": "Cache error, try again later",
@@ -91,6 +91,12 @@
     "hours": "hours",
     "today": "Today",
     "yesterday": "Yesterday",
-    "days_ago": "days ago"
+    "days_ago": "days ago",
+    "yes": "Yes",
+    "no": "No",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "confirm_logout_title": "Confirm Log Out",
+    "confirm_logout_message": "Are you sure you want to log out? All your unsynced data will be lost!"
   }
   

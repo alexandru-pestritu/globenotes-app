@@ -140,7 +140,7 @@ class ResponseMessage {
 
   static String defaultError = AppStrings.defaultError.tr();
   static String connectionTimeout = AppStrings.connectionTimeout.tr();
-  static String cancel = AppStrings.cancel.tr();
+  static String cancel = AppStrings.cancelError.tr();
   static String receiveTimeout = AppStrings.receiveTimeout.tr();
   static String sendTimeout = AppStrings.sendTimeout.tr();
   static String cacheError = AppStrings.cacheError.tr();

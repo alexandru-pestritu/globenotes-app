@@ -66,7 +66,7 @@
     "internal_server_error": "A apărut o eroare, încearcă din nou mai târziu",
     "default_error": "A apărut o eroare, încearcă din nou mai târziu",
     "connection_timeout": "Eroare de conexiune, încearcă din nou mai târziu",
-    "cancel": "Cererea a fost anulată, încearcă din nou mai târziu",
+    "cancel_error": "Cererea a fost anulată, încearcă din nou mai târziu",
     "receive_timeout": "Eroare de timp de așteptare, încearcă din nou mai târziu",
     "send_timeout": "Eroare de timp de așteptare, încearcă din nou mai târziu",
     "cache_error": "Eroare de cache, încearcă din nou mai târziu",
@@ -91,6 +91,12 @@
     "hours": "ore",
     "today": "Astăzi",
     "yesterday": "Ieri",
-    "days_ago": "zile în urmă"
+    "days_ago": "zile în urmă",
+    "yes": "Da",
+    "no": "Nu",
+    "cancel": "Anulare",
+    "delete": "Șterge",
+    "confirm_logout_title": "Confirmă Deconectarea",
+    "confirm_logout_message": "Ești sigur că vrei să te deconectezi? Toate datele nesincronizate vor fi pierdute!"
   }
   

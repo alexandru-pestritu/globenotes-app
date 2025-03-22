@@ -66,7 +66,7 @@
     "internal_server_error": "Algo salió mal, inténtalo de nuevo más tarde",
     "default_error": "Algo salió mal, inténtalo de nuevo más tarde",
     "connection_timeout": "Error de tiempo de espera, inténtalo de nuevo más tarde",
-    "cancel": "La solicitud fue cancelada, inténtalo de nuevo más tarde",
+    "cancel_error": "La solicitud fue cancelada, inténtalo de nuevo más tarde",
     "receive_timeout": "Error de tiempo de espera, inténtalo de nuevo más tarde",
     "send_timeout": "Error de tiempo de espera, inténtalo de nuevo más tarde",
     "cache_error": "Error de caché, inténtalo de nuevo más tarde",
@@ -91,6 +91,12 @@
     "hours": "horas",
     "today": "Hoy",
     "yesterday": "Ayer",
-    "days_ago": "hace días"
+    "days_ago": "hace días",
+    "yes": "Sí",
+    "no": "No",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "confirm_logout_title": "Confirmar Cierre de Sesión",
+    "confirm_logout_message": "¿Estás seguro de que quieres cerrar sesión? ¡Todos tus datos no sincronizados se perderán!"
   }
   

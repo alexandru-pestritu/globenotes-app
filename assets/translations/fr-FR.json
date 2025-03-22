@@ -84,6 +84,12 @@
     "hours": "heures",
     "today": "Aujourd'hui",
     "yesterday": "Hier",
-    "days_ago": "il y a des jours"
+    "days_ago": "il y a des jours",
+    "yes": "Oui",
+    "no": "Non",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "confirm_logout_title": "Confirmer la Déconnexion",
+    "confirm_logout_message": "Êtes-vous sûr de vouloir vous déconnecter? Toutes vos données non synchronisées seront perdues!"
   }
   

@@ -13,6 +13,7 @@ import 'package:globenotes/presentation/common/state_renderer/state_renderer_imp
 import 'package:globenotes/presentation/resources/assets_manager.dart';
 import 'package:globenotes/presentation/resources/color_manager.dart';
 import 'package:globenotes/presentation/resources/font_manager.dart';
+import 'package:globenotes/presentation/resources/routes_manager.dart';
 import 'package:globenotes/presentation/resources/strings_manager.dart';
 import 'package:globenotes/presentation/resources/values_manager.dart';
 
@@ -354,7 +355,23 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void _handleAppSettings() {}
 
-  void _handleLogout() {}
+  void _handleLogout() {
+    _viewModel.inputState.add(
+      ConfirmActionState(
+        title: AppStrings.confirmLogoutTitle.tr(),
+        message: AppStrings.confirmLogoutMessage.tr(),
+        confirmText: AppStrings.logOut.tr(),
+        denyText: AppStrings.cancel.tr(),
+        confirmAction: () {
+          _viewModel.logout();
+          Navigator.of(context).pushReplacementNamed(Routes.loginRoute);
+        },
+        denyAction: () {
+          _viewModel.inputState.add(ContentState());
+        },
+      ),
+    );
+  }
 
   @override
   void dispose() {

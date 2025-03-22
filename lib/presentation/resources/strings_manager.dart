@@ -61,7 +61,7 @@ class AppStrings {
   static const String internalServerError = "internal_server_error";
   static const String defaultError = "default_error";
   static const String connectionTimeout = "connection_timeout";
-  static const String cancel = "cancel";
+  static const String cancelError = "cancel_error";
   static const String receiveTimeout = "receive_timeout";
   static const String sendTimeout = "send_timeout";
   static const String cacheError = "cache_error";
@@ -88,4 +88,9 @@ class AppStrings {
   static const String today = "today";
   static const String yesterday = "yesterday";
   static const String daysAgo = "days_ago";
+  static const String yes = "yes";
+  static const String no = "no";
+  static const String cancel = "cancel";
+  static const String confirmLogoutTitle = "confirm_logout_title";
+  static const String confirmLogoutMessage = "confirm_logout_message";
 }

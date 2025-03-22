@@ -325,7 +325,7 @@ initProfileModule() {
     );
     instance.registerFactory<LogoutUseCase>(() => LogoutUseCase(instance()));
     instance.registerFactory<ProfileViewModel>(
-      () => ProfileViewModel(instance()),
+      () => ProfileViewModel(instance(), instance()),
     );
   }
 }

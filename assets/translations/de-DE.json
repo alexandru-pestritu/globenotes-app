@@ -66,7 +66,7 @@
     "internal_server_error": "Ein Fehler ist aufgetreten, bitte später erneut versuchen",
     "default_error": "Ein Fehler ist aufgetreten, bitte später erneut versuchen",
     "connection_timeout": "Verbindungszeitüberschreitung, bitte später erneut versuchen",
-    "cancel": "Anfrage wurde abgebrochen, bitte später erneut versuchen",
+    "cancel_error": "Anfrage wurde abgebrochen, bitte später erneut versuchen",
     "receive_timeout": "Zeitüberschreitung, bitte später erneut versuchen",
     "send_timeout": "Zeitüberschreitung, bitte später erneut versuchen",
     "cache_error": "Cache-Fehler, bitte später erneut versuchen",
@@ -91,6 +91,12 @@
     "hours": "Stunden",
     "today": "Heute",
     "yesterday": "Gestern",
-    "days_ago": "vor Tagen"
+    "days_ago": "vor Tagen",
+    "yes": "Ja",
+    "no": "Nein",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "confirm_logout_title": "Abmeldung Bestätigen",
+    "confirm_logout_message": "Sind Sie sicher, dass Sie sich abmelden möchten? Alle nicht synchronisierten Daten gehen verloren!"
   }
   
