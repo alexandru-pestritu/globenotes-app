@@ -11,9 +11,9 @@ enum StateRendererType {
   fullScreenErrorState,
   contentScreenState,
   emptyScreenState,
-
   snackbarErrorState,
   snackbarSuccessState,
+  popupConfirmActionState,
 }
 
 class StateRenderer extends StatelessWidget {
@@ -58,6 +58,7 @@ class StateRenderer extends StatelessWidget {
       case StateRendererType.contentScreenState:
       case StateRendererType.snackbarErrorState:
       case StateRendererType.snackbarSuccessState:
+      case StateRendererType.popupConfirmActionState:
         return Container();
     }
   }

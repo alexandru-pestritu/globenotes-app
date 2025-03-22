@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:globenotes/app/extensions.dart';
 import 'package:globenotes/presentation/common/state_renderer/state_renderer.dart';
+import 'package:globenotes/presentation/resources/color_manager.dart';
+import 'package:globenotes/presentation/resources/font_manager.dart';
 import 'package:globenotes/presentation/resources/strings_manager.dart';
 import 'package:globenotes/presentation/resources/values_manager.dart';
 
@@ -12,7 +14,8 @@ abstract class FlowState {
 
 class LoadingState extends FlowState {
   final String message;
-  LoadingState({String? message}) : message = message ?? AppStrings.loading.tr();
+  LoadingState({String? message})
+    : message = message ?? AppStrings.loading.tr();
 
   @override
   String getMessage() => message;
@@ -70,6 +73,31 @@ class SuccessState extends FlowState {
       StateRendererType.snackbarSuccessState;
 }
 
+class ConfirmActionState extends FlowState {
+  final String title;
+  final String message;
+  final String confirmText;
+  final String denyText;
+  final Function confirmAction;
+  final Function denyAction;
+
+  ConfirmActionState({
+    required this.title,
+    required this.message,
+    required this.confirmText,
+    required this.denyText,
+    required this.confirmAction,
+    required this.denyAction,
+  });
+
+  @override
+  String getMessage() => message;
+
+  @override
+  StateRendererType getStateRendererType() =>
+      StateRendererType.popupConfirmActionState;
+}
+
 extension FlowStateExtension on FlowState {
   Widget getScreenWidget(
     BuildContext context,
@@ -117,6 +145,11 @@ extension FlowStateExtension on FlowState {
       case StateRendererType.contentScreenState:
       case StateRendererType.emptyScreenState:
         return Container();
+      case StateRendererType.popupConfirmActionState:
+        if (this is ConfirmActionState) {
+          _showConfirmPopup(context, this as ConfirmActionState);
+        }
+        return Container();
     }
   }
 
@@ -124,7 +157,7 @@ extension FlowStateExtension on FlowState {
     final bool isDarkTheme = Theme.of(context).brightness == Brightness.dark;
 
     return Container(
-      color: isDarkTheme ? Colors.black54 : Colors.white70, 
+      color: isDarkTheme ? Colors.black54 : Colors.white70,
       child: Center(child: child),
     );
   }
@@ -178,4 +211,62 @@ extension FlowStateExtension on FlowState {
         );
     });
   }
+}
+
+void _showConfirmPopup(BuildContext context, ConfirmActionState state) {
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            state.title,
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          content: Text(
+            state.message,
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          actions: [
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      state.denyAction();
+                    },
+                    child: Text(
+                      state.denyText,
+                      style: Theme.of(context).textTheme.headlineMedium!
+                          .copyWith(fontSize: FontSize.s14),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      state.confirmAction();
+                    },
+                    child: Text(
+                      state.confirmText,
+                      style: Theme.of(
+                        context,
+                      ).textTheme.headlineMedium!.copyWith(
+                        fontSize: FontSize.s14,
+                        color: ColorManager.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  });
 }

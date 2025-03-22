@@ -181,6 +181,35 @@ ThemeData getApplicationLightTheme() {
       linearTrackColor: ColorManager.primaryOpacity10,
       borderRadius: BorderRadius.all(Radius.circular(AppSize.s15)),
     ),
+    dialogTheme: DialogThemeData(
+      backgroundColor: ColorManager.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppSize.s15),
+      ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: ColorManager.lightBlack,
+        textStyle: getMediumStyle(
+          fontSize: FontSize.s16,
+          color: ColorManager.lightBlack,
+        ),
+      ),
+    ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        foregroundColor: ColorManager.lightBlack,
+        textStyle: getMediumStyle(
+          fontSize: FontSize.s16,
+          color: ColorManager.lightBlack,
+        ),
+        backgroundColor: ColorManager.white,
+        side: BorderSide(color: ColorManager.lightGrey, width: AppSize.s1_5),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppSize.s12),
+        ),
+      ),
+    ),
   );
 }
 
@@ -341,6 +370,35 @@ ThemeData getApplicationDarkTheme() {
       color: ColorManager.primary,
       linearTrackColor: ColorManager.darkGrey,
       borderRadius: BorderRadius.all(Radius.circular(AppSize.s15)),
+    ),
+    dialogTheme: DialogThemeData(
+      backgroundColor: Colors.grey[900],
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppSize.s15),
+      ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: ColorManager.white,
+        textStyle: getMediumStyle(
+          fontSize: FontSize.s16,
+          color: ColorManager.white,
+        ),
+      ),
+    ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        foregroundColor: ColorManager.white,
+        textStyle: getMediumStyle(
+          fontSize: FontSize.s16,
+          color: ColorManager.white,
+        ),
+        backgroundColor: Colors.grey[900],
+        side: BorderSide(color: Colors.grey[700]!, width: AppSize.s1),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppSize.s12),
+        ),
+      ),
     ),
   );
 }
