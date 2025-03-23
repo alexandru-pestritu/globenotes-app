@@ -9,19 +9,33 @@ import 'package:globenotes/domain/repository/sync_repository.dart';
 class SyncRepositoryImpl implements SyncRepository {
   final SyncHistoryLocalDataSource _syncHistoryLocalDataSource;
 
-  SyncRepositoryImpl(
-    this._syncHistoryLocalDataSource
-  );
+  SyncRepositoryImpl(this._syncHistoryLocalDataSource);
 
   @override
-  Future<Either<Failure, SyncHistoryEntry>> addSyncHistory(SyncHistoryEntry entry) async {
+  Future<Either<Failure, SyncHistoryEntry>> addSyncHistory(
+    SyncHistoryEntry entry,
+  ) async {
     try {
       final companion = entry.toCompanion();
 
-      final insertedRow = await _syncHistoryLocalDataSource.insertSyncHistory(companion);
+      final insertedRow = await _syncHistoryLocalDataSource.insertSyncHistory(
+        companion,
+      );
 
       final domainEntry = insertedRow.toDomain();
 
+      return Right(domainEntry);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, SyncHistoryEntry>> getLatestSyncHistory() async {
+    try {
+      final latestSyncData =
+          await _syncHistoryLocalDataSource.getLatestSyncHistory();
+      final domainEntry = latestSyncData.toDomain();
       return Right(domainEntry);
     } catch (error) {
       return Left(ErrorHandler.handle(error).failure);

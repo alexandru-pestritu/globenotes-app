@@ -1,3 +1,4 @@
+import 'package:drift/drift.dart';
 import 'package:globenotes/data/database/app_database.dart';
 
 abstract class SyncHistoryLocalDataSource {
@@ -7,6 +8,7 @@ abstract class SyncHistoryLocalDataSource {
   Future<bool> updateSyncHistory(SyncHistoryData syncHistory);
   Future<int> deleteSyncHistory(int localId);
   Future<int> deleteAllSyncHistory();
+  Future<SyncHistoryData> getLatestSyncHistory();
 }
 
 class SyncHistoryLocalDataSourceImpl implements SyncHistoryLocalDataSource {
@@ -49,5 +51,13 @@ class SyncHistoryLocalDataSourceImpl implements SyncHistoryLocalDataSource {
   @override
   Future<int> deleteAllSyncHistory() {
     return _db.delete(_db.syncHistory).go();
+  }
+
+  @override
+  Future<SyncHistoryData> getLatestSyncHistory() {
+    return (_db.select(_db.syncHistory)
+          ..orderBy([(tbl) => OrderingTerm.desc(tbl.syncTime)])
+          ..limit(1))
+        .getSingle();
   }
 }

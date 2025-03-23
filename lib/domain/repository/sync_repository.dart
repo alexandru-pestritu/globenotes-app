@@ -6,4 +6,5 @@ abstract class SyncRepository {
   Future<Either<Failure, SyncHistoryEntry>> addSyncHistory(
     SyncHistoryEntry entry,
   );
+  Future<Either<Failure, SyncHistoryEntry>> getLatestSyncHistory();
 }
