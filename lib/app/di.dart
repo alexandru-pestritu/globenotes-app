@@ -40,6 +40,7 @@ import 'package:globenotes/domain/repository/s3_repository.dart';
 import 'package:globenotes/domain/repository/sync_repository.dart';
 import 'package:globenotes/domain/repository/user_repository.dart';
 import 'package:globenotes/domain/usecase/auth/forgot_password_usecase.dart';
+import 'package:globenotes/domain/usecase/sync/get_latest_sync_history.dart';
 import 'package:globenotes/domain/usecase/sync/initial_sync_usecase.dart';
 import 'package:globenotes/domain/usecase/auth/login_usecase.dart';
 import 'package:globenotes/domain/usecase/auth/register_usecase.dart';
@@ -56,6 +57,7 @@ import 'package:globenotes/presentation/login/login_viewmodel.dart';
 import 'package:globenotes/presentation/profile/profile_viewmodel.dart';
 import 'package:globenotes/presentation/register/register_viewmodel.dart';
 import 'package:globenotes/presentation/reset_password/reset_password_viewmodel.dart';
+import 'package:globenotes/presentation/settings/app_settings/app_settings_viewmodel.dart';
 import 'package:globenotes/presentation/settings/language_selection/language_selection_viewmodel.dart';
 import 'package:globenotes/presentation/verify_email/verify_email_viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -326,6 +328,17 @@ initProfileModule() {
     instance.registerFactory<LogoutUseCase>(() => LogoutUseCase(instance()));
     instance.registerFactory<ProfileViewModel>(
       () => ProfileViewModel(instance(), instance()),
+    );
+  }
+}
+
+initAppSettingsModule() {
+  if (!GetIt.I.isRegistered<AppSettingsViewModel>()) {
+    instance.registerFactory<GetLatestSyncUseCase>(
+      () => GetLatestSyncUseCase(instance()),
+    );
+    instance.registerFactory<AppSettingsViewModel>(
+      () => AppSettingsViewModel(instance(), instance()),
     );
   }
 }

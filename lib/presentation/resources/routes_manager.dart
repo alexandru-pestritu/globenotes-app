@@ -11,6 +11,7 @@ import 'package:globenotes/presentation/register/register_view.dart';
 import 'package:globenotes/presentation/reset_password/reset_password_view.dart';
 import 'package:globenotes/presentation/resources/strings_manager.dart';
 import 'package:globenotes/presentation/resources/values_manager.dart';
+import 'package:globenotes/presentation/settings/app_settings/app_settings_view.dart';
 import 'package:globenotes/presentation/settings/language_selection/language_selection_view.dart';
 import 'package:globenotes/presentation/setup_completed/setup_completed_view.dart';
 import 'package:globenotes/presentation/splash/splash_view.dart';
@@ -28,6 +29,7 @@ class Routes {
   static const String setupCompletedRoute = "/setupCompleted";
   static const String mainRoute = "/main";
   static const String languageSelectionRoute = "/languageSelection";
+  static const String appSettingsRoute = "/appSettings";
 }
 
 class RouteGenerator {
@@ -81,6 +83,9 @@ class RouteGenerator {
       case Routes.languageSelectionRoute:
         initLanguageSelectionModule();
         return MaterialPageRoute(builder: (_) => LanguageSelectionView());
+      case Routes.appSettingsRoute:
+        initAppSettingsModule();
+        return MaterialPageRoute(builder: (_) => AppSettingsView());
       default:
         return unDefinedRoute();
     }

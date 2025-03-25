@@ -44,7 +44,7 @@ class _LoginViewState extends State<LoginView> {
     ) async {
       if (isSuccessLoggedIn) {
         SchedulerBinding.instance.addPostFrameCallback((_) async {
-          //_appPreferences.setIsUserLoggedIn();
+          _appPreferences.setIsUserLoggedIn();
           final isDone = await _appPreferences.isInitialSyncDone();
           if (!mounted) return;
           if (isDone) {

@@ -353,7 +353,9 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void _handleNotifications() {}
 
-  void _handleAppSettings() {}
+  void _handleAppSettings() {
+    Navigator.of(context).pushNamed(Routes.appSettingsRoute);
+  }
 
   void _handleLogout() {
     _viewModel.inputState.add(
